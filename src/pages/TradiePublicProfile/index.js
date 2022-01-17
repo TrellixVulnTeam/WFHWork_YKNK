@@ -124,8 +124,8 @@ const Index = () => {
         <h2 className="section-top__title">
           <span>Any Trade</span>, Anywhere, Anytime
         </h2>
-      </section>
-
+      </section> 
+      
       <section className="section section--tradie-profile">
         {getProviderProfile &&
           getProviderProfile?.map((tradiePersonalInfo, i) => {
