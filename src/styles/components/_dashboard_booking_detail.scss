@@ -1,0 +1,253 @@
+.booking-section1 {
+  background: #f3f2f6;
+  padding: 39px 80px 50px;
+  .booking-section1_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+
+    .booking-section1_col1 {
+      width: 25%;
+      .white-box-radius {
+        background: #fff;
+        border-radius: 0.5rem;
+        border: 1px solid #e8e8e8;
+        height: 100%;
+        position: relative;
+        padding: 20px;
+        width: 250px;
+        .back {
+          display: flex;
+          font-size: 14px;
+          color: black;
+          font-weight: normal;
+          font-family: inherit;
+        }
+        .booking_status {
+          margin-top: 30px;
+          font-size: 14px;
+          color: #f7941d;
+          text-transform: uppercase;
+          margin-bottom: 0.5rem;
+        }
+        .booking_status_title {
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          line-height: 1.2;
+          color: #000;
+          font-size: 20px;
+        }
+        .booking_status_date {
+          margin-bottom: 1.5rem;
+          font-size: 14px;
+          color: #616368;
+        }
+        .booking_status_service {
+          margin-bottom: 1rem;
+          font-size: 14px;
+          color: #616368;
+        }
+
+        .booking_status_service_list {
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: justify;
+          justify-content: space-between;
+          .booking_status_service_list_btn {
+            height: 36px;
+            width: 48%;
+            background: transparent;
+            border-radius: 0.25rem;
+            color: #2a2d34;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            justify-self: center;
+            text-align: center;
+            button {
+              cursor: pointer;
+              height: 36px;
+              width: 100%;
+              font-size: 14px;
+              color: #f7941d;
+              border: none;
+              border: 1px solid #e8e8e8;
+              background: white;
+            }
+          }
+        }
+        .booking_status_job_desc {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+          font-size: 14px;
+          color: #828282;
+        }
+        .booking_status_job_desc_list {
+          font-size: 14px;
+          color: #2a2d34;
+          margin-bottom: 5rem;
+        }
+        .booking_status_service_delete {
+          button {
+            box-sizing: border-box;
+            position: relative;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: pointer;
+            outline: 0;
+            border: none;
+            -webkit-tap-highlight-color: transparent;
+            display: inline-block;
+            white-space: nowrap;
+            text-decoration: none;
+            vertical-align: baseline;
+            text-align: center;
+            margin: 0;
+            min-width: 64px;
+            line-height: 36px;
+            border-radius: 4px;
+            overflow: visible;
+            width: 100%;
+            background-image: linear-gradient(-90deg, #ef4136, #f7941d);
+            color: #fff;
+            padding: 0 20px;
+          }
+        }
+      }
+      @include tablet {
+      }
+      @include phone {
+      }
+    }
+
+    .booking-section1_col2 {
+      width: 75%;
+      h4 {
+        color: black;
+        margin-bottom: 1.5rem;
+      }
+      .booking-section1_inner_row {
+        display: flex;
+        flex-wrap: wrap;
+        .booking-section1_col3 {
+          width: 32%;
+          .list-box {
+            background: #fff;
+            border-radius: 0.25rem;
+            padding: 16px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: start;
+            align-items: flex-start;
+            -webkit-box-pack: start;
+            justify-content: flex-start;
+            margin-bottom: 30px;
+            width: 253px;
+            .list-box_img_sec {
+              text-align: center;
+              .list-box_img {
+                width: 80px;
+                height: 80px;
+                margin-right: 10px;
+                border-radius: 50%;
+                position: relative;
+                .img1 {
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 50%;
+                  -o-object-fit: cover;
+                  object-fit: cover;
+                }
+                .img2 {
+                  position: absolute;
+                  right: 1px;
+                  bottom: 1px;
+                  width: 18px;
+                  height: 18px;
+                }
+              }
+              .list-box_online {
+                position: relative;
+                margin-top: 0.5rem;
+                color: #2a2d34;
+                display: inline-block;
+                font-size: 14px;
+                &::after {
+                  width: 12px;
+                  height: 12px;
+                  left: -16px;
+                  position: absolute;
+                  content: "";
+                  border-radius: 50%;
+                  background: #3baa34;
+                  bottom: 0;
+                  top: 0;
+                  margin: auto;
+                }
+              }
+            }
+
+            .list-box_detail {
+              position: relative;
+              h3 {
+                width: 150px;
+                white-space: nowrap;
+                width: 225px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                font-size: 16px;
+                text-transform: capitalize;
+                color: black;
+                font-weight: bolder;
+              }
+              .list-box_detail_img {
+                img {
+                  font-size: 16px;
+                  height: 16px;
+                  width: 16px;
+                  vertical-align: middle;
+                  margin-right: 2px;
+                }
+              }
+              p {
+                color: #828282;
+                margin-top: 1.25rem;
+                font-size: 14px;
+                margin-bottom: 0.625rem;
+              }
+              button {
+                height: 36px;
+                line-height: normal;
+                font-size: 14px;
+                padding: 5px 10px;
+                background: white;
+                color: #ef4136;
+                border: 1px solid #ef4136;
+                border-radius: 4px;
+                div {
+                  display: inline-flex;
+                  img {
+                    margin-right: 0.5rem;
+                  }
+                  span {
+                    margin-top: 4px;
+                  }
+                }
+              }
+            }
+            @include tablet {
+            }
+            @include phone {
+            }
+          }
+        }
+      }
+    }
+  }
+}

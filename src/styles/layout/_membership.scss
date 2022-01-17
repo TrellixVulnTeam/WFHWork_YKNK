@@ -1,0 +1,151 @@
+.membership {
+	display: flex;
+	align-items: flex-start;
+	margin: 0 auto;
+	position: relative;
+	@media only screen and (min-width: 118.75em) {
+		max-width: 1920px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 0 $padding-main;
+	}
+	@include tablet {
+		flex-direction: column;
+	}
+	&__subscription {
+		flex-basis: calc(65% - 4rem);
+		padding: calc(#{$padding-main} / 2) $padding-main;
+		margin-right: 4rem;
+		margin-bottom: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		background-color: $color-white;
+		border-radius: 2rem;
+		@include breakpoint(1024) {
+			padding: calc(#{$padding-main} / 2);
+			margin-right: 2rem;
+		}
+
+		@include tablet {
+			padding: calc(#{$padding-main} * 2);
+			padding-right: $padding-main;
+			width: 100%;
+			margin-right: 0;
+		}
+
+		h4 {
+			flex-basis: 100%;
+			margin-bottom: 4rem;
+			text-align: center;
+			@include phone {
+				order: 0;
+			}
+		}
+		ul {
+			flex-basis: 47%;
+			@include phone {
+				flex-basis: 100%;
+				order: 2;
+			}
+			h6 {
+				font-size: inherit;
+				color: #000;
+				margin-left: -4rem;
+				margin-bottom: 2rem;
+				@include breakpoint(1024) {
+					margin-left: -2rem;
+				}
+			}
+			li {
+				margin-bottom: 1rem;
+				font-size: 2rem;
+				font-weight: $font-light;
+			}
+		}
+		&-plan {
+			flex-basis: 47%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: flex-end;
+			@include phone {
+				flex-basis: 100%;
+				order: 1;
+				align-items: center;
+				margin-bottom: 2rem;
+			}
+			h3 {
+				color: #000;
+			}
+		}
+		&-links {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			a {
+				color: $color-gray-light;
+				font-weight: $font-light;
+				margin-bottom: 1rem;
+			}
+		}
+	}
+	&__card {
+		flex-basis: 35%;
+		background-color: $color-white;
+		border-radius: 2rem;
+		padding: 4rem;
+
+		@include breakpoint(1024) {
+			padding: 2rem;
+			flex-basis: initial;
+		}
+		@include tablet {
+			padding: calc(#{$padding-main} * 2);
+			width: 100%;
+		}
+		@include phone {
+			padding: $padding-main;
+		}
+		h4 {
+			margin-bottom: 4rem;
+			text-align: center;
+		}
+		.icon-credit-card {
+			@include squire(3rem);
+			margin-right: 2rem;
+		}
+		& > div {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			& > div {
+				flex-basis: 100%;
+				display: flex;
+				align-items: center;
+			}
+			input {
+				flex-basis: calc(100% - 4rem);
+				margin-right: 2rem;
+				margin-left: 5rem;
+				font-weight: $font-light;
+				color: $color-gray;
+				align-self: flex-end;
+				@include tablet {
+					margin-left: 0;
+				}
+			}
+		}
+		a {
+			background: $color-secondary;
+			display: flex;
+			padding: 1rem;
+			border-radius: 50%;
+			img {
+				@include squire(1.5rem);
+			}
+		}
+	}
+}

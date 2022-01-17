@@ -1,0 +1,188 @@
+.sign-up-form {
+  --spacing: 3rem;
+  $spacing: var(--spacing);
+  @include phone {
+    --spacing: 2rem;
+  }
+  padding: 0 $spacing;
+  border-radius: 2rem;
+  border: 1px solid $color-line;
+  &__navigation {
+    padding: $spacing;
+    border-bottom: 1px solid $color-line;
+    margin-right: calc(0rem - #{$spacing});
+    margin-left: calc(0rem - #{$spacing});
+    nav {
+      background-color: #f3f6f7;
+      padding: 1rem;
+      display: flex;
+      border-radius: 0.6rem;
+    }
+    button {
+      flex-basis: 50%;
+      text-align: center;
+      color: inherit;
+      text-decoration: none;
+      padding: 1rem 0;
+      outline: none;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-family: "GT Walsheim Pro";
+      font-size: 16px;
+      &.active {
+        @include bg-gradient-dark;
+        box-shadow: 0 0.4rem 4rem rgba(137, 58, 18, 0.1);
+        font-weight: $font-bold;
+        border-radius: 0.6rem;
+      }
+    }
+  }
+
+  &__mobile {
+    margin-top: calc(#{$spacing} * 2);
+    position: relative;
+
+    p {
+      margin-bottom: 1rem;
+      color: #0e0f0f;
+    }
+    label {
+      svg {
+        height: 2.7rem;
+      }
+    }
+    input {
+      color: #b4b6b8;
+      border: none;
+      outline: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      width: 100%;
+      &::placeholder {
+        color: #b4b6b8;
+      }
+      &:first-of-type {
+        width: 4rem;
+        margin: 0 1rem;
+      }
+    }
+    span {
+      position: absolute;
+      width: 23rem;
+      top: 8rem;
+      left: 2rem;
+      font-size: 1.3rem;
+      background-image: linear-gradient(
+        to right,
+        $color-primary-dark,
+        $color-primary
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+
+      @include tablet {
+        left: 11rem;
+      }
+    }
+  }
+  &__error_msg {
+    width: 100%;
+    height: 14px;
+    p {
+      font-size: 11px;
+      margin: 4px 0px 0px 10px;
+    }
+  }
+  &__inputs {
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid $color-line;
+  }
+  &__country-code {
+  }
+  &__mobile-number {
+    height: 3.3rem;
+    img {
+    }
+  }
+  &__submit {
+    //margin-top: 2rem;
+    margin-bottom: $spacing + 1rem;
+    width: 100%;
+    padding: 1.5rem;
+    font-family: inherit;
+  }
+  &__or {
+    p {
+      text-align: center;
+      margin: calc(1rem + #{$spacing}) 0;
+      position: relative;
+      color: $color-gray-light;
+      margin-left: calc(0rem - #{$spacing});
+      margin-right: calc(0rem - #{$spacing});
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: calc(50% - 3rem);
+        height: 1px;
+        background-color: currentColor;
+        top: 50%;
+        opacity: 0.5;
+      }
+      &::before {
+        left: 0;
+      }
+      &::after {
+        right: 0;
+      }
+    }
+    button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background-color: $bg-facebook;
+      padding: 1rem 2rem;
+      border-radius: 0.6rem !important;
+      font-family: inherit;
+      text-transform: capitalize;
+      font-size: 16px !important;
+      color: $color-white;
+      text-decoration: none;
+      font-weight: $font-bold;
+      margin-bottom: $spacing;
+      img {
+        @include squire(3rem);
+        fill: currentColor;
+        margin-right: 20%;
+      }
+    }
+  }
+  &__sign-in {
+    margin-bottom: $spacing;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      font-weight: $font-bold;
+      background-image: linear-gradient(
+        to right,
+        $color-primary-dark,
+        $color-primary
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-left: 1rem;
+      border-bottom: 2px solid;
+      border-image-slice: 1;
+      border-width: 2px;
+      border-image-source: linear-gradient(
+        to right,
+        $color-primary-dark,
+        $color-primary
+      );
+    }
+  }
+}

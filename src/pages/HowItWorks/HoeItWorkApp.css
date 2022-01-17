@@ -1,0 +1,18 @@
+@media only screen and (max-width: 48em){
+.how-it-worksApp__item img {
+  
+    left: 0;
+    
+}
+.how-it-worksApp__item:nth-child(1) {
+    width:60%;
+}
+.how-it-worksApp__item:nth-child(2){
+    width: 60%;
+    left: 40%;
+}
+.how-it-worksApp__item:nth-child(3) {
+    width:60%;
+}
+
+}

@@ -1,0 +1,17 @@
+.popular-articles {
+	display: flex;
+	flex-wrap: wrap;
+	@include breakpoint(1024) {
+		flex-direction: column;
+	}
+	&__first {
+		flex-basis: 47%;
+		margin-right: 4rem;
+		@include breakpoint(1024) {
+			margin-right: 0;
+		}
+	}
+	&__more {
+		flex-basis: 47%;
+	}
+}

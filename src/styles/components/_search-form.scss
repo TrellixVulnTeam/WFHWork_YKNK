@@ -1,0 +1,53 @@
+.search-form {
+  display: flex;
+  justify-content: space-between;
+  background-color: $color-white;
+  box-shadow: 0 0.4rem 4rem rgba(135, 57, 18, 0.1);
+  border-radius: 6px;
+  width: 80%;
+  padding: 0.5rem;
+  margin: 8rem 0;
+  position: relative;
+  //z-index: 2;
+  @include phone {
+    width: 100%;
+  }
+  &__service {
+    width: 25%;
+    padding-left: 2rem;
+    @include tablet {
+      width: 100%;
+    }
+    @include phone {
+      width: 100%;
+    }
+  }
+  &__address {
+    border-left: 0.5px solid #f1f2f2;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    @include tablet {
+      display: none;
+    }
+    svg {
+      margin-right: 1rem;
+      @include squire(2rem);
+    }
+    img {
+      margin-right: 1rem;
+      @include squire(2rem);
+    }
+  }
+  &__submit {
+    padding: 1rem 2rem;
+    cursor: pointer;
+  }
+  input {
+    color: inherit;
+    outline: transparent;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+  }
+}

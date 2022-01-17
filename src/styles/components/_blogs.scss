@@ -1,0 +1,103 @@
+.blog-section {
+  &__heading {
+    margin-top: 70px;
+    height: 92px;
+    color: #343432;
+    font-family: GT Walsheim Pro;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 62px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-left: 6%;
+  }
+  &__two {
+    width: 100%;
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+
+    @include phone() {
+      display: inherit;
+      margin-top: 25%;
+    }
+    @include tablet() {
+    }
+    .headingImg {
+      width: 60%;
+      margin-bottom: 30px;
+      img {
+        width: 100%;
+      }
+    }
+    .rightBlogs {
+      width: 36%;
+      margin-left: 4%;
+      p {
+        font-family: GT Walsheim Pro;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 62px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+      .newBlogs {
+        display: flex;
+        margin-bottom: 10px;
+        cursor: pointer;
+        &:hover {
+          color: #db5b1b;
+        }
+        .newBlogsImg {
+          img {
+            height: 79px;
+            width: 126px;
+          }
+        }
+        .newBlogsText {
+          margin: 10px 16px;
+          span {
+            font-family: GT Walsheim Pro;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            letter-spacing: 0em;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+  &__bottomParagraphs {
+    width: 65%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-bottom: 82px;
+    p {
+      font-family: GT Walsheim Pro;
+      font-size: 16px;
+      font-style: normal;
+      line-height: 24px;
+      letter-spacing: 0px;
+      text-align: left;
+      margin-bottom: 30px;
+      margin-top: 30px;
+    }
+    span {
+      font-family: GT Walsheim Pro;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 24px;
+      letter-spacing: 0px;
+      text-align: left;
+    }
+    ul {
+      margin-left: 30px;
+      list-style: none;
+    }
+  }
+}

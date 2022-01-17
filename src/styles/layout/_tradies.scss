@@ -1,0 +1,72 @@
+.tradies {
+  &__filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border: 1px solid $color-line;
+    border-radius: 0.6rem;
+    margin-top: -10rem;
+    margin-bottom: 4rem;
+    @include tablet {
+      padding: 2rem;
+    }
+    & > div {
+      flex-basis: 35%;
+      display: flex;
+      flex-wrap: wrap;
+      @include tablet {
+        flex-basis: 50%;
+        flex-direction: column;
+      }
+      @include phone {
+        flex-basis: 100%;
+        &:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+      }
+      h4 {
+        flex-basis: 100%;
+        margin-bottom: 2rem;
+      }
+    }
+    label {
+      font-size: var(--font-size-24);
+      font-weight: $font-light;
+    }
+    a {
+      padding: 1rem 2rem;
+      align-self: flex-end;
+      @include tablet {
+        margin-left: auto;
+      }
+    }
+  }
+  &__filter-nav {
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem 4rem;
+    @include phone {
+      padding: 2rem 0;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      margin-left: 2rem;
+      &:last-child {
+        padding: 0.5rem;
+        border: 2px solid $color-line;
+        border-radius: 0.6rem;
+      }
+    }
+    img {
+      @include squire(3rem);
+    }
+  }
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -4rem;
+  }
+}

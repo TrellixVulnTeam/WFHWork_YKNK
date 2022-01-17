@@ -1,0 +1,20 @@
+.review {
+  border: 1px solid lightgray;
+  padding: 5rem;
+  // width: 340px;
+}
+
+.review h4 {
+  display: inline;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.review p {
+  line-height: 2;
+}
+.tradie-profile__rating{
+display: flex;
+justify-content: space-between;
+}

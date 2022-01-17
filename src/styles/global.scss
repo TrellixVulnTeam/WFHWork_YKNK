@@ -1,0 +1,74 @@
+@charset "UTF-8"; /*!
+ * name: tapatradie,
+ * version : 2.0.0",
+ * Author: Bourja Hamid
+ * Author URI: https://bourja.me
+ */
+
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
+
+@import "./base/base";
+@import "./base/typography";
+@import "./base/utilities";
+@import "./components//how-it-worksApp";
+@import "./components/nav";
+@import "./components/search-form";
+@import "./components/how-it-works";
+@import "./components/trending-services";
+@import "./components/download-app";
+@import "./components/professional-tradie";
+@import "./components/category";
+@import "./components/tips-video";
+@import "./components/popular-article";
+@import "./components/latest-article";
+@import "./components/sign-up-form";
+@import "./components/modal-partner";
+@import "./components/pricing";
+@import "./components/our-partner";
+@import "./components/core-value";
+@import "./components/tradies-item";
+@import "./components/tradie-profile";
+@import "./components/tradie-profile-service";
+@import "./components/user-profile";
+@import "./components/event";
+@import "./components/otp_popup";
+@import "./components/my-account";
+@import "./components/tradie-request";
+@import "./components/dashboard_booking_detail";
+@import "./components/business_detail";
+@import "./components/blogs";
+@import  "./components/view_detail";
+
+// popup css
+@import "./components/user-info";
+
+@import "./layout/header";
+@import "./layout/section-top";
+@import "./layout/register-tradie";
+@import "./layout/gallery";
+@import "./layout/section";
+@import "./layout/features";
+@import "./layout/footer";
+@import "./layout/categories";
+@import "./layout/tradie-tips";
+@import "./layout/popular-articles";
+@import "./layout/latest-articles";
+@import "./layout/sign-up";
+@import "./layout/modal";
+@import "./layout/about-us";
+@import "./layout/core-values";
+@import "./layout/tradie-solutions";
+@import "./layout/htws";
+@import "./layout/faq";
+@import "./layout/contact-us";
+@import "./layout/tradies";
+@import "./layout/calender";
+@import "./layout/tradie-my-profile";
+@import "./layout/membership";
+@import "./layout/service";
+@import "./layout/additional";
+@import "./layout/upload";
+@import "./layout/review";
+@import "./layout/faqApp";
+@import "./layout/_home-page";

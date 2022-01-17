@@ -1,0 +1,67 @@
+.latest-article {
+	flex: 0 0 calc(33.333% - 5rem);
+	border-radius: 1rem;
+	overflow: hidden;
+	margin-right: 5rem;
+	margin-bottom: 5rem;
+	border: 1px solid $color-line;
+	padding-bottom: 2rem;
+
+	@include breakpoint(1024) {
+		flex: 0 0 calc(33.333% - 3rem);
+		margin-right: 3rem;
+		margin-bottom: 3rem;
+	}
+	@include tablet {
+		flex: 0 0 calc(50% - 5rem);
+		margin-right: 5rem;
+		margin-bottom: 5rem;
+	}
+	@include phone {
+		flex: 0 0 calc(100% - 5rem);
+		margin-bottom: 3rem;
+	}
+	&__image {
+		width: 100%;
+		height: 30rem;
+		@include breakpoint(1024) {
+			height: 20rem;
+		}
+		@include phone {
+			height: 30rem;
+		}
+		img {
+			@include squire(100%);
+			object-fit: cover;
+		}
+	}
+	&__title,
+	&__description,
+	&__read-more {
+		margin: 2rem;
+	}
+	&__title {
+		font-weight: $font-bold;
+	}
+	&__description {
+		font-size: 1.8rem;
+		font-weight: $font-light;
+		color: $color-gray-light;
+		line-height: 2;
+	}
+	&__read-more {
+		background-image: linear-gradient(133deg, $color-primary-dark, $color-primary);
+		-webkit-background-clip: text;
+		color: transparent;
+		text-decoration: none;
+		padding: 0.75rem 1.5rem;
+		border-radius: 0.6rem;
+		border: 1.5px solid $color-primary-dark;
+		font-weight: $font-medium;
+		&:hover {
+			@include bg-gradient-dark;
+			border-color: transparent;
+			-webkit-background-clip: initial;
+		}
+	}
+}

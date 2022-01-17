@@ -1,0 +1,73 @@
+.about-us {
+	&__row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 4rem;
+		@include tablet {
+			flex-direction: column;
+		}
+	}
+	&__text {
+		flex-basis: 57%;
+		font-size: var(--font-size-24);
+		font-weight: $font-light;
+		line-height: 1.5;
+		@include tablet {
+			margin-bottom: 4rem;
+			order: 1;
+		}
+		@include tablet {
+			margin-bottom: 2rem;
+		}
+		p {
+			&:not(:last-child) {
+				margin-bottom: 4rem;
+				@include phone {
+					margin-bottom: 2rem;
+				}
+			}
+		}
+	}
+	&__image {
+		width: 44rem;
+		height: 50rem;
+		@include tablet {
+			width: 34rem;
+			height: 40rem;
+			order: 2;
+		}
+		img {
+			@include squire(100%);
+			object-fit: cover;
+			border-radius: 2rem;
+			position: relative;
+			z-index: 2;
+		}
+	}
+	&__row:first-of-type {
+		.about-us__text {
+			padding: 4rem;
+			background: linear-gradient(90deg, #f3ecfd 0%, rgba(247, 210, 161, 0) 76.37%);
+			border: 1px solid #f1f2f2;
+			box-sizing: border-box;
+			filter: drop-shadow(0 0.4rem 4rem rgba(137, 58, 18, 0.1));
+			border-radius: 2rem;
+		}
+		.about-us__image {
+			position: relative;
+			&::before {
+				position: absolute;
+				content: '';
+				@include squire(100%);
+				top: 0;
+				left: 0;
+				background: #f7d2a1;
+				mix-blend-mode: normal;
+				opacity: 0.4;
+				filter: blur(30rem);
+				z-index: 0;
+			}
+		}
+	}
+}

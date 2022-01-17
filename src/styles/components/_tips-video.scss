@@ -1,0 +1,62 @@
+.tips-video {
+	flex-basis: 30%;
+	text-decoration: none;
+	color: inherit;
+	margin-bottom: 3rem;
+
+	@include tablet {
+		flex-basis: calc(50% - 3rem);
+	}
+	@include phone {
+		flex-basis: 100%;
+	}
+	&:not(:last-child) {
+		// margin-right: 3rem;
+		@include phone {
+			margin-right: 0;
+		}
+	}
+
+	&__thumbnail {
+		border-radius: 1rem;
+		display: flex;
+		// padding: 5px;
+		justify-content: center;
+		align-items: center;
+		img {
+			@include squire(100%);
+			object-fit: cover;
+		}
+		// &::before {
+		// 	content: '';
+		// 	display: block;
+		// 	position: absolute;
+		// 	@include squire(100%);
+		// 	background-color: #000000;
+		// 	opacity: 0.3;
+		// }
+	}
+
+	&__play-icon {
+		@include squire(4rem);
+		fill: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	&__title {
+		font-weight: $font-regular;
+		margin-top: 1.5rem;
+		text-align: center;
+	}
+	&__youtubePlayer {
+		height: 200px;
+		width: 416.5px;
+		overflow: auto !important;
+		@media screen and (max-width: 300px) {
+			height: auto;
+			width: 260px;
+		}
+	}
+}

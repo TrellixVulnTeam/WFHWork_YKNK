@@ -1,0 +1,14 @@
+.core-value {
+	margin-top: 4rem;
+	&__title {
+		background-image: linear-gradient(to right, $color-secondary, $color-primary-light);
+		-webkit-background-clip: text;
+		color: transparent;
+		font-weight: $font-bold;
+		margin-bottom: 2rem;
+	}
+	&__description {
+		font-size: var(--font-size-24);
+		font-weight: $font-light;
+	}
+}

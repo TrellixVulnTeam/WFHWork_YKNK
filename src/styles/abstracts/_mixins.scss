@@ -1,0 +1,38 @@
+@mixin squire($value) {
+	width: $value;
+	height: $value;
+}
+@mixin breakpoint($value) {
+	$em: $value/16;
+
+	@media only screen and (max-width: $em+em) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@include breakpoint(768) {
+		@content;
+	}
+}
+@mixin phone {
+	@include breakpoint(480) {
+		@content;
+	}
+}
+
+@mixin bg-gradient-dark {
+	background-image: linear-gradient(96.33deg, $color-primary-dark 0%, $color-primary 109.53%);
+	color: $color-white !important;
+}
+@mixin bg-gradient-light {
+	background-image: linear-gradient(90.6deg, #efa580 7.37%, #f6ccb6 107.16%);
+	color: $color-black !important;
+}
+@mixin container {
+	@media only screen and (min-width: 118.75em) {
+		max-width: 1920px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

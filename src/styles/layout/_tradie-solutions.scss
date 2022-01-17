@@ -1,0 +1,82 @@
+.tradie-solutions {
+	&__row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 4rem;
+		&:not(:last-child) {
+			@include tablet {
+				flex-direction: column;
+			}
+		}
+	}
+	&__text {
+		flex-basis: 57%;
+		font-size: var(--font-size-24);
+		font-weight: $font-light;
+		line-height: 1.5;
+		p {
+			margin-bottom: 4rem;
+		}
+	}
+	&__image {
+		width: 44rem;
+		height: 48rem;
+		position: relative;
+		@include tablet {
+			max-width: 100%;
+			max-height: 100%;
+		}
+		img {
+			@include squire(100%);
+			object-fit: cover;
+			border-radius: 2rem;
+			position: relative;
+			z-index: 2;
+		}
+		&::before {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #f6ccb6;
+			mix-blend-mode: normal;
+			opacity: 0.8;
+			filter: blur(30rem);
+		}
+	}
+	&__status {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem 0;
+		flex-basis: 30%;
+		@include bg-gradient-dark;
+		border-radius: 2rem;
+		@include breakpoint(600) {
+			flex-basis: 32%;
+		}
+
+		&-title {
+			font-size: 3rem;
+			font-weight: $font-regular;
+			@include breakpoint(600) {
+				font-size: 2.4rem;
+			}
+			@include breakpoint(425) {
+				font-size: inherit;
+			}
+		}
+		&-number {
+			@include breakpoint(600) {
+				font-size: 4.4rem;
+			}
+			@include breakpoint(425) {
+				font-size: 3.4rem;
+			}
+		}
+	}
+}

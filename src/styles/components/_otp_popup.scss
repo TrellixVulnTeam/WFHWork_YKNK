@@ -1,0 +1,114 @@
+/* signUP Popup style */
+.otp_popup {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__box {
+    background-color: #fff;
+    width: 373px;
+    max-width: 98%;
+    padding: 2rem;
+    position: relative;
+  }
+
+  &__close_icon {
+    content: "x";
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    background: #ef4136;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 24px;
+    text-align: center;
+    font-size: 29px;
+    color: white;
+  }
+  &__heading {
+    margin-top: 5px;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  &__paragraph {
+    margin-top: 19px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #616368 !important;
+    font-family: inherit;
+  }
+
+  &__msg {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  &__submit {
+    margin-top: 2rem;
+    margin-bottom: var(--spacing) 1rem;
+    width: 100%;
+    padding: 1.5rem;
+    font-family: inherit;
+    background-color: #f69478;
+    color: white;
+    font-size: 16px;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    @include bg-gradient-dark;
+    box-shadow: 0 0.4rem 4rem rgba(137, 58, 18, 0.1);
+    border-radius: 0.5rem;
+  }
+}
+
+// Styling third party library "ResendOTP"
+.resendOTP {
+  position: relative;
+
+  button {
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(
+      to right,
+      $color-primary-dark,
+      $color-primary
+    );
+    -webkit-background-clip: text;
+    color: transparent;
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: linear-gradient(
+      to right,
+      $color-primary-dark,
+      $color-primary
+    );
+    cursor: pointer;
+  }
+}
+
+// styling third party library component, "OTPInput"
+.OTPInput {
+  justify-content: space-between;
+  gap: 2rem;
+
+  input {
+    margin-top: 2rem;
+    border: 2px solid;
+    width: 25% !important;
+    height: 60px !important;
+    margin-right: 0 !important;
+  }
+}

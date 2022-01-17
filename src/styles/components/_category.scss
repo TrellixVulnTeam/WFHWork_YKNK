@@ -1,0 +1,30 @@
+.category {
+	border: 1px solid $color-line;
+	border-radius: 0.6rem;
+	margin-bottom: 4rem;
+	@include tablet {
+		flex-basis: 47%;
+	}
+	@include phone {
+		flex-basis: 100%;
+		margin-bottom: 2rem;
+	}
+	&__letter {
+		text-transform: uppercase;
+		background: linear-gradient(90deg, #f3ecfd 0%, rgba(247, 210, 161, 0) 76.37%);
+		color: $color-gray;
+		padding: 1rem 2rem;
+	}
+	&__list {
+		list-style: none;
+		padding: 1rem 2rem;
+	}
+	&__item {
+		color: $color-gray;
+		margin-bottom: 2rem;
+	}
+	&__link {
+		color: inherit;
+		text-decoration: none;
+	}
+}

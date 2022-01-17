@@ -1,0 +1,73 @@
+.my_account_header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120rem;
+  max-width: 95%;
+  height: 17vh;
+}
+
+.my_account_nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  @include phone {
+    .h-3 {
+      height: 3rem;
+    }
+  }
+}
+
+.drop-down {
+  list-style: none;
+  position: relative;
+
+  @include tablet {
+    margin-right: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @include phone {
+    margin-right: 1rem;
+  }
+
+  button {
+    width: 18rem;
+    padding: 1.3rem 0;
+    font-size: 1.6rem;
+
+    @include phone {
+      width: 11.5rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  ul {
+    padding: 2rem 2.7rem;
+    width: 100%;
+    list-style-type: none;
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), -1px -1px 0 rgba(0, 0, 0, 0.1);
+
+    @include phone {
+      padding: 1.5rem 0.5rem;
+    }
+
+    li {
+      width: 100%;
+
+      @include phone {
+        font-size: 1.3rem;
+      }
+    }
+
+    li:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

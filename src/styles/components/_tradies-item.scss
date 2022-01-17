@@ -1,0 +1,157 @@
+.tradies-item {
+  $this: &;
+
+  display: flex;
+  align-items: center;
+  border-radius: 0.6rem;
+  padding: 2rem;
+  margin-bottom: 4rem;
+
+  & > div {
+    &:last-child {
+      text-align: left;
+    }
+    margin-right: 2rem;
+    // width: 40%;
+    @include tablet {
+      margin-right: 1rem;
+    }
+  }
+  &:not(&--row) {
+    border: 1px solid $color-line;
+    flex-basis: calc(33.33% - 4rem);
+    margin-right: 4rem;
+    @include breakpoint(1208) {
+      flex-basis: calc(50% - 4rem);
+    }
+    @include breakpoint(610) {
+      flex-basis: calc(100% - 4rem);
+      margin-bottom: 2rem;
+    }
+    & > div:last-child {
+      margin-right: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #{$this}__rating {
+      margin-bottom: 2rem;
+    }
+    li {
+      padding: 0;
+      margin-bottom: 2rem;
+      &:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+
+  &__image {
+    @include squire(16rem);
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    @include tablet {
+      @include squire(14rem);
+    }
+    @include phone {
+      @include squire(12rem);
+      margin-right: 1rem;
+    }
+    @include breakpoint(375) {
+      @include squire(10rem);
+    }
+    img {
+      @include squire(100%);
+      object-fit: cover;
+    }
+  }
+  &__name {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+  }
+  &__specialties {
+    list-style: none;
+    display: flex;
+    li {
+      font-size: 1.8rem;
+      font-weight: $font-light;
+      background: $color-white;
+      padding: 1rem 2rem;
+      border-radius: 0.6rem;
+      text-transform: capitalize;
+      &:not(:last-child) {
+        margin-right: 2rem;
+        @include tablet {
+          margin-right: 1rem;
+        }
+      }
+      @include tablet {
+        padding: 0.75rem 1.5rem;
+      }
+    }
+  }
+
+  &__description {
+    font-size: var(--font-size-24);
+    font-weight: $font-light;
+    margin-right: 4rem;
+    @include tablet {
+      margin: 2rem 0;
+    }
+  }
+  &__rating {
+    display: flex;
+    margin-bottom: 4rem;
+    svg {
+      @include squire(2rem);
+      fill: $color-primary;
+    }
+    img {
+      @include squire(2rem);
+      fill: $color-primary;
+    }
+  }
+  &--row {
+    background: linear-gradient(0deg, #fff9f1, #fff9f1), #ffffff;
+    @include tablet {
+      flex-wrap: wrap;
+    }
+    & > div {
+      &:nth-child(2) {
+        @include tablet {
+          margin-right: 0;
+        }
+      }
+      &:last-child {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.tradies-item__content {
+  width: 40%;
+
+  a {
+    text-align: center;
+  }
+}
+
+.bg-light-orange {
+  padding: 0.5rem 1.8rem;
+  border-radius: 0.6rem;
+  background-color: #eed6b6;
+  box-shadow: 0 0.4rem 4rem rgba(137, 58, 18, 0.1);
+  font-weight: $font-bold;
+  text-decoration: none;
+  outline: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  &:hover {
+    color: #fff;
+  }
+}

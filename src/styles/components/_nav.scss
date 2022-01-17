@@ -1,0 +1,121 @@
+.nav {
+  display: flex;
+  @include tablet {
+    align-items: flex-start;
+  }
+
+  &__menu {
+    display: flex;
+    width: 100%;
+    @include tablet {
+      display: none;
+      &--open {
+        display: flex;
+        flex-direction: column;
+        padding: calc(#{$padding-nav} * 3);
+        position: fixed;
+        background: $color-white;
+        width: 100vw;
+        height: 100vh;
+        right: 0;
+        top: 0;
+		z-index: 1;
+      }
+    }
+  }
+
+  &__left {
+    display: flex;
+    height: 4rem;
+    margin-right: auto;
+    img {
+      height: 100%;
+    }
+  }
+  &__logo {
+  }
+  &__center,
+  &__right {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    @include tablet {
+      flex-direction: column;
+      margin-top: $padding-nav;
+      align-items: flex-start;
+      font-size: var(--font-size-24);
+    }
+  }
+  &__center {
+    margin: 0 auto;
+    @include tablet {
+      margin: 0;
+    }
+  }
+  &__right {
+    @include tablet {
+      margin-top: 3rem;
+    }
+    .nav__item:last-child a {
+      padding: calc(#{$padding-nav} / 4) $padding-nav;
+      @include tablet {
+        padding: 1rem 2rem;
+        display: block;
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: $padding-nav;
+      @include tablet {
+        margin-right: 0;
+        margin-bottom: 3rem;
+      }
+    }
+  }
+  &__link {
+    text-transform: capitalize;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    &--active,
+    &:active,
+    &:hover {
+      &:not(.btn-primary) {
+        background-image: linear-gradient(
+          to right,
+          $color-primary-dark,
+          $color-primary
+        );
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+    }
+    &--active {
+      font-weight: $font-bold;
+    }
+  }
+  &__btn-menu {
+    display: none;
+    @include tablet {
+      display: block;
+    }
+    img {
+      @include squire(3rem);
+    }
+  }
+  &__btn-close {
+    display: none;
+    @include tablet {
+      display: block;
+      position: absolute;
+      top: calc(#{$padding-nav} * 2);
+      right: calc(#{$padding-nav} * 2);
+    }
+    img {
+      @include squire(3rem);
+    }
+  }
+}

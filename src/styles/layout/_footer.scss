@@ -1,0 +1,193 @@
+.footer {
+  padding: $padding-main;
+  background-color: $bg-footer;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+
+    @media only screen and (min-width: 118.75em) {
+      max-width: 1920px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 $padding-main;
+    }
+    @include tablet {
+      flex-direction: column;
+    }
+    &--bottom {
+      justify-content: center;
+      margin-top: 5rem;
+      flex-direction: row !important;
+    }
+  }
+  &__column {
+    &:first-child {
+      flex-basis: 40%;
+    }
+    flex-basis: 20%;
+    @include tablet {
+      margin-bottom: 4rem;
+    }
+  }
+  &__title {
+    font-size: 1.8rem;
+    font-weight: $font-bold;
+    color: $color-white;
+    margin-bottom: 2rem;
+  }
+  &__logo {
+    width: 30%;
+    margin-bottom: 2rem;
+    img {
+      width: 100%;
+    }
+  }
+  &__newsletter {
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      @include phone {
+        width: 80%;
+      }
+    }
+    input {
+      font-weight: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      padding: 1rem 2rem;
+      &:first-child {
+        border-radius: 0.6rem;
+        margin-bottom: 1rem;
+        outline: transparent;
+        border: none;
+        border-color: $color-white;
+      }
+      &:last-child {
+      }
+    }
+  }
+  &__list {
+    list-style: none;
+    li {
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+      a {
+        color: $color-white;
+        text-decoration: none;
+        opacity: 0.5;
+        &:hover,
+        &:active {
+          color: $color-primary-dark;
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &__questions {
+    p {
+      color: $color-white;
+      text-decoration: none;
+      opacity: 0.5;
+      line-height: 2;
+      margin-bottom: 2rem;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  }
+  &__apps {
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      a {
+        width: 45%;
+      }
+      @include tablet {
+        justify-content: initial;
+      }
+    }
+  }
+  &__icon {
+    text-decoration: none;
+    color: $color-white;
+    display: flex;
+    margin: 0 3rem;
+    img {
+      fill: currentColor;
+      @include squire(4rem);
+    }
+  }
+}
+
+.alert.coocky_tab {
+  bottom: 0px;
+  margin-bottom: 0px;
+  padding: 10px 207px 10px 1.25rem;
+  position: fixed;
+  font-size: 16px;
+  width: 100%;
+  top: auto;
+  z-index: 99;
+  background: #424242;
+  color: #ffffff;
+  padding-right: 207px;
+  line-height: 21px;
+
+  @media (max-width: 1660px) {
+    font-size: 14px;
+  }
+  @media (max-width: 767px) {
+    padding-right: 160px;
+  }
+  @media (max-width: 576px) {
+    padding-right: 0px;
+    padding-bottom: 40px;
+  }
+  span {
+    color: #ef4136;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .buttons {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    display: inline-block;
+    width: 195px;
+    .btn-orange {
+      cursor: pointer;
+      background-image: linear-gradient(-90deg, #ef4136, #f7941d);
+      color: #fff !important;
+    }
+    @media (max-width: 767px) {
+      right: 0px;
+      width: 160px;
+    }
+    @media (max-width: 576px) {
+      left: 0px;
+      bottom: 3px;
+      margin: auto;
+      top: auto;
+    }
+    .btn {
+      margin-left: 10px;
+      margin-right: 10px;
+      height: 40px;
+      line-height: normal;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-weight: $font-bold;
+      color: $color-white;
+      text-align: center;
+      border: none;
+      font-family: inherit;
+      @media (max-width: 767px) {
+        margin-right: 0rem;
+      }
+    }
+  }
+}

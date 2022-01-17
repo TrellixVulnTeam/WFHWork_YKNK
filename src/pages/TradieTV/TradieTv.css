@@ -1,0 +1,10 @@
+button:active{
+    background:#db5b1b;
+    color:aliceblue;
+
+}
+
+button:focus{
+    background:#db5b1b;
+    color:aliceblue;
+}

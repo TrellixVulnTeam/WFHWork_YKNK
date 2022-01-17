@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+}
+html {
+  font-size: 62.5% /* rem == 10px */;
+  background-color: $color-white;
+  -webkit-print-color-adjust: exact;
+  -webkit-text-size-adjust: none;
+  overflow-x: hidden;
+  @include breakpoint(1000) {
+    font-size: 60% /* rem == 9.6px */;
+  }
+
+  @include tablet {
+    font-size: 50% /* rem == 8px */;
+  }
+
+  @media only screen and (min-width: 120em) {
+    font-size: 80% /* rem == 12.8px */;
+  }
+  @media only screen and (min-width: 160em) {
+    font-size: 90% /* rem == 14.4px */;
+  }
+}
+
+body {
+  background-color: $color-white;
+  color: $color-gray;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+input,
+textarea {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  outline: transparent;
+  border: none;
+}
+
+a:hover {
+  color: $color-primary-dark;
+}
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}

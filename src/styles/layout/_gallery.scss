@@ -1,0 +1,130 @@
+.gallery {
+	width: 100%;
+	& > div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: -4rem;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		z-index: 0;
+		@include phone {
+			margin-top: -5rem;
+		}
+	}
+	&__item {
+		width: 33rem;
+		flex-shrink: 0;
+		border-radius: 2rem;
+		overflow: hidden;
+		&:not(:last-child) {
+			margin-right: 2rem;
+		}
+		&:first-child {
+			margin-left: 2rem;
+		}
+		&:nth-child(5n + 1) {
+			height: 37.3rem;
+		}
+		&:nth-child(5n + 2) {
+			height: 49.5rem;
+		}
+		&:nth-child(5n + 3) {
+			height: 37.3rem;
+		}
+		&:nth-child(5n + 4) {
+			height: 31.4rem;
+		}
+		&:nth-child(5n + 5) {
+			height: 35.5rem;
+		}
+		&:nth-child(1) {
+			height: 37.3rem;
+		}
+		&:nth-child(2) {
+			height: 49.5rem;
+		}
+		&:nth-child(3) {
+			height: 37.3rem;
+		}
+		&:nth-child(4) {
+			height: 31.4rem;
+		}
+		&:nth-child(5) {
+			height: 35.5rem;
+		}
+		@include tablet {
+			width: 23rem;
+			&:nth-child(5n + 1) {
+				height: 27.3rem;
+			}
+			&:nth-child(5n + 2) {
+				height: 39.5rem;
+			}
+			&:nth-child(5n + 3) {
+				height: 27.3rem;
+			}
+			&:nth-child(5n + 4) {
+				height: 21.4rem;
+			}
+			&:nth-child(5n + 5) {
+				height: 25.5rem;
+			}
+
+			&:nth-child(1) {
+				height: 27.3rem;
+			}
+			&:nth-child(2) {
+				height: 39.5rem;
+			}
+			&:nth-child(3) {
+				height: 27.3rem;
+			}
+			&:nth-child(4) {
+				height: 21.4rem;
+			}
+			&:nth-child(5) {
+				height: 25.5rem;
+			}
+		}
+		@include phone {
+			width: 13rem;
+			&:nth-child(5n + 1) {
+				height: 17.3rem;
+			}
+			&:nth-child(5n + 2) {
+				height: 29.5rem;
+			}
+			&:nth-child(5n + 3) {
+				height: 17.3rem;
+			}
+			&:nth-child(5n + 4) {
+				height: 11.4rem;
+			}
+			&:nth-child(5n + 5) {
+				height: 15.5rem;
+			}
+
+			&:nth-child(1) {
+				height: 17.3rem;
+			}
+			&:nth-child(2) {
+				height: 29.5rem;
+			}
+			&:nth-child(3) {
+				height: 17.3rem;
+			}
+			&:nth-child(4) {
+				height: 11.4rem;
+			}
+			&:nth-child(5) {
+				height: 15.5rem;
+			}
+		}
+		img {
+			@include squire(100%);
+			object-fit: cover;
+		}
+	}
+}

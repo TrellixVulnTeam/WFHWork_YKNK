@@ -1,0 +1,47 @@
+.our-partner {
+	$spacing: 4rem;
+
+	display: flex;
+	padding: $spacing;
+	border: 1px solid $color-line;
+	border-radius: 1.5rem;
+	background-color: $color-white;
+	position: relative;
+	z-index: 1;
+	@include tablet {
+		flex-direction: column;
+		padding: 2rem;
+	}
+	&:not(:last-child) {
+		margin-bottom: $spacing;
+		@include tablet {
+			margin-bottom: 2rem;
+		}
+	}
+	&__image {
+		width: 47%;
+		margin-right: $spacing;
+		@include tablet {
+			width: 100%;
+			margin-right: 0;
+			margin-bottom: 2rem;
+		}
+	}
+	&__info {
+	}
+	&_logo {
+	}
+	&__title {
+		font-size: 1.9rem;
+		font-weight: $font-bold;
+		margin: 2rem 0;
+	}
+	&__description {
+		font-weight: $font-light;
+		line-height: 1.5;
+		margin-bottom: 2rem;
+	}
+	&__read-more {
+		padding: 1rem 1.5rem;
+	}
+}

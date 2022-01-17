@@ -1,0 +1,109 @@
+.sign-up {
+  display: flex;
+  @include tablet {
+    flex-direction: column;
+  }
+  &__left {
+    flex: 1 0 28%;
+    @include breakpoint(1024) {
+      flex: 1 0 30%;
+    }
+    nav {
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+    }
+  }
+  &__right {
+    flex: 1 0 60%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-left: 4rem;
+    padding-left: 3rem;
+    @include tablet {
+      margin-left: 0;
+      padding-left: 0;
+      margin-top: 2rem;
+      padding: 2rem;
+      justify-content: center;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      @include squire(100%);
+      background: #f7d2a1;
+      mix-blend-mode: normal;
+      opacity: 0.8;
+      filter: blur(30rem);
+      clip-path: inset(-100% -100% -100% 0);
+      @include tablet {
+        clip-path: inset(0% -100% -100% -100%);
+      }
+    }
+    &-column {
+      position: relative;
+      // z-index: 1;
+
+      & > div {
+        width: 18rem;
+        height: 27rem;
+        &:not(:last-child) {
+          margin-bottom: 4rem;
+          @include breakpoint(1024) {
+            margin-bottom: 3rem;
+          }
+        }
+        @include breakpoint(1024) {
+          width: 14rem;
+          height: 23rem;
+        }
+        @include phone {
+          width: 10rem;
+          height: 19rem;
+        }
+        img {
+          border-radius: 2rem;
+          @include squire(100%);
+          object-fit: cover;
+        }
+      }
+      &:not(:last-child) {
+        margin-right: 4rem;
+        @include breakpoint(1024) {
+          margin-right: 3rem;
+        }
+      }
+      &--center {
+        & > div {
+          width: 29rem;
+          height: 43.5rem;
+          margin-top: auto;
+          margin-bottom: auto;
+          @include breakpoint(1024) {
+            width: 25rem;
+            height: 39.5rem;
+          }
+          @include phone {
+            width: 21rem;
+            height: 35.5rem;
+          }
+        }
+      }
+    }
+  }
+  &__title {
+    margin-bottom: 2rem;
+  }
+  &__description {
+    font-size: var(--font-size-24);
+    font-weight: $font-light;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+}
+.sign-up-form__country-code {
+  color: #535353 !important;
+}

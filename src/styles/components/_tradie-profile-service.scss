@@ -1,0 +1,45 @@
+.tradie-profile-service {
+  flex-basis: 25%;
+  padding: 4rem 2rem;
+  background-color: $color-white;
+  border-radius: 2rem;
+  margin-right: 2rem;
+  @include tablet {
+    flex-basis: 47%;
+  }
+  @include phone {
+    flex-basis: 100%;
+    margin-right: 0;
+    padding: 2rem 1rem;
+  }
+  h4 {
+    margin-left: -1rem;
+    margin-bottom: 4rem;
+  }
+  &__item {
+    flex-basis: 30%;
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    padding: 2rem;
+    @include bg-gradient-light;
+    text-decoration: none;
+    margin-bottom: 3.5rem;
+    cursor: pointer;
+    &:hover {
+      @include bg-gradient-dark;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include squire(4rem);
+      background-color: $color-white;
+      border-radius: 50%;
+    }
+    h4 {
+      margin-left: 2rem;
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+$color-primary-dark: #db5b1b;
+$color-primary: #ec9422;
+$color-primary-light: #f2b769;
+
+$color-secondary: #8338ec;
+$color-white: #ffffff;
+$color-black: #343432;
+$color-gray: #575756;
+$color-gray-light: #90908e;
+
+$color-line: #f1f2f2;
+
+$bg-footer: #203b54;
+$bg-facebook: #0078ff;
+
+$padding-main: var(--section-padding);
+$padding-nav: var(--nav-padding);
+
+$font-light: 300;
+$font-medium: 500;
+$font-bold: bold;
+$font-regular: normal;
+
+:root {
+	--section-padding: 8rem;
+	--nav-padding: 3.4rem;
+	--font-size-24: 2.4rem;
+
+	@include breakpoint(1000) {
+		--section-padding: 6rem;
+		--nav-padding: 2.4rem;
+	}
+
+	@include breakpoint(800) {
+		--section-padding: 5rem;
+		--nav-padding: 2rem;
+	}
+	@include tablet {
+		--section-padding: 3.5rem;
+		--nav-padding: 1.75rem;
+	}
+	@include phone {
+		--section-padding: 2rem;
+		--nav-padding: 1.5rem;
+	}
+}

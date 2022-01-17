@@ -1,0 +1,48 @@
+.trending-services {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	@include breakpoint(400) {
+		justify-content: center;
+	}
+	&__item {
+		flex-basis: 23%;
+		display: flex;
+		align-items: center;
+		border-radius: 2rem;
+		padding: 2rem;
+		@include bg-gradient-light;
+		text-decoration: none;
+		margin-bottom: 3.5rem;
+		min-width: 25rem;
+		&:hover {
+			@include bg-gradient-dark;
+			&:last-child {
+				@include bg-gradient-light;
+			}
+		}
+		@include phone {
+			min-width: 23rem;
+		}
+		@include breakpoint(400) {
+			min-width: 80%;
+		}
+		div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@include squire(4rem);
+			background-color: $color-white;
+			border-radius: 50%;
+		}
+		h4 {
+			margin-left: 2rem;
+		}
+		&:last-child {
+			@include bg-gradient-dark;
+			h4 {
+				margin: 0 auto;
+			}
+		}
+	}
+}

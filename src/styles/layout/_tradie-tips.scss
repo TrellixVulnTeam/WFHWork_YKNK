@@ -1,0 +1,62 @@
+.tradie-tips {
+  @media only screen and (min-width: 118.75em) {
+    max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 $padding-main;
+  }
+  &__categories-links {
+    display: flex;
+    flex-wrap: wrap;
+    button {
+      color: $color-primary-dark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.6rem;
+      border: 1.5px solid $color-primary-dark;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: 1.5rem;
+      &:hover {
+        @include bg-gradient-dark;
+        border-color: transparent;
+      }
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+  }
+  &__videos {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin: 10rem 10px 0px 10px;
+
+    // margin-right: 7rem;
+
+    &:not(:last-child) {
+      margin-bottom: 10rem;
+    }
+
+    // @media screen and (max-width: 900px) {
+    //   justify-content: center;
+    // }
+
+    @include phone {
+      margin-right: 0;
+    }
+
+    .tips-video {
+      &__youtubePlayer {
+        width: 110% !important;
+      }
+    }
+  }
+}

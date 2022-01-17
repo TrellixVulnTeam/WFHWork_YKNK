@@ -1,0 +1,6 @@
+.header {
+  padding: $padding-nav $padding-main;
+  position: relative;
+  @include container;
+  z-index: 9;
+}

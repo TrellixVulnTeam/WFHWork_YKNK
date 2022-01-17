@@ -1,0 +1,68 @@
+.event {
+  flex-basis: calc(33.33% - 2rem);
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border: 1px solid $color-line;
+  border-radius: 0.6rem;
+  position: relative;
+  @include tablet {
+    flex-basis: calc(50% - 2rem);
+  }
+  @include phone {
+    flex-basis: 100%;
+  }
+  &__budge {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    border-radius: 0.6rem;
+    background: linear-gradient(90.6deg, #e6e6e6 7.37%, #ececec 107.16%);
+    padding: 1rem 2rem;
+    font-weight: $font-light;
+    &--pending {
+      background: linear-gradient(90.6deg, #efa580 7.37%, #f6ccb6 107.16%);
+    }
+  }
+  &__what {
+    margin-bottom: 2rem;
+
+    div {
+      @include squire(8.6rem);
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        @include squire(100%);
+        object-fit: cover;
+      }
+    }
+    h4 {
+      margin-top: 2rem;
+    }
+    &--img {
+      display: flex;
+      align-items: center;
+      margin-top: 4rem;
+      h4 {
+        margin: 0;
+        margin-left: 2rem;
+      }
+    }
+  }
+  &__when-where {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: var(--font-size-24);
+    font-weight: $font-light;
+    img {
+      @include squire(3rem);
+      margin-right: 1rem;
+    }
+  }
+  .btn-primary {
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+    display: inline-flex;
+  }
+}

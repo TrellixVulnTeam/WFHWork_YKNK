@@ -1,0 +1,93 @@
+.popular-article {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	color: inherit;
+	text-decoration: none;
+	margin-bottom: 3rem;
+	@include breakpoint(1024) {
+		justify-content: initial;
+	}
+	@include phone {
+		flex-direction: column;
+	}
+	&__image {
+		width: 22rem;
+		height: 19rem;
+		border-radius: 1rem;
+		flex-shrink: 0;
+		overflow: hidden;
+		margin-right: 3rem;
+		@include phone {
+			width: 100%;
+			height: 25rem;
+			margin-bottom: 2rem;
+			margin-right: 0;
+		}
+		img {
+			@include squire(100%);
+			object-fit: cover;
+		}
+	}
+	&__date {
+		color: $color-gray-light;
+		font-weight: $font-medium;
+		margin-bottom: 2rem;
+	}
+	&__title {
+		margin-bottom: 2rem;
+	}
+	&__description {
+		font-weight: $font-light;
+		margin-bottom: 2rem;
+		line-height: 2;
+	}
+}
+.popular-article {
+	$this: &;
+	&--first {
+		height: 42rem;
+		border-radius: 1rem;
+		overflow: hidden;
+		position: relative;
+		&::before {
+			content: '';
+			position: absolute;
+			@include squire(100%);
+			background-color: #000;
+			opacity: 0.6;
+		}
+		#{$this}__image {
+			@include squire(100%);
+			object-fit: cover;
+		}
+		#{$this}__info {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			padding: 2rem;
+			width: 74%;
+			color: $color-white;
+			@include phone {
+				width: 94%;
+			}
+		}
+		#{$this}__date {
+			margin-bottom: 2rem;
+			font-weight: $font-medium;
+			color: inherit;
+		}
+		#{$this}__title {
+			margin-bottom: 2rem;
+			font-weight: $font-bold;
+		}
+		#{$this}__description {
+			line-height: 1.5;
+			margin-bottom: 2rem;
+			font-weight: $font-light;
+		}
+		#{$this}__read-more {
+			padding: 0.8rem 1.5rem;
+		}
+	}
+}
