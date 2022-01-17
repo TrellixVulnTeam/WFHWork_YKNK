@@ -240,8 +240,12 @@ const Index = () => {
             Re Submit for approval
           </a>
         ) : (
-          <button className="btn-primary" disabled={true}>
-            Re Submit for approval
+          <button
+            onClick={submitForApp}
+            className="btn-primary"
+            disabled={true}
+          >
+            Submit for approval
           </button>
         )
       ) : (
@@ -253,7 +257,9 @@ const Index = () => {
         {complete && businesDone ? (
           <Link to={"/tradie-public-profile/" + id}>View Profile</Link>
         ) : (
-          <button onClick={completAlert}>View Profile</button>
+          <a onClick={completAlert} style={{ cursor: "pointer" }}>
+            View Profile
+          </a>
         )}
       </a>
     </div>
