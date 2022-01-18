@@ -74,7 +74,7 @@ const Index = () => {
       }
     }
   });
- 
+
   const Back = () => {
     history.goBack();
   };
@@ -221,7 +221,7 @@ const Index = () => {
                   ))
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                     <p>No Leads Found</p>
                   </div>
                 )}
@@ -285,9 +285,11 @@ const Index = () => {
                     ))}
                   </div>
                 ) : (
+                  <div className="calender__events">
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
-                    <p>No Leads Found</p>
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
+                    <p>No History Found</p>
+                  </div>
                   </div>
                 )}
               </>

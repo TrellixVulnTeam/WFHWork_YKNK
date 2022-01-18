@@ -103,14 +103,31 @@ const Index = () => {
             </nav>
             {tabSelect === "current" ? (
               <div className="calender__events">
-                {Object.keys(userLeads).length>0 ? (
+                {Object.keys(userLeads).length > 0 ? (
                   userLeads.map((userBooking) => {
+                    console.log("user booking ", userBooking);
                     return (
                       <div className="event">
                         <p className="event__budge">
                           {userBooking.job_post.length > 0
                             ? userBooking.job_post.map((leads, i) =>
-                                userBooking.dispute == 1 ? (
+                                userBooking.type == "multiple" ? (
+                                  userBooking.status == "open" ? (
+                                    "Pending"
+                                  ) : leads.provider_status == "reject" ? (
+                                    <p key={i}>Settled</p>
+                                  ) : leads.provider_status == "accept" &&
+                                    leads.user_status == "accept" ? (
+                                    "Accepted"
+                                  ) : leads.provider_status == "completed" &&
+                                    leads.user_status == "completed" ? (
+                                    <p>Completed</p>
+                                  ) : leads.provider_status == "Pending" ? (
+                                    <p style={{ color: "red" }}>Pending</p>
+                                  ) : (
+                                    "Pending"
+                                  )
+                                ) : userBooking.dispute == 1 ? (
                                   leads.user_status == "completed" ? (
                                     <p>Completed</p>
                                   ) : (
@@ -119,12 +136,11 @@ const Index = () => {
                                 ) : leads.provider_status == "reject" ? (
                                   <p key={i}>Settled</p>
                                 ) : leads.provider_status == "accept" ? (
-                                  "Accept"
-                                ) : leads.provider_status == "completed" ? (
+                                  "Accepted"
+                                ) : leads.provider_status == "completed" &&
+                                  leads.user_status == "completed" ? (
                                   <p>Completed</p>
-                                ) : leads.user_status == "completed" ? (
-                                  "Completed"
-                                ) : leads.provider_status == "pending" ? (
+                                ) : leads.provider_status == "Pending" ? (
                                   <p style={{ color: "red" }}>Pending</p>
                                 ) : (
                                   "Pending"
@@ -190,7 +206,7 @@ const Index = () => {
                   })
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                     <p>No Booking Found</p>
                   </div>
                 )}
@@ -277,7 +293,7 @@ const Index = () => {
                   })
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                     <p>No Booking History Found</p>
                   </div>
                 )}

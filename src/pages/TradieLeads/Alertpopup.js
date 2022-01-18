@@ -33,7 +33,7 @@ const AlertLead = ({ setAlert, alertData, setViewDetailPopup }) => {
         <form className="popup__form">
           <h2>
             <img
-              src="http://78.46.210.25/tapatradieweb/assets/images/confirmmation-icon.png"
+              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.png"
               alt=""
             />
             <span

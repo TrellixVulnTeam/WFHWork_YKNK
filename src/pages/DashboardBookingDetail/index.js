@@ -179,7 +179,8 @@ const Index = () => {
                                     className="img1"
                                     src={
                                       singleTradie.profile_pic
-                                        ? `https://tat-images-dev.s3.ap-south-1.amazonaws.com/profile/${singleTradie.provider_id}/${singleTradie.profile_pic}`
+                                        ? `https://api.tapatradie.com/uploads/` +
+                                          singleTradie.profile_pic
                                         : "/static/media/user.8d49e377.png"
                                     }
                                     alt=""

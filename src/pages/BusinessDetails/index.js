@@ -99,6 +99,7 @@ const Index = () => {
       dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
     }, 1000);
   }, [businessUpdateres]);
+
   return (
     <div>
       <Header />
