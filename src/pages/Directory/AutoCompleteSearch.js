@@ -42,14 +42,24 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <input
-              {...getInputProps({
-                placeholder: "Address",
-                className: "location-search-input",
-              })}
-              className="section-top__autocomplete-search-input"
-            //   value={addressValue ? addressValue : null}
-            />
+            {addressValue ? (
+              <input
+                {...getInputProps({
+                  placeholder: "Address",
+                  className: "location-search-input",
+                })}
+                className="section-top__autocomplete-search-input"
+                defaultValue={addressValue ? addressValue : null}
+              />
+            ) : (
+              <input
+                {...getInputProps({
+                  placeholder: "Address",
+                  className: "location-search-input",
+                })}
+                className="section-top__autocomplete-search-input"
+              />
+            )}
             <div className="autocomplete-dropdown-container">
               <div className="section-top__autocomplete-search-dropDown">
                 {suggestions.map((suggestion, idx) => {

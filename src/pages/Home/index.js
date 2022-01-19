@@ -227,7 +227,9 @@ const Index = () => {
           alt=""
         />
 
-{userInfo.full_name ? (
+
+      {userInfo.fullname ? (
+
         ""
       ) : (
         <section className="section--register-tradie">
