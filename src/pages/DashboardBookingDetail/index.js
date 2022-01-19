@@ -19,14 +19,21 @@ const Index = () => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { user_single_lead_request, single_tradie_delete_request } = Actions;
+  const {
+    user_single_lead_request,
+    user_leads_request,
+    single_tradie_delete_request,
+    user_leads_history_request,
+  } = Actions;
   const { singleLead, singleTradieRes } = useSelector(
     (state) => state.directory
   );
   const [deletePopup, setDeletePopup] = useState(false);
   const [deleteJobPopup, setDeleteJobPopup] = useState(false);
   const [deleteJobData, setDeleteJobData] = useState("");
-
+  const { userLeads, userLeadHistory } = useSelector(
+    (state) => state.directory
+  );
   const [tradeDeleteData, setTradeDeleteData] = useState({
     job_id: "",
     pid: "",
@@ -52,7 +59,11 @@ const Index = () => {
 
   useEffect(() => {
     dispatch(user_single_lead_request({ jobid: id }));
+    dispatch(user_leads_request({ lead_type: "new" }));
+    dispatch(user_leads_history_request({ lead_type: "history" }));
   }, []);
+
+
 
   const selectedRadieType = (singleBooking) => {
     if (singleBooking == "residential,commercial")
@@ -148,29 +159,62 @@ const Index = () => {
                     return (
                       <>
                         <div className="booking_status">
-                          {singleBooking.type == "multiple"
-                            ? singleBooking.status == "completed "
-                              ? "Completed "
-                              : singleBooking.status == "open"
-                              ? "Pending"
-                              : singleBooking.status == "accept"
-                              ? "Accepted"
-                              : singleBooking.status == "active"
-                              ? "Accepted"
+                          {userLeads.map((res) =>
+                            res.id == singleBooking.id
+                              ?
+                               res.type == "multiple"
+                                ? res.status == "completed"
+                                  ? "Completed"
+                                  : res.status == "open"
+                                  ? "Pending"
+                                  : res.status == "accept"
+                                  ? "Accepted"
+                                  : res.status == "active"
+                                  ? "Accepted"
+                                  : ""
+                                : res.job_post.length > 0
+                                ? res.job_post.map((leads, i) =>
+                                    leads.provider_status == "reject" ? (
+                                      <p key={i}>Settled</p>
+                                    ) : leads.provider_status == "accept" ? (
+                                      "Accepted"
+                                    ) : leads.provider_status == "completed" ? (
+                                      "Completed"
+                                    ) : (
+                                      "pending"
+                                    )
+                                  )
+                                : ""
                               : ""
-                            : singleBooking.job_post.length > 0
-                            ? singleBooking.job_post.map((leads, i) =>
-                                leads.provider_status == "reject" ? (
-                                  <p key={i}>Settled</p>
-                                ) : leads.provider_status == "accept" ? (
-                                  "Accepted"
-                                ) : leads.provider_status == "completed" ? (
-                                  "Completed"
-                                ) : (
-                                  "pending"
-                                )
-                              )
-                            : ""}
+                          )}
+
+                          {userLeadHistory.map((res) =>
+                            res.id == singleBooking.id
+                              ? res.type == "multiple"
+                                ? res.status == "completed"
+                                  ? "Completed"
+                                  : res.status == "open"
+                                  ? "Pending"
+                                  : res.status == "accept"
+                                  ? "Accepted"
+                                  : res.status == "active"
+                                  ? "Accepted"
+                                  : "Pending"
+                                : res.job_post.length > 0
+                                ? res.job_post.map((leads, i) =>
+                                    leads.provider_status == "reject" ? (
+                                      <p key={i}>Settled</p>
+                                    ) : leads.provider_status == "accept" ? (
+                                      "Accepted"
+                                    ) : leads.provider_status == "completed" ? (
+                                      "Completed"
+                                    ) : (
+                                      "pending"
+                                    )
+                                  )
+                                : ""
+                              : ""
+                          )}
                         </div>
                         <div
                           className="booking_status_title"
@@ -196,15 +240,27 @@ const Index = () => {
                         <div className="booking_status_job_desc_list">
                           {singleBooking.detail}
                         </div>
+                    
                         <div className="booking_status_service_delete">
-                          <button
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              handleDeleteJob(singleBooking.id);
-                            }}
-                          >
-                            Delete This Job
-                          </button>
+                          {singleBooking.job_post.length <= 1
+                            ? singleBooking.job_post.map((singleTradie) =>
+                                singleTradie.provider_status == "accept" ? (
+                                  ""
+                                ) : singleTradie.provider_status ==
+                                  "completed" ? (
+                                  ""
+                                ) : (
+                                  <button
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      handleDeleteJob(singleBooking.id);
+                                    }}
+                                  >
+                                    Delete This Job
+                                  </button>
+                                )
+                              )
+                            : ""}
                         </div>
                       </>
                     );
@@ -262,34 +318,42 @@ const Index = () => {
                                     starDimension="17px"
                                   />
                                 </div>
+
                                 {/* <p>Review: {singleTradie.review}</p> */}
                                 <p>{singleBooking.service_name}</p>
                                 {
                                   (singleBooking.type = "multiple" ? (
-                                    singleTradie.provider_status == "accept" ? (
-                                      singleTradie.user_status == "accept" ? (
-                                        ""
-                                      ) : (
-                                        <>
-                                          {console.log("S :", singleTradie)}{" "}
-                                          <IoMdCloudDone
-                                            size={22}
-                                            style={{ color: "green" }}
-                                            onClick={(e) =>
-                                              acceptProvider(singleTradie)
-                                            }
-                                          />
-                                          {"  "} &nbsp;
-                                          <MdOutlineCancel
-                                            size={22}
-                                            style={{ color: "red" }}
-                                            onClick={() =>
-                                              rejectProvider(singleTradie)
-                                            }
-                                          />{" "}
-                                        </>
-                                      )
-                                    ) : null
+                                    singleBooking.job_post.length > 1 ? (
+                                      singleTradie.provider_status ==
+                                      "accept" ? (
+                                        singleTradie.user_status == "reject" ? (
+                                          ""
+                                        ) : singleTradie.user_status ==
+                                          "accept" ? (
+                                          ""
+                                        ) : (
+                                          <>
+                                            <IoMdCloudDone
+                                              size={22}
+                                              style={{ color: "green" }}
+                                              onClick={(e) =>
+                                                acceptProvider(singleTradie)
+                                              }
+                                            />
+                                            {"  "} &nbsp;
+                                            <MdOutlineCancel
+                                              size={22}
+                                              style={{ color: "red" }}
+                                              onClick={() =>
+                                                rejectProvider(singleTradie)
+                                              }
+                                            />{" "}
+                                          </>
+                                        )
+                                      ) : null
+                                    ) : (
+                                      ""
+                                    )
                                   ) : null)
                                 }
                                 {/* <button

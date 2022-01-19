@@ -216,7 +216,7 @@ const directoryReducer = (state = initState, action) => {
         ...state,
         success: true,
         loading: false,
-        singleLead: [payload],
+        singleLead: payload,
       };
     // USER_SINGLE_LEAD_RESET
     case types.USER_SINGLE_LEAD_RESET:

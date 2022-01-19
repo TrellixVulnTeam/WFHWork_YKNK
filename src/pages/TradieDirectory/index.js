@@ -25,7 +25,6 @@ import AlertPopup from "./AlertPopup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
-import { Card } from "react-bootstrap";
 toast.configure();
 
 const Index = () => {
@@ -334,12 +333,11 @@ const Index = () => {
       <Header />
 
       {/* <!-- Any Trade. Any Time.  Any Where --> */}
-      <section className="directory-top-section section-top--directory">
+      <section className="section-top section-top--directory">
         <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
         <h2 className="section-top__title">
-          
           <span>Any Trade</span>, Anywhere, Anytime
         </h2>
 
@@ -388,7 +386,7 @@ const Index = () => {
 
       {/* <!-- Filter by Rating --> */}
       <section className="section">
-        <form className="tradies__filter filter-rating-tradie-type">
+        <form className="tradies__filter">
           <div>
             <h4>Filter by Rating</h4>
             <div className="radio-group">
@@ -442,9 +440,6 @@ const Index = () => {
               <span className="checkmark" />
             </div>
           </div>
-          <div>
-            <button className="btn-primary font-m">Apply</button>
-          </div>
           {/* <a href="#" className="btn-primary">
             Apply
           </a> */}
@@ -488,10 +483,10 @@ const Index = () => {
             );
           })}
 
-        {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
-          sortTradie()?.map((item, index) => {
-            return (
-              <div className="tradies__grid">
+        <div className="tradies__grid">
+          {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
+            sortTradie()?.map((item, index) => {
+              return (
                 <div className="tradies-item" key={index}>
                   <div
                     className="tradies-item__image"
@@ -571,14 +566,14 @@ const Index = () => {
                     {/* )} */}
                   </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <center>
-            <Card>No Tradie Found!</Card>
-          </center>
-        )}
+              );
+            })
+          ) : (
+            <div className="tradies-item">
+              <center>No Tradie Found!</center>
+            </div>
+          )}
+        </div>
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
