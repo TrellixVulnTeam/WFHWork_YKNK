@@ -57,7 +57,12 @@
       margin-top: 3rem;
     }
     .nav__item:last-child a {
-      padding: calc(#{$padding-nav} / 4) $padding-nav;
+      padding: 15px 40px;
+      width: 186px;
+      display: block;
+      border-radius: 6px;
+      text-align: center;
+
       @include tablet {
         padding: 1rem 2rem;
         display: block;

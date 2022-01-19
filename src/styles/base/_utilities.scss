@@ -8,6 +8,7 @@
 	outline: transparent;
 	border: none;
 	cursor: pointer;
+	padding: 10px 40px;
 	&:active,
 	&:hover {
 		background-image: linear-gradient(96.33deg, $color-primary 0%, $color-primary-light 109.53%);
@@ -32,6 +33,7 @@
 	outline: transparent;
 	border: none;
 	cursor: pointer;
+	padding: 10px 40px;
 	&:hover {
 		@include bg-gradient-dark;
 	}

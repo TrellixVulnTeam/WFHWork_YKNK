@@ -11,6 +11,8 @@ import { useHistory } from "react-router";
 import TakeDone from "./TakeDonePopup";
 import RateTradie from "./RateTradie";
 import DisputeJob from "./DisputeJob";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -64,7 +66,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Bookings --> */}
-      <section className="section-top section-top--calender">
+      <section className="directory-top-section section-top--calender">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Bookings</span>
         </h2>

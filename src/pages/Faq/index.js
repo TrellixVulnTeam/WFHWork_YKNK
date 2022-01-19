@@ -180,7 +180,7 @@ const Index = () => {
       <Header />
 
       {/* <!-- Frequently Asked Questions --> */}
-      <section className="section-top">
+      <section className="faq-section-top">
         <h2 className="section-top__title">
           Frequently Asked <span>Questions</span>
           <img className="section-top__title-after" src={faq_1} alt="" />

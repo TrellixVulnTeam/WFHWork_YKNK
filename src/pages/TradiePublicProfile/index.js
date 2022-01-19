@@ -344,7 +344,7 @@ const Index = () => {
               where you work and meet some amazing new clients.
             </p>
             <a href="/sign-up" role="button">
-              Register Now
+              Register Now 10 
             </a>
           </div>
         </section>

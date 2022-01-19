@@ -334,11 +334,12 @@ const Index = () => {
       <Header />
 
       {/* <!-- Any Trade. Any Time.  Any Where --> */}
-      <section className="section-top section-top--directory">
+      <section className="directory-top-section section-top--directory">
         <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
         <h2 className="section-top__title">
+          
           <span>Any Trade</span>, Anywhere, Anytime
         </h2>
 
@@ -387,7 +388,7 @@ const Index = () => {
 
       {/* <!-- Filter by Rating --> */}
       <section className="section">
-        <form className="tradies__filter">
+        <form className="tradies__filter filter-rating-tradie-type">
           <div>
             <h4>Filter by Rating</h4>
             <div className="radio-group">
@@ -440,6 +441,9 @@ const Index = () => {
               <label htmlFor="commercial">Commercial</label>
               <span className="checkmark" />
             </div>
+          </div>
+          <div>
+            <button className="btn-primary font-m">Apply</button>
           </div>
           {/* <a href="#" className="btn-primary">
             Apply

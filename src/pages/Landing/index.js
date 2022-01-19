@@ -140,7 +140,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{  height: "8rem", width: "8rem", padding:"16px" }}
+                style={{  height: "8rem", width: "8rem"}}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -153,8 +153,8 @@ const Index = () => {
               </a>
               <img src={contact_us_10} />
               <img
-                src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png"
-                style={{  height: "8rem", width: "8rem", padding:"16px" }}
+                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
+                style={{  height: "8rem", width: "8rem"}}
               />
             </div>
           </div>

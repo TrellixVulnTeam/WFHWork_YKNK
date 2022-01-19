@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
 toast.configure();
 
 const Index = () => {
@@ -105,7 +107,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Profile--> */}
-      <section className="section-top section-top--tradie-my-profile">
+      <section className="directory-top-section section-top--tradie-my-profile">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Profile</span>
         </h2>
@@ -146,7 +151,7 @@ const Index = () => {
                 onChange={(e) => {
                   setStreetAddress(e.target.value);
                 }}
-                style={{ width: "90%" }}
+                style={{ width: "93%" }}
               />
               {/* <PlacesAutocomplete /> from useautocomplete new pckg */}
               {/* <AutoPlaceComplete /> old packged used in home page */}

@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import privacy_policy_1 from "../../assets/images/professional-tradie.jpg";
+import tradie_directory_1 from "../../assets/icons/section-top-directory-before.svg";
+
 import axios from "axios";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
@@ -22,7 +24,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- Privacy Policy --> */}
-      <section className="section-top">
+      <section className="directory-top-section">
+      <div className="section-top__before">
+          <img src={tradie_directory_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           Privacy <span>Policy</span>
         </h2>

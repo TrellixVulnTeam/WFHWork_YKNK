@@ -52,7 +52,12 @@ const Index = () => {
           />
         </h2>
       </section>
-
+      <div
+          className="contact-us__map"
+          style={{ marginTop: "-5px", marginBottom: "15px" }}
+        >
+          <img src={contact_us_map} alt="" />
+        </div>
       {/* <!-- Get in touch --> */}
       <section className="contact-us section--left">
         <div className="contact-us__info">
@@ -113,17 +118,12 @@ const Index = () => {
               <input
                 type="submit"
                 value="Get Started"
-                className="btn-primary"
+                className="btn-primary submit-button"
               />
             </div>
           </form>
         </div>
-        <div
-          className="contact-us__map"
-          style={{ marginTop: "-5px", marginBottom: "15px" }}
-        >
-          <img src={contact_us_map} alt="" />
-        </div>
+        
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
@@ -165,7 +165,7 @@ const Index = () => {
               <img src={contact_us_7} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                style={{ height: "8rem", width: "8rem"}}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -178,8 +178,8 @@ const Index = () => {
               </a>
               <img src={contact_us_7} />
               <img
-                src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
+                style={{ height: "8rem", width: "8rem"}}
               />
             </div>
           </div>
@@ -197,7 +197,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                style={{ height: "8rem", width: "8rem"}}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -210,8 +210,8 @@ const Index = () => {
               </a>
               <img src={contact_us_10} />
               <img
-                src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
+                style={{ height: "8rem", width: "8rem"}}
               />
             </div>
           </div>
