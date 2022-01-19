@@ -89,7 +89,9 @@ const Index = () => {
           autoClose: 2000,
           size: "small",
         });
-        history.push("/tradie-service-location");
+        setTimeout(() => {
+          history.push("/tradie-service-location");
+        }, 2000);
       } else {
         toast.error("Something went wrong", {
           position: "bottom-left",
@@ -98,9 +100,8 @@ const Index = () => {
         });
       }
     }
-    setTimeout(() => {
-      dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
-    }, 1000);
+
+    dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
   }, [businessUpdateres]);
 
   const serachServicesTradie = () => {

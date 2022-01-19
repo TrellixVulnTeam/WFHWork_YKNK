@@ -113,7 +113,21 @@ const Index = () => {
                     return (
                       <div className="event">
                         <p className="event__budge">
-                          {userBooking.job_post.length > 0
+                          {userBooking.type == "multiple"
+                            ? userBooking.status == "completed "
+                              ? "Completed "
+                              : userBooking.status == "open"
+                              ? "Pending"
+                              : userBooking.status == "accept"
+                              ? "Accepted"
+                              : userBooking.status == "active"
+                              ? userBooking.job_post.map((leads, i) =>
+                                  leads.provider_status == "completed"
+                                    ? "Completed"
+                                    : leads.provider_status
+                                )
+                              : ""
+                            : userBooking.job_post.length > 0
                             ? userBooking.job_post.map((leads, i) =>
                                 userBooking.dispute == 1 ? (
                                   leads.user_status == "completed" ? (
@@ -124,6 +138,7 @@ const Index = () => {
                                 ) : leads.provider_status == "reject" ? (
                                   <p key={i}>Settled</p>
                                 ) : leads.provider_status == "accept" ? (
+
                                   "Accept"
                                 ) : leads.provider_status == "completed" ? (
                                   <p>Completed</p>
@@ -131,6 +146,18 @@ const Index = () => {
                                   "Completed"
                                 ) : leads.provider_status == "pending" ? (
                                   <p>Pending</p>
+
+                                  "Accepted"
+
+                                ) : leads.provider_status == "completed" ? (
+                                  "Completed"
+                                ) : leads.provider_status == "completed" &&
+                                  leads.user_status == "accept" ? (
+                                  <p>Accepted</p>
+
+                                ) : leads.provider_status == "Pending" ? (
+                                  <p style={{ color: "red" }}>Pending</p>
+
                                 ) : (
                                   "Pending"
                                 )
@@ -282,8 +309,11 @@ const Index = () => {
                   })
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
-                    <p>No Booking History Found</p>
+
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
+
+                    <p>No History Found</p>
+
                   </div>
                 )}
               </div>

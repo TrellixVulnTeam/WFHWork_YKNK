@@ -87,7 +87,9 @@ const Index = () => {
                         starDimension="17px"
                       />
                     </span>
+                  
                   </div>
+                  Reviews : { res.review}
                 </div>
               ))
             ) : (

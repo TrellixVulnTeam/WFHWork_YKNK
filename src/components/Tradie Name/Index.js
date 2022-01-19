@@ -142,7 +142,7 @@ const Index = () => {
       <Link to="/ChangeProfile" style={{ textDecoration: "none" }}>
         <small style={{ cursor: "pointer" }}>Change profile</small>
       </Link>
-      <h4 className="tradie-profile__name">{fullname}</h4>
+      <h4 className="tradie-profile__name">{full_name}</h4>
 
       <div className="tradie-profile__rating">
         <StarRatings

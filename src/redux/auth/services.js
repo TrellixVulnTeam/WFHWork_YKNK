@@ -294,7 +294,7 @@ export const Business_details_Update_Service = async (data, userInfo) => {
     latitude: 24.8607343,
     license_number: data.licenseNumber,
     longitude: 67.0011364,
-    pincode: "231242",
+    pincode: data.PinCode,
     state: data.stateAdress,
     street: data.streetAddress,
     uid: userInfo.uid,

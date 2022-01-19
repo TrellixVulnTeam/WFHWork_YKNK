@@ -25,6 +25,7 @@ import AlertPopup from "./AlertPopup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
+import { Card } from "react-bootstrap";
 toast.configure();
 
 const Index = () => {
@@ -84,9 +85,9 @@ const Index = () => {
 
   const { login, verify_OTP } = useSelector((state) => state.auth);
   const [searchFormData, setSearchFormData] = useState({
-    searchQuery: "",
-    latitude: "",
-    longitude: "",
+    searchQuery: searchTerm,
+    latitude: adressCookie?.loadlatitude,
+    longitude: adressCookie?.loadlongitude,
   });
   const [redirectpPage, setRedirectpPage] = useState(false);
   const [tradieIds, setTradieIds] = useState([]);
@@ -487,10 +488,10 @@ const Index = () => {
             );
           })}
 
-        <div className="tradies__grid">
-          {searchingTradie &&
-            sortTradie()?.map((item, index) => {
-              return (
+        {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
+          sortTradie()?.map((item, index) => {
+            return (
+              <div className="tradies__grid">
                 <div className="tradies-item" key={index}>
                   <div
                     className="tradies-item__image"
@@ -570,9 +571,14 @@ const Index = () => {
                     {/* )} */}
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })
+        ) : (
+          <center>
+            <Card>No Tradie Found!</Card>
+          </center>
+        )}
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}

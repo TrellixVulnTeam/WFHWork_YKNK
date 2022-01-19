@@ -1299,6 +1299,7 @@ const Index = () => {
                 </li>
                 <li className="category__item">
                   <Link
+                   to="/tradie-directory"
                     className="category__link"
                     onClick={() => {
                       SendData({ search: "Windows" });

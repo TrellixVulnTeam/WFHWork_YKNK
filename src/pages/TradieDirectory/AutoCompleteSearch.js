@@ -24,6 +24,8 @@ const AutoCompleteSearch = ({ state, setStateFunction,adressTerm }) => {
 	const handleSelectTerm = (evt) => {
 		setSeacrhQuery(evt.target.outerText);
 	};
+
+
 	return (
 		<div className="section-top__autoCompleteSearch">
 			<PlacesAutocomplete value={searchQuery} onChange={handleChange} onSelect={handleSelect}>

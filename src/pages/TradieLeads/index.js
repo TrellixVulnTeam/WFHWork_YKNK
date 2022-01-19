@@ -12,6 +12,7 @@ import moment from "moment";
 import ViewDetailPoppup from "./ViewDetailPopup";
 import TakeDone from "./TakeDonePopup";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Index = () => {
   const history = useHistory();
@@ -22,6 +23,7 @@ const Index = () => {
   const [viewData, setViewData] = useState([]);
   const [alert, setAlert] = useState(false);
   const [alertData, setAlertData] = useState([]);
+  // const [tradieLeads, setTradieLeads] = useState([]);
   const { provider_leads_request, provider_leads_history_request } = Actions;
   const { providerJobAccept } = useSelector((state) => state.directory);
   const {
@@ -35,6 +37,28 @@ const Index = () => {
     localStorage.getItem("provideLeadAction")
   );
 
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: "my-auth-token",
+    },
+  };
+  // useEffect(() => {
+  //   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+  //   var UserLeads = {
+  //     access_token: userInfo.access_token,
+  //     device_id: userInfo.device_id,
+  //     api_key: userInfo.api_key,
+  //     device_type: userInfo.device_type,
+  //     lead_type: "new",
+  //     page: 1,
+  //     uid: userInfo.uid,
+  //   };
+  //   axios
+  //     .post("https://api.tapatradie.com/api/provider-leads", UserLeads, config)
+  //     .then((res) => setTradieLeads(res?.data));
+  // }, []);
   useEffect(() => {
     dispatch(provider_leads_request());
     dispatch(provider_leads_history_request());
@@ -44,6 +68,7 @@ const Index = () => {
     setViewData(leads);
     setViewDetailPopup(true);
   };
+
   const handleAlert = (viewData, e) => {
     e.preventDefault();
     setAlertData(viewData);
@@ -126,7 +151,7 @@ const Index = () => {
             {tabSelect === "current" ? (
               <div className="calender__events">
                 {Object.keys(providerLeads).length > 0 ? (
-                  providerLeads.map((leads) => (
+                  providerLeads?.map((leads) => (
                     <div className="event">
                       <a href="javascript:void(0)" className="event__budge">
                         {leads.dispute == 1 ? (
@@ -144,8 +169,10 @@ const Index = () => {
                           "Settled"
                         ) : leads.user_status == "accept" ? (
                           "Accepted"
+                        ) : leads.provider_status == "accept" ? (
+                          "Accepted"
                         ) : (
-                          (leads.user_status = "completed"
+                          (leads.provider_status = "completed"
                             ? "Completed"
                             : (leads.user_status = "deleted"
                                 ? "Deleted"
@@ -201,7 +228,7 @@ const Index = () => {
                           //    handleViewDetailLead(leads);
                           //  }}
                           onClick={(e) => {
-                            handleAlert(viewData, e);
+                            handleAlert(leads, e);
                           }}
                         >
                           Task Done
@@ -244,8 +271,6 @@ const Index = () => {
                             "Completed"
                           ) : leads.status == "cancel" ? (
                             "Settled"
-                          ) : leads.user_status == "accept" ? (
-                            "Completed"
                           ) : (
                             (leads.user_status = "completed"
                               ? "Completed"
@@ -285,9 +310,18 @@ const Index = () => {
                     ))}
                   </div>
                 ) : (
+
                   <div className="no-listing-box">
                     <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
                     <p>No Leads Found</p>
+
+                  <div className="calender__events">
+
+                    <div className="no-listing-box">
+                      <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
+                      <p>No History Found</p>
+                    </div>
+
                   </div>
                 )}
               </>

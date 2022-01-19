@@ -35,7 +35,7 @@
   .input-group-2,
   .input-group-3 {
     display: flex;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
 
     @include tablet {
       gap: 2px;

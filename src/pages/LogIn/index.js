@@ -141,7 +141,7 @@ const Index = () => {
   const SelectOption = countries_code?.map((val) => {
     return { value: val.id, label: val.id };
   });
-  console.log("countryCode :", countryCode);
+ 
   return (
     <div>
       <section className="section section--sign-up">
