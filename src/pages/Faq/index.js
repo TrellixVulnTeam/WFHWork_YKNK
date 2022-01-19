@@ -112,7 +112,7 @@ const Index = () => {
       return (
         <>
           <h4 class="collapsible">Rating & Reviews</h4>
-          {console.log("Rating Reviews")}
+      
           <div class="content">
             {faqData.map((val, i) => {
               if (val.faq_category == 4) {

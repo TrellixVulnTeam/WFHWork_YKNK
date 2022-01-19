@@ -25,6 +25,7 @@ import AlertPopup from "./AlertPopup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
+import { Card } from "react-bootstrap";
 toast.configure();
 
 const Index = () => {
@@ -84,9 +85,9 @@ const Index = () => {
 
   const { login, verify_OTP } = useSelector((state) => state.auth);
   const [searchFormData, setSearchFormData] = useState({
-    searchQuery: "",
-    latitude: "",
-    longitude: "",
+    searchQuery: searchTerm,
+    latitude: adressCookie?.loadlatitude,
+    longitude: adressCookie?.loadlongitude,
   });
   const [redirectpPage, setRedirectpPage] = useState(false);
   const [tradieIds, setTradieIds] = useState([]);
@@ -199,6 +200,7 @@ const Index = () => {
       }
     });
   }
+
   const sortFilter = searchingTradie?.filter((tradieDatas) =>
     tradieDatas?.service_type?.includes(sortTradieType)
   );
@@ -227,7 +229,7 @@ const Index = () => {
         dispatch(slected_to_All_tradie_Id());
         setSelectAllTradie(true);
       } else {
-        setModelOpenTradieRequest(true);
+        setModelOpenTradieRequest(false);
       }
     } else {
       setalertPopup(true);
@@ -370,7 +372,7 @@ const Index = () => {
             </label>
             <LocationIcon />
             <LocationAutocomplete
-              addressValue={adressTerm}
+              addressValue={adressCookie?.address}
               state={searchFormData}
               setStateFunction={setSearchFormData}
             />
@@ -445,14 +447,18 @@ const Index = () => {
           </a> */}
         </form>
         <nav className="tradies__filter-nav">
-          <Button
-            className="btn-secondary font-m"
-            onClick={() => {
-              selectAllTradie();
-            }}
-          >
-            Select to All{" "}
-          </Button>
+          {selectAllTradies ? (
+            <Button className="btn-secondary font-m">Selected to All</Button>
+          ) : (
+            <Button
+              className="btn-secondary font-m"
+              onClick={() => {
+                selectAllTradie();
+              }}
+            >
+              Select to All{" "}
+            </Button>
+          )}
           <button
             className="btn-primary font-m"
             style={{ marginLeft: 20 }}
@@ -463,12 +469,12 @@ const Index = () => {
           >
             Send Request
           </button>
-          <a href="#">
+          {/* <a href="#">
             <img src={tradie_directory_2} alt="" />
-          </a>
+          </a> */}
         </nav>
 
-        {searchingTradie &&
+        {/* {searchingTradie &&
           sortTradie()?.map((item, index) => {
             return (
               <div className="tradies-item tradies-item--row" key={index}>
@@ -481,18 +487,18 @@ const Index = () => {
                 />
               </div>
             );
-          })}
+          })} */}
 
-        <div className="tradies__grid">
-          {searchingTradie &&
-            sortTradie()?.map((item, index) => {
-              return (
+        {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
+          sortTradie()?.map((item, index) => {
+            return (
+              <div className="tradies__grid">
                 <div className="tradies-item" key={index}>
                   <div
                     className="tradies-item__image"
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      handleChangeRoute();
+                      handleChangeRoute(item.id);
                     }}
                   >
                     <img
@@ -566,13 +572,18 @@ const Index = () => {
                     {/* )} */}
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })
+        ) : (
+          <center>
+            <Card>No Tradie Found!</Card>
+          </center>
+        )}
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.full_name  ? (
+      {userInfo.fullname ? (
         ""
       ) : (
         <section

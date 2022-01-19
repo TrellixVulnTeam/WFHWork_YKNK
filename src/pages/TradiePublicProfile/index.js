@@ -124,8 +124,8 @@ const Index = () => {
         <h2 className="section-top__title">
           <span>Any Trade</span>, Anywhere, Anytime
         </h2>
-      </section>
-
+      </section> 
+      
       <section className="section section--tradie-profile">
         {getProviderProfile &&
           getProviderProfile?.map((tradiePersonalInfo, i) => {
@@ -135,8 +135,8 @@ const Index = () => {
                   <div className="tradie-profile__image">
                     <img
                       src={
-                        profile_pic
-                          ? `https://api.tapatradie.com/uploads/` + profile_pic
+                        tradiePersonalInfo?.user_data?.profile_pic
+                          ? `https://api.tapatradie.com/uploads/` + tradiePersonalInfo?.user_data?.profile_pic
                           : tradie_public_profile_1
                       }
                       alt=""
@@ -333,7 +333,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.full_name ? (
+      {userInfo?.fullname ? (
         ""
       ) : (
         <section className="section--register-tradie">
@@ -344,7 +344,7 @@ const Index = () => {
               where you work and meet some amazing new clients.
             </p>
             <a href="/sign-up" role="button">
-              Register Now t
+              Register Now
             </a>
           </div>
         </section>

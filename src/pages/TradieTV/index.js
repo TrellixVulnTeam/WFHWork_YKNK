@@ -46,7 +46,7 @@ const Index = () => {
       category.categoryId === e ? category : null
     );
     setCategoryVideos(targetCategory);
-    console.log("targetCategory", targetCategory);
+
 
     // store videos into local storage
     localStorage.setItem(
@@ -105,7 +105,7 @@ const Index = () => {
             {categoryVideos.length > 0 ? (
               categoryVideos?.map((video) => (
                 <li className="tips-video" key={video}>
-                  {console.log("videoss", video)}
+                
                   <div className="tips-video__thumbnail">
                     {/* <YouTube
                         videoId={video.videoId}

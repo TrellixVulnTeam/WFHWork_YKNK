@@ -32,6 +32,7 @@ const Index = () => {
   const [cityAdress, setCityAdress] = useState("");
   const [stateAdress, setStateAdress] = useState("");
   const [workingRadius, setWorkingRadius] = useState("");
+  const [PinCode, setPinCode] = useState("");
 
   useEffect(() => {
     if (business_name) {
@@ -58,6 +59,9 @@ const Index = () => {
     if (working_radius !== "") {
       setWorkingRadius(`${working_radius}`);
     }
+    if (pincode) {
+      setPinCode(pincode);
+    }
   }, [userData, businessData]);
 
   const {
@@ -81,24 +85,26 @@ const Index = () => {
       cityAdress,
       stateAdress,
       workingRadius,
-      pincode,
+      PinCode,
     };
     dispatch(Get_Business_Details_Update_Action(makeData));
   };
 
   useEffect(() => {
     if (businessUpdateres) {
-      history.push("/tradie-my-profile-upload");
       toast.success(businessUpdateres, {
         position: "bottom-left",
         autoClose: 2000,
         size: "small",
       });
+      setTimeout(() => {
+        history.push("/tradie-my-profile-upload");
+      }, 2000);
     }
-    setTimeout(() => {
-      dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
-    }, 1000);
+
+    dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
   }, [businessUpdateres]);
+
   return (
     <div>
       <Header />
@@ -173,12 +179,13 @@ const Index = () => {
             <div className="input-group">
               <input
                 type="text"
-                placeholder="State"
-                value={stateAdress}
+                placeholder="Pincode"
+                value={PinCode}
                 onChange={(e) => {
-                  setStateAdress(e.target.value);
+                  setPinCode(e.target.value);
                 }}
               />
+
               <input
                 type="text"
                 placeholder="City"
@@ -186,6 +193,17 @@ const Index = () => {
                 onChange={(e) => {
                   setCityAdress(e.target.value);
                 }}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="State"
+                value={stateAdress}
+                onChange={(e) => {
+                  setStateAdress(e.target.value);
+                }}
+                style={{ width: "90%" }}
               />
             </div>
             <label>

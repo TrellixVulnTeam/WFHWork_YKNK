@@ -35,7 +35,6 @@ const Index = () => {
     website_link,
     about_me,
     country_code,
-    pincode
   } = userData;
 
   const {
@@ -89,16 +88,17 @@ const Index = () => {
 
   useEffect(() => {
     if (userUpdateRes) {
-      history.push("/business-details");
       toast.success(userUpdateRes, {
         position: "bottom-left",
         autoClose: 2000,
         size: "small",
       });
+      setTimeout(() => {
+        history.push("/business-details");
+      }, 2000);
     }
-    setTimeout(() => {
-      dispatch({ type: "UPDATE_PROFILE_VERIFICATION_SUCCESS", payloade: "" });
-    }, 1000);
+
+    dispatch({ type: "UPDATE_PROFILE_VERIFICATION_SUCCESS", payloade: "" });
   }, [userUpdateRes]);
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const Index = () => {
     WebsiteLink: website_link,
     City: city,
     selectedCountry: country,
-    pincode: pincode,
+    // pincode: pincode,
   };
   const validationSchema = Yup.object().shape({
     fullname: Yup.string().required(" required"),
@@ -370,7 +370,7 @@ const Index = () => {
                       value={formik.values.WebsiteLink}
                     />
                   </div>
-                  <div className="input-group">
+                  {/* <div className="input-group">
                     <input
                       name="pincode"
                       type="text"
@@ -378,7 +378,7 @@ const Index = () => {
                       onChange={formik.handleChange}
                       value={formik.values.pincode}
                     />
-                  </div>
+                  </div> */}
                   <div className="input-group">
                     <textarea
                       name="Aboutme"
