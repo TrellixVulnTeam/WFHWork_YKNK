@@ -61,6 +61,8 @@ const Index = () => {
     setRateData(viewData);
     setRateAlert(true);
   };
+ 
+  
   return (
     <div>
       <Header />

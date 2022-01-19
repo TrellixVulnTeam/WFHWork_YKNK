@@ -178,6 +178,9 @@ const Index = () => {
                                 ? "Deleted"
                                 : "Declined"))
                         )}
+                        {leads.user_status == "reject"
+                          ? localStorage.removeItem("provideLeadAction")
+                          : ""}
                       </a>
                       <div className="event__what event__what--img">
                         <div>
@@ -311,12 +314,10 @@ const Index = () => {
                   </div>
                 ) : (
                   <div className="calender__events">
-
                     <div className="no-listing-box">
                       <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                       <p>No History Found</p>
                     </div>
-
                   </div>
                 )}
               </>
