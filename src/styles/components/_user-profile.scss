@@ -24,9 +24,18 @@
 	.tradie-profile__image,
 	.tradie-profile__name {
 		margin-right: 0rem;
+
+		a{
+			position: absolute;
+			right: 80px;
+		}
 	}
 	.btn-primary {
 		padding: 1rem 2rem;
-		margin-top: 2rem;
+		margin-top: 5rem;
 	}
+}
+
+.section--user-profile{
+	background: linear-gradient(180deg, #FFF9F1 -15.35%, #FFFFFF 143.94%, #FFFFFF 145.62%);
 }

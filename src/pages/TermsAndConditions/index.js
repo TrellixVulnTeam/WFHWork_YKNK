@@ -7,6 +7,7 @@ import axios from "axios";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import tradie_directory_1 from "../../assets/icons/section-top-directory-before.svg";
 
 const Index = () => {
   const [termsData, setTerm] = useState([]);
@@ -23,7 +24,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Leads --> */}
-      <section className="section-top">
+      <section className="directory-top-section">
+      <div className="section-top__before">
+          <img src={tradie_directory_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           Terms and <span>Conditions</span>
         </h2>

@@ -6,12 +6,12 @@
 #myinput {
   border: solid 1px #ed855b;
   border-radius: 8px;
-  height: 2px;
+  height: 4.74px;
   width: 356px;
   outline: none;
   transition: background 450ms ease-in;
   -webkit-appearance: none;
-  padding: 5px;
+  padding: 0;
 }
 
 /*Chrome thumb*/
@@ -63,4 +63,16 @@ input[type="range"]::-ms-thumb {
   border-radius: 5rem;
   background: #ed855b;
   border: 1px solid #ed855b;
+}
+
+form.tradie-my-profile__form {
+  label {
+    margin-bottom: 15px;
+    display: block;
+}
+}
+.tradie-my-profile__form{
+  .input-group{
+    margin-bottom: 3rem;
+  }
 }

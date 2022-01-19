@@ -2,6 +2,10 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 2rem $padding-main;
+	@include tablet {
+		display: block;
+		text-align: center;
+	}
 	@include container;
 	@include breakpoint(1275) {
 		align-items: center;
@@ -11,12 +15,15 @@
 		align-items: flex-start;
 	}
 	h4 {
+		margin: auto 0;
 		@include tablet {
 			white-space: nowrap;
+			font-size: 30px;
 		}
 	}
 	p {
 		flex-basis: 37%;
+		line-height: 24px;
 		@include breakpoint(1275) {
 			flex-basis: initial;
 			margin: 0 2rem;
@@ -39,6 +46,9 @@
 		white-space: nowrap;
 		&:hover {
 			background-color: $color-primary-dark;
+		}
+		@include tablet {
+			display: inline;
 		}
 		@include breakpoint(1275) {
 			padding: 1rem 2rem;

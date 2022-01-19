@@ -1,4 +1,4 @@
-import React from "react"; 
+import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import about_us_1 from "../../assets/icons/tradieTV-title-after.svg";

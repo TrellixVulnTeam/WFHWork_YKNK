@@ -10,6 +10,11 @@
 	}
 	&__title {
 		margin-bottom: 2rem;
+		font-size: 55px;
+		line-height: 62px;
+		@include tablet { 
+			font-size: 45px;
+		}
 	}
 	&__description {
 		flex-basis: 47%;
@@ -40,8 +45,16 @@
 		display: flex;
 		border-radius: 2rem;
 		overflow: hidden;
+		position: relative;
+		left: -80px;
 		@include tablet {
 			flex-basis: 37%;
+			left: 0;
+			top: 30px;
+			max-width: 100%;
+		}
+		@include phone {
+			left: 0;
 		}
 		img {
 			width: 100%;

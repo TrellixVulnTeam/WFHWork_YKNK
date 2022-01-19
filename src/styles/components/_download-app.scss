@@ -20,12 +20,13 @@
   &__customers,
   &__tradies {
     flex-basis: 33%;
-    padding: 2rem;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
+    border-radius: 20px;
     @include phone {
       margin-top: 4rem;
     }
@@ -46,9 +47,10 @@
       }
       img:nth-of-type(2) {
         position: absolute;
-        bottom: -1.5rem;
-        right: 0;
-        width: 40%;
+        bottom: -px;
+        left: 205px;
+        width: 11% !important;
+        height: auto !important;
       }
       img {
         @include phone {
@@ -64,6 +66,7 @@
   }
   &__customers {
     margin-right: 10rem;
+    background: #fff;
     @include tablet {
       margin-right: 0;
     }
@@ -77,8 +80,8 @@
     }
   }
   &__tradies {
-    background: #fff5e8;
-    backdrop-filter: blur(5.5rem);
+    background: #FFF5E8;
+backdrop-filter: blur(55px);
     border-radius: 2rem;
     h2 {
       background-image: linear-gradient(
@@ -102,7 +105,7 @@
   width: 35%;
 }
 .search-form .btn-primary {
-  padding: 0.5rem 4rem;
+  padding: 1.5rem 4rem;
 }
 .profile-search {
   width: 50%;
@@ -127,14 +130,36 @@
 @media only screen and (max-width: 600px) {
   .search-form__address {
     display: block;
+    width: 100%;
+    padding: 0;
   }
   .search-form {
     display: block;
+    width: 530px !important;
   }
+  .section-top__title {
+    font-size: 42px !important;
+}
+.search-form__address img{
+  margin: 0;
+}
+
   .search-form input {
     padding: 15px 15px;
     border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
   }
+  .trending-services__item{
+    min-width: 31rem;
+  }
+  .download-app__customers, .download-app__tradies {
+    padding: 6rem;
+    margin-bottom: 25px;
+}
+  .search-form__service{
+    width: 100%;
+  }
+
   .section-top__autoCompleteSearch {
     display: inline-block;
     width: 90%;
@@ -145,6 +170,7 @@
   }
   .search-form__address label {
     display: inline-block;
+    margin-left: -16px;
   }
   .search-form .btn-primary {
     width: 94%;

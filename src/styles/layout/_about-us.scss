@@ -22,7 +22,7 @@
 		}
 		p {
 			&:not(:last-child) {
-				margin-bottom: 4rem;
+				margin-bottom: 2rem;
 				@include phone {
 					margin-bottom: 2rem;
 				}
@@ -70,4 +70,18 @@
 			}
 		}
 	}
+}
+.section__title.section__title--gradient{
+	margin: 2rem 0;
+}
+.tradie-solutions__text{
+	p{
+		margin-bottom: 2rem;
+	}
+}
+.tradie-solutions__row{
+	margin-top: 40px;
+}
+.bg-color{
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) -13.38%, #FFF9F1 100%), #FFFFFF;
 }

@@ -16,7 +16,7 @@ const Index = () => {
     <div>
       <Header />
 
-      <section className="section-top section-top--about-us">
+      <section className="about-section-top section-top--about-us">
         <h2 className="section-top__title">
           <span>About</span> Us
           <img className="section-top__title-after" src={about_us_1} />
@@ -25,7 +25,7 @@ const Index = () => {
 
       <section className="section section--left">
         <div className="about-us">
-          <h2 className="section__title">Who We Are</h2>
+          <h2 className="section__title services-title-about">Who We Are</h2>
           <div className="about-us__row">
             <div className="about-us__text">
               <p>
@@ -106,7 +106,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section bg-color">
         <div className="core-values">
           <h2 className="section__title">Our Core Values</h2>
           <p className="core-values__description">

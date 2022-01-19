@@ -10,6 +10,8 @@ import LocationAutoComplete from "./AutoLocationComplete";
 import NavigationLinks from "../../components/Tradie Name/Index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
 
 
 const Index = () => {
@@ -19,7 +21,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Profile--> */}
-      <section className="section-top section-top--tradie-my-profile">
+      <section className="directory-top-section section-top--tradie-my-profile">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Profile</span>
         </h2>

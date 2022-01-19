@@ -59,7 +59,7 @@ const Index = () => {
     <div>
       <Header />
 
-      <section className="section-top section-top--tradieTV">
+      <section className="section-slider section-top--tradieTV">
         <h2 class="section-top__title">
           <span>Local Tradies</span> tips and tricks for your home projects
           <img class="section-top__title-after" src={tradieTv_1} alt="" />

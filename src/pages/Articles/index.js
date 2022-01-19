@@ -22,13 +22,13 @@ const Index = () => {
     <div>
       <Header />
 
-      <section class="section-top section-top--articles">
-        <div class="section-top__before">
+      <section class="section-top--articles articles-slider-section">
+        {/* <div class="section-top__before">
           <img src={section_top_before} alt="" />
-          {/* <svg>
+          <svg>
 					<use xlink:href="/assets/icons/sprite.svg#section-top-before"></use>
-				</svg> */}
-        </div>
+				</svg>
+        </div> */}
         <h2 class="section-top__title">Well Curated Articles Just for You</h2>
       </section>
 
