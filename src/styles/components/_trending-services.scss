@@ -5,6 +5,10 @@
 	@include breakpoint(400) {
 		justify-content: center;
 	}
+	@include tablet {
+		display: block;
+		width: 100%;
+	}
 	&__item {
 		flex-basis: 23%;
 		display: flex;

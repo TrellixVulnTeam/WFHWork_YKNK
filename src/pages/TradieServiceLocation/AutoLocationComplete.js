@@ -5,7 +5,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as LocationIcon } from "../../assets/icons/locationSvg.svg";
-import tradie_service_location_2 from "../../assets/icons/icon-location.png";
+import LocationIocn  from "../../assets/images/location-icon.svg";
+import tradie_service_location_2 from "../../assets/icons/map-location.svg";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/auth/action";
 import Geolocation from "react-geolocation";
@@ -119,8 +120,8 @@ const AutoCompleteSearch = () => {
   return (
     <>
       <div className="input-group">
-        <div className="search-btns">
-          <div className="profile-search">
+        <div className="">
+          <div className="profile-search location-srch">
             <PlacesAutocomplete
               value={searchQuery}
               onChange={handleChange}
@@ -138,7 +139,7 @@ const AutoCompleteSearch = () => {
                       placeholder: "Type to search",
                       className: "location-search-input",
                     })}
-                    className="input-additional-service"
+                    className="input-additional-service additional-service-information"
                   />
                   <div
                     className="autocomplete-search-dropDown"
@@ -207,16 +208,21 @@ const AutoCompleteSearch = () => {
           /> */}
           <button
             type="button"
-            className="profile-btn "
+            className="profile-btn detect-location-btn"
             // onClick={() => DetectLocation()}
           >
+            <img
+            className="location-icon "
+            src={LocationIocn}
+            alt="icon"
+            />
             Detect Current Location
           </button>
         </div>
       </div>
       <label className="m-b-1">Recent Location</label>
       <div className="input-group mb-1">
-        <label className="container">
+        <label className="  ">
           <img width="20" height="20" src={tradie_service_location_2} alt="" />
           {tradiaServiceLocation ? tradiaServiceLocation[0]?.address : ""}
         </label>

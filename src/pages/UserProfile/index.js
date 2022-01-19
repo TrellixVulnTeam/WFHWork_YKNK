@@ -11,6 +11,8 @@ import user_profile_4 from "../../assets/icons/icon-phone.png";
 import user_profile_5 from "../../assets/icons/icon-email.png";
 import user_profile_6 from "../../assets/images/professional-tradie.jpg";
 import { Link } from "react-router-dom";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Profile --> */}
-      <section className="section-top section-top--user-profile">
+      <section className="directory-top-section section-top--user-profile">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Profile</span>
           <img

@@ -18,6 +18,9 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
+
 toast.configure();
 
 const Index = () => {
@@ -208,8 +211,12 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Profile--> */}
-      <section className="section-top section-top--tradie-my-profile">
+      <section className="directory-top-section section-top--tradie-my-profile">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
+         
           My <span>Profile</span>
         </h2>
       </section>
@@ -312,8 +319,7 @@ const Index = () => {
                     : Setexpre(false)}
 
                   <div className="input-group">
-                    <div className="input-group__city-number-inputs">
-                      <div style={{ width: "40%", marginRight: "20px" }}>
+                  <div className="country-section">
                         <Select
                           options={countryListAlpha3}
                           onChange={handleChangeCountry}
@@ -323,28 +329,31 @@ const Index = () => {
                           autoFocus={false}
                           styles={customStyles}
                         />
-                      </div>
-                      {/* {formik.errors.ProfessionalExperience && formik.touched.ProfessionalExperience ? SetError(true): SetError(false) }  */}
-                      <div style={{ width: "40%", display: "flex" }}>
-                        <input
-                          type="text"
-                          value={formik.values.country_code}
-                          onChange={formik.handleChange}
-                          style={{ width: "70px" }}
-                          placeholder="+91"
-                        />
-                        <input
+                          <input
                           name="PhoneNumber"
                           type="number"
                           placeholder="Phone Number"
                           onChange={formik.handleChange}
                           value={formik.values.PhoneNumber}
-                          style={{ width: "180px" }}
                         />
-                      </div>
                       {formik.errors.PhoneNumber && formik.touched.PhoneNumber
                         ? Setphone(true)
                         : Setphone(false)}
+                      </div>
+                      </div>
+                      <div className="input-group">
+                    <div className="">
+                     
+                      {/* {formik.errors.ProfessionalExperience && formik.touched.ProfessionalExperience ? SetError(true): SetError(false) }  */}
+                      
+                        {/* <input
+                          type="text"
+                          value={formik.values.country_code}
+                          onChange={formik.handleChange}
+                          style={{ width: "70px" }}
+                          placeholder="+91"
+                        /> */}
+                      
                     </div>
                   </div>
 

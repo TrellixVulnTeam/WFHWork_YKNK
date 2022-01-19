@@ -13,7 +13,7 @@ const Index = () => {
     <div>
       <Header />
 
-      <section class="section-top">
+      <section class="partners-section">
         <h2 class="section-top__title">
           Our <span>Partners</span>
         </h2>

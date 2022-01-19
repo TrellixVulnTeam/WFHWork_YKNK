@@ -311,10 +311,12 @@ const Index = () => {
                   </div>
                 ) : (
                   <div className="calender__events">
+
                     <div className="no-listing-box">
                       <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                       <p>No History Found</p>
                     </div>
+
                   </div>
                 )}
               </>

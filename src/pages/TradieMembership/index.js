@@ -8,6 +8,8 @@ import tradie_membership_3 from "../../assets/icons/icon-edit.png";
 import tradie_membership_4 from "../../assets/images/professional-tradie.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import tradie_directory_1 from "../../assets/icons/section-top-directory-before.svg";
+
 
 const Index = () => {
   const { userData } = useSelector((state) => state.auth);
@@ -16,7 +18,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- Frequently Asked Questions --> */}
-      <section className="section-top section-top--membership">
+      <section className="directory-top-section section-top--membership">
+      <div className="section-top__before">
+          <img src={tradie_directory_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Membership</span>
           <img className="section-top__title-after" src={tradie_membership_1} />

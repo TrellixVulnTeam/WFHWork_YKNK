@@ -49,7 +49,9 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
                   className: "location-search-input",
                 })}
                 className="section-top__autocomplete-search-input"
+
                 // defaultValue={addressValue ? addressValue : null}
+
               />
             ) : (
               <input

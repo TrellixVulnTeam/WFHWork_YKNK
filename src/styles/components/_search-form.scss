@@ -4,10 +4,11 @@
   background-color: $color-white;
   box-shadow: 0 0.4rem 4rem rgba(135, 57, 18, 0.1);
   border-radius: 6px;
-  width: 80%;
+  width: 920px;
   padding: 0.5rem;
-  margin: 8rem 0;
+  margin: 8rem auto;
   position: relative;
+  z-index: 1;
   //z-index: 2;
   @include phone {
     width: 100%;

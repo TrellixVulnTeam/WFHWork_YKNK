@@ -11,6 +11,8 @@ import { useHistory } from "react-router";
 import TakeDone from "./TakeDonePopup";
 import RateTradie from "./RateTradie";
 import DisputeJob from "./DisputeJob";
+import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -64,7 +66,10 @@ const Index = () => {
       <Header />
 
       {/* <!-- My Bookings --> */}
-      <section className="section-top section-top--calender">
+      <section className="directory-top-section section-top--calender">
+      <div className="section-top__before">
+          <img src={Section_top_1} alt="" />
+        </div>
         <h2 className="section-top__title">
           My <span>Bookings</span>
         </h2>
@@ -105,6 +110,7 @@ const Index = () => {
               <div className="calender__events">
                 {Object.keys(userLeads).length > 0 ? (
                   userLeads.map((userBooking) => {
+                    console.log("user booking ", userBooking);
                     return (
                       <div className="event">
                         <p className="event__budge">
@@ -124,7 +130,23 @@ const Index = () => {
                               : ""
                             : userBooking.job_post.length > 0
                             ? userBooking.job_post.map((leads, i) =>
-                                userBooking.dispute == 1 ? (
+                                userBooking.type == "multiple" ? (
+                                  userBooking.status == "open" ? (
+                                    "Pending"
+                                  ) : leads.provider_status == "reject" ? (
+                                    <p key={i}>Settled</p>
+                                  ) : leads.provider_status == "accept" &&
+                                    leads.user_status == "accept" ? (
+                                    "Accepted"
+                                  ) : leads.provider_status == "completed" &&
+                                    leads.user_status == "completed" ? (
+                                    <p>Completed</p>
+                                  ) : leads.provider_status == "Pending" ? (
+                                    <p style={{ color: "red" }}>Pending</p>
+                                  ) : (
+                                    "Pending"
+                                  )
+                                ) : userBooking.dispute == 1 ? (
                                   leads.user_status == "completed" ? (
                                     <p>Completed</p>
                                   ) : (
@@ -134,11 +156,13 @@ const Index = () => {
                                   <p key={i}>Settled</p>
                                 ) : leads.provider_status == "accept" ? (
                                   "Accepted"
+
                                 ) : leads.provider_status == "completed" ? (
                                   "Completed"
                                 ) : leads.provider_status == "completed" &&
                                   leads.user_status == "accept" ? (
                                   <p>Accepted</p>
+
                                 ) : leads.provider_status == "Pending" ? (
                                   <p style={{ color: "red" }}>Pending</p>
                                 ) : (
@@ -293,7 +317,9 @@ const Index = () => {
                 ) : (
                   <div className="no-listing-box">
                     <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
+
                     <p>No History Found</p>
+
                   </div>
                 )}
               </div>

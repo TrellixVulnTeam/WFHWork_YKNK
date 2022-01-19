@@ -333,7 +333,9 @@ const Index = () => {
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
+
       {userInfo?.fullname ? (
+
         ""
       ) : (
         <section className="section--register-tradie">
@@ -344,7 +346,9 @@ const Index = () => {
               where you work and meet some amazing new clients.
             </p>
             <a href="/sign-up" role="button">
+
               Register Now
+
             </a>
           </div>
         </section>

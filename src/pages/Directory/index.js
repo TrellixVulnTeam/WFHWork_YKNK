@@ -129,11 +129,12 @@ const Index = () => {
   return (
     <div>
       <Header />
-      <section className="section-top section-top--directory">
+      <section className="directory-top-section section-top--directory">
         <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
-        <h2 className="section-top__title">
+       <div className="">
+       <h2 className="section-top__title">
           <img
             className="section-top__title-before"
             src={Section_top_2}
@@ -141,8 +142,6 @@ const Index = () => {
           />
           Start your project <span> today </span>
         </h2>
-        <br />
-
         <form
           action="#"
           className="search-form"
@@ -187,6 +186,7 @@ const Index = () => {
             onClick={handleSubmit}
           />
         </form>
+       </div>
       </section>
 
       <section className="section">

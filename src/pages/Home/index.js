@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/directory/action";
 import * as AuthActions from "../../redux/auth/action";
 import Header from "../../components/Header";
+
 import Footer from "../../components/Footer";
 import ellipse_1 from "../../assets/icons/ellipse-1.svg";
 import ellipse_2 from "../../assets/icons/ellipse-2.svg";
@@ -158,17 +159,18 @@ const Index = () => {
       {/* condition for name */}
       {/* {full_name === "" ? <Modal/> : null} */}
 
-      <section className="section-top">
+      <section className="section-top pb-0">
         <div className="section-top__before">
           <svg>
             {/* <use xlink:href="/assets/icons/sprite.svg#section-top-before"></use> */}
           </svg>
         </div>
+        <div className="section-heading">
         <h2 className="section-top__title">
           <span>Any Trade</span>, Anywhere, Anytime
         </h2>
         <form
-          className="search-form"
+          className="search-form header-form text-left"
           onSubmit={(evt) => evt.preventDefault()}
           style={{ zIndex: 2 }}
         >
@@ -208,6 +210,7 @@ const Index = () => {
             onClick={handleSubmit}
           />
         </form>
+        </div>
         <div className="section-top__after">
           <svg>
             {/* <use xlink:href="/assets/icons/sprite.svg#section-top-after"></use> */}
@@ -223,9 +226,10 @@ const Index = () => {
           src={ellipse_2}
           alt=""
         />
-      </section>
+
 
       {userInfo?.fullname ? (
+
         ""
       ) : (
         <section className="section--register-tradie">
@@ -239,6 +243,9 @@ const Index = () => {
           </div>
         </section>
       )}
+      </section>
+
+    
 
       <section className="gallery" style={{ zIndex: 0 }}>
         <div>
@@ -483,8 +490,7 @@ const Index = () => {
               </a>
               <img src={contact_us_7} />
               <img
-                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" 
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -497,8 +503,7 @@ const Index = () => {
               </a>
               <img src={contact_us_7} />
               <img
-                src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png"
-                style={{ height: "8rem", width: "8rem", padding: "16px" }}
+                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
               />
             </div>
           </div>
@@ -515,8 +520,7 @@ const Index = () => {
               </a>
               <img src={contact_us_10} />
               <img
-                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{  height: "8rem", width: "8rem", padding:"16px" }}
+                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" 
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -529,8 +533,8 @@ const Index = () => {
               </a>
               <img src={contact_us_10} />
               <img
-                src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png"
-                style={{  height: "8rem", width: "8rem", padding:"16px" }}
+                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
+
               />
             </div>
           </div>

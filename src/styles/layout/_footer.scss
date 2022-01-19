@@ -114,10 +114,11 @@
     text-decoration: none;
     color: $color-white;
     display: flex;
-    margin: 0 3rem;
+    margin-right: 25px;
     img {
       fill: currentColor;
-      @include squire(4rem);
+      height: 24px;
+      width: 24px;
     }
   }
 }
