@@ -17,7 +17,9 @@
     top: 2rem;
     right: 2rem;
     border-radius: 0.6rem;
-    background: linear-gradient(90.6deg, #e6e6e6 7.37%, #ececec 107.16%);
+    // background: linear-gradient(90.6deg, #e6e6e6 7.37%, #ececec 107.16%);
+    color: #000;
+    background: linear-gradient(90.6deg, #EFA580 7.37%, #F6CCB6 107.16%);
     padding: 1rem 2rem;
     font-weight: $font-light;
     &--pending {
@@ -65,4 +67,9 @@
     margin: 2rem 0;
     display: inline-flex;
   }
+}
+@media screen and (max-width: 767px) {
+.event__when-where{
+  font-size: 19px;
+}
 }

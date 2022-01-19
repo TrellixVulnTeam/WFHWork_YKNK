@@ -61,6 +61,7 @@ const Index = () => {
       </section>
       {/* <!-- Register as a Tradie Today! --> */}
 
+
       {userInfo?.fullname  ? (
 
         ""

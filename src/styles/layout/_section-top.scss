@@ -305,6 +305,9 @@ background-size: cover;
   margin: 100px auto;
   align-items: center;
   justify-content: center ;
+  @include tablet {
+    margin: 50px auto;
+  }
 }
 .articles-slider-section{
   display: flex;
@@ -314,6 +317,9 @@ background-size: cover;
   margin: auto;
   position: relative;
   padding: 160px 0;
+  @include tablet {
+		padding: 50px 0
+	}
 
   &:before {
     position: absolute;
@@ -327,9 +333,6 @@ background-size: cover;
   background-size: cover;
 }
 
-  h2{
-    color: #000;
-  }
 }
 
 .about-section-top{
@@ -339,6 +342,9 @@ background-size: cover;
   align-items: center;
   justify-content: center;
   margin: 120px 0;
+  @include tablet {
+    margin: 50px auto;
+  }
   .section-top__title-after{
     top: 50%;
     right: 100%;
@@ -348,27 +354,129 @@ background-size: cover;
 .directory-top-section{ 
   align-items: center;
   margin: auto;
-  padding: 100px 0;
+  padding: 80px 0;
   text-align: center;
   justify-content: center;
   position: relative;
 }
 
+.directory{
+  padding: 100px 0 80px !important;
+}
+.privacypolicy{
+  padding-bottom: 0 !important;
+}
 
 // Responsive Css
-
+@media screen and (max-width: 1200px) {
+.location-srch{
+  width: 100%;
+  margin-bottom: 10px;
+}
+.header {
+  padding: 30px 20px;
+}
+}
 @media screen and (max-width: 992px) {
+  .section-top__title {
+    font-size: 52px;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+.articles-slider-section{
+  padding: 50px 0;
+}
+.section-top__title-before {
+  left: 0;
+}
   .search-form{
-    width: 720px;
+    width: 620px;
   }
+
   .section-top {
     .section-heading {
       .header-form {
         margin: 50px auto;
-        padding: 18px;
     }
     }
   }
+  .trending-services__item{
+    min-width: 34rem;
+  }
+  .features {
+    display: block !important; 
+ }
+ .professional-tradie__image{
+  flex-basis: 47%; 
+  left: 0px;
+ }
+ .professional-tradie__title { 
+  font-size: 35px;
+  line-height: 52px;
+  text-align: left;
+}
+.download-app__customers{
+  h2{
+    font-size: 3.2rem;
+  }
+}
+.download-app__tradies{
+  h2{
+    font-size: 3.2rem;
+  }
+}
+
+}
+@media screen and (max-width: 767px) {
+  .professional-tradie__title {
+    font-size: 31px;
+    line-height: 44px;
+    text-align: left;
+}   
+  .booking-section1 {
+    padding: 39px 0 50px;
+}
+  .section-top__title {
+    font-size: 45px;
+    width: 80%;
+} 
+.nav__menu{
+  .nav__item:not(:last-child){
+    margin: 10px;
+  }
+}
+.directory-top-section { 
+  padding: 50px 0; 
+}
+.section-top__title-before { 
+  left: -20px; 
+}
+.search-form__address svg {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+input.section-top__autocomplete-search-input {
+  background: transparent;
+}
+.services-title-about{
+  margin-bottom: 3rem !important;
+}
+
+.about-section-top {
+  .section-top__title-after {
+    right: 68%;
+  }
+}
+.popular-article--first {
+  .popular-article__info {
+    text-align: left;
+  }
+}
+.popular-articles__more{
+  text-align: left;
+}
 }
 @media screen and (max-width: 575px) {
   .search-form{
@@ -380,6 +488,50 @@ background-size: cover;
   .professional-tradie {
     display: block;
 }
+.search-form__address label { 
+  top: 80px;
+}
+.booking-section1 {
+  .booking-section1_row{
+    .booking-section1_col1{
+      float: none;
+      .white-box-radius{
+          padding: 20px;
+          width: auto; 
+          text-align: center;
+          margin: auto;
+      
+      }
+    } 
+  }
+}
+.booking_status_service_list_btn{
+  margin: auto;
+}
+.booking-section1_col2 {
+  margin-top: 20px;
+  margin-left: 0;
+}
+.booking-section1 {
+  .booking-section1_row {
+    .booking-section1_col2 {
+      .booking-section1_inner_row{
+        display: block;
+      }
+    }
+   
+  }
+}
+.booking-section1_col3 {
+  .list-box{
+    width: 100% !important;
+  }
+}
+.list-box_online{
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+}
 }
 @media only screen and (max-width: 575px) {
   
@@ -388,6 +540,13 @@ background-size: cover;
   @include phone {
     display: block;
   }
+}
+@media only screen and (max-width: 440px) {
+  .section-top__title {
+    font-size: 52px;
+    width: 100%;
+    margin: auto;
+} 
 }
 
 .text-left{

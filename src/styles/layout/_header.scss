@@ -3,4 +3,7 @@
   position: relative;
   @include container;
   z-index: 9;
+  @include breakpoint(1024) { 
+        padding: 30px;
+  }
 }

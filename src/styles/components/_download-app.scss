@@ -69,6 +69,7 @@
     background: #fff;
     @include tablet {
       margin-right: 0;
+      margin-bottom: 30px;
     }
 
     h2 {
@@ -94,6 +95,8 @@ backdrop-filter: blur(55px);
 }
 .search-form__address {
   width: 42%;
+  position: relative;
+  padding: 0 30px;
 }
 .section-top__autoCompleteSearch {
   width: 100%;
@@ -145,7 +148,7 @@ backdrop-filter: blur(55px);
 }
 
   .search-form input {
-    padding: 15px 15px;
+    padding: 15px 24px;
     border-bottom: 1px solid #ccc;
     margin-bottom: 15px;
   }
@@ -162,7 +165,7 @@ backdrop-filter: blur(55px);
 
   .section-top__autoCompleteSearch {
     display: inline-block;
-    width: 90%;
+    width: 100%;
     z-index: 0 !important;
   }
   .section-top__autoCompleteSearch input {
@@ -170,7 +173,11 @@ backdrop-filter: blur(55px);
   }
   .search-form__address label {
     display: inline-block;
-    margin-left: -16px;
+    margin-left: 0px;
+    position: absolute;
+    z-index: 1;
+    top: 95px;
+
   }
   .search-form .btn-primary {
     width: 94%;

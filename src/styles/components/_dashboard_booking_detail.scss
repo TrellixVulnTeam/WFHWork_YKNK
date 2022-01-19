@@ -1,14 +1,15 @@
 .booking-section1 {
   background: #f3f2f6;
-  padding: 30px 39px 39px;
+  padding: 39px 80px 50px;
   .booking-section1_row {
-    display: flex;
+    display: inline-block;
+    width: 100%;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
 
     .booking-section1_col1 {
-      width: 25%;
+      float: left;
       .white-box-radius {
         background: #fff;
         border-radius: 0.5rem;
@@ -126,7 +127,8 @@
     }
 
     .booking-section1_col2 {
-      width: 75%;
+      // width: 75%;
+      // float: right;
       h4 {
         color: black;
         margin-bottom: 1.5rem;
@@ -135,7 +137,10 @@
         display: flex;
         flex-wrap: wrap;
         .booking-section1_col3 {
-          width: 32%;
+          // width: 32%;
+          // float: left;
+          margin-right: 50px;
+          position: relative;
           .list-box {
             background: #fff;
             border-radius: 0.25rem;
@@ -250,4 +255,7 @@
       }
     }
   }
+}
+.booking-section1_col2 {
+  margin-left: 260px;
 }

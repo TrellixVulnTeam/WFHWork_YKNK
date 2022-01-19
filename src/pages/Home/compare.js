@@ -188,7 +188,9 @@ const Index = () => {
       </section>
 
 
+
       {userInfo.fullname ? (
+
 
         ""
       ) : (

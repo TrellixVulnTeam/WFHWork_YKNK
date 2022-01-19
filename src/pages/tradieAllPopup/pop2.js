@@ -87,8 +87,8 @@ const Pop2 = () => {
 
             {otherCategoriesLink
               ? mainCategories &&
-                resultCat.map((category) => (
-                  <li className="category-group" key={category.id}>
+                resultCat.map((category, index) => (
+                  <li className="category-group" key={index.id}>
                     <input
                       id={category.id}
                       type="checkbox"
@@ -98,8 +98,8 @@ const Pop2 = () => {
                   </li>
                 ))
               : allCategories &&
-                resultCat.map((category) => (
-                  <li className="category-group" key={category.id}>
+                resultCat.map((category, index) => (
+                  <li className="category-group" key={index}>
                     <input
                       type="checkbox"
                       id={category.id}

@@ -128,7 +128,9 @@ const Index = () => {
 
       {/* <!-- Register as a Tradie Today! --> */}
 
+
       {userInfo.fullname ? (
+
 
         ""
       ) : (

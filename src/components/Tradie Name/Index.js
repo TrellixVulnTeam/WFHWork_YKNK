@@ -44,7 +44,6 @@ const Index = () => {
     id,
     profile_pic,
     rating,
-    submit_for_approval,
   } = userData;
   const { house_no, street, pincode, state } = businessData;
 
@@ -225,42 +224,16 @@ const Index = () => {
       gallery.length > 0 &&
       services.length > 0 &&
       tradiaServiceLocation.length > 0 ? (
-        submit_for_approval == 1 ? (
-          ""
-        ) : submit_for_approval == 0 ? (
-          <a onClick={submitForApp} className="btn-primary">
-            Submit for approval
-          </a>
-        ) : submit_for_approval == 3 ? (
-          <button className="btn-primary" disabled={true}>
-            Submited for approval
-          </button>
-        ) : submit_for_approval == 2 ? (
-          <a onClick={submitForApp} className="btn-primary">
-            Re Submit for approval
-          </a>
-        ) : (
-          <button
-            onClick={submitForApp}
-            className="btn-primary"
-            disabled={true}
-          >
-            Submit for approval
-          </button>
-        )
+        <a onClick={submitForApp} className="btn-primary">
+          Submit for approval
+        </a>
       ) : (
         <a onClick={completAlert} className="btn-primary">
           Submit for approval
         </a>
       )}
       <a className="tradie-profile__link">
-        {complete && businesDone ? (
-          <Link to={"/tradie-public-profile/" + id}>View Profile</Link>
-        ) : (
-          <a onClick={completAlert} style={{ cursor: "pointer" }}>
-            View Profile
-          </a>
-        )}
+        <Link to={"/tradie-public-profile/" + id}>View Profile</Link>
       </a>
     </div>
   );

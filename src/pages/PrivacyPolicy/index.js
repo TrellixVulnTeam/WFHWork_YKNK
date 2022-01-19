@@ -24,7 +24,7 @@ const Index = () => {
       <Header />
 
       {/* <!-- Privacy Policy --> */}
-      <section className="directory-top-section">
+      <section className="directory-top-section privacypolicy">
       <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
