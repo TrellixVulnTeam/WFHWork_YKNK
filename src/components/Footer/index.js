@@ -68,7 +68,7 @@ const Index = () => {
                 <input
                   type="submit"
                   className="btn-primary"
-                  value="Subscribe Now!"
+                  value="Subscribe"
                 />
               </form>
             </div>

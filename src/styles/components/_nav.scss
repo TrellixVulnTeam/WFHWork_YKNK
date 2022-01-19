@@ -78,6 +78,9 @@
         margin-right: 0;
         margin-bottom: 3rem;
       }
+      @include breakpoint(1024) { 
+       margin: 5px; 
+      }
     }
   }
   &__link {
@@ -123,4 +126,10 @@
       @include squire(3rem);
     }
   }
+}
+
+@media only screen and (max-width: 888px) {
+  .nav__item:not(:last-child) {
+    margin: 0px;
+}
 }

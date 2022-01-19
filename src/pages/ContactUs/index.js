@@ -127,7 +127,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.fullname ? (
+      {userInfo.full_name ? (
         ""
       ) : (
         <section className="section--register-tradie">

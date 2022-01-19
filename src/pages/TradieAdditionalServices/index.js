@@ -118,7 +118,6 @@ const Index = () => {
             <label
               className="container"
               style={{ textTransform: "capitalize" }}
-              key={val.id}
             >
               {val.name}
               {/* {services?.map((res) => ( */}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { ReactComponent as LocationIcon } from '../../assets/icons/locationSvg.svg';
 
-const AutoCompleteSearch = ({ state, setStateFunction,addressValue }) => {
+const AutoCompleteSearch = ({ state, setStateFunction,adressTerm }) => {
 	const [searchQuery, setSeacrhQuery] = useState('');
 
 	const handleChange = (value) => {
@@ -24,7 +24,6 @@ const AutoCompleteSearch = ({ state, setStateFunction,addressValue }) => {
 	const handleSelectTerm = (evt) => {
 		setSeacrhQuery(evt.target.outerText);
 	};
-	console.log("Adddghfj :", addressValue)
 	return (
 		<div className="section-top__autoCompleteSearch">
 			<PlacesAutocomplete value={searchQuery} onChange={handleChange} onSelect={handleSelect}>
@@ -36,7 +35,7 @@ const AutoCompleteSearch = ({ state, setStateFunction,addressValue }) => {
 								className: 'location-search-input'
 							})}
 							className="section-top__autocomplete-search-input"
-							value={addressValue}
+							// value={adressTerm}
 						/>
 						<div className="autocomplete-dropdown-container">
 							<div className="section-top__autocomplete-search-dropDown">

@@ -40,7 +40,7 @@
   }
 
   &__mobile {
-    margin-top: calc(#{$spacing} * 2);
+    margin-top: 20px;
     position: relative;
 
     p {
@@ -117,7 +117,7 @@
   &__or {
     p {
       text-align: center;
-      margin: calc(1rem + #{$spacing}) 0;
+      margin: 30px;
       position: relative;
       color: $color-gray-light;
       margin-left: calc(0rem - #{$spacing});
@@ -157,6 +157,9 @@
         @include squire(3rem);
         fill: currentColor;
         margin-right: 20%;
+        @include breakpoint(1024) {
+          margin-right: 0;
+        }
       }
     }
   }

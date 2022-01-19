@@ -50,7 +50,7 @@ const RateTradie = ({ setRateAlert, rateData }) => {
     <div>
       <section className="user-info-modal popup" style={{ zIndex: 5 }}>
         <form className="popup__form">
-          <h2 style={{marginBottom:"-2.8rem"}}>
+          <h2>
             <p>Rate & Review Your Experience</p>
             <span
               onClick={(e) => {
@@ -76,9 +76,9 @@ const RateTradie = ({ setRateAlert, rateData }) => {
               starDimension="37px"
             />
           </p>
-          <p style={{marginTop:"13px"}}>
+          <p>
             <p>Review</p>
-            <textarea
+            <input
               type="text"
               style={{
                 width: "100%",

@@ -33,7 +33,11 @@
 	outline: transparent;
 	border: none;
 	cursor: pointer;
-	padding: 10px 40px;
+	padding: 10px 0px;
+	width: 190px;
+    display: inline-block;
+    text-align: center;
+
 	&:hover {
 		@include bg-gradient-dark;
 	}
@@ -93,7 +97,8 @@
 		padding: 1rem 2rem;
 		flex-basis: 50%;
 		@include breakpoint(1024) {
-			width: 50%;
+			width: 100% !important;
+			margin-bottom: 15px;
 		}
 		@include breakpoint(375) {
 			width: 100%;

@@ -129,7 +129,7 @@ const Index = () => {
   return (
     <div>
       <Header />
-      <section className="directory-top-section section-top--directory">
+      <section className="directory-top-section directory section-top--directory">
         <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>

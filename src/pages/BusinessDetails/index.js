@@ -101,7 +101,6 @@ const Index = () => {
       dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
     }, 1000);
   }, [businessUpdateres]);
-
   return (
     <div>
       <Header />
@@ -145,13 +144,14 @@ const Index = () => {
             <label>Business Address</label>
             <div className="input-group">
               <input
+              className="streetaddress-input"
                 type="text"
                 placeholder="Street"
                 value={streetAddress}
                 onChange={(e) => {
                   setStreetAddress(e.target.value);
                 }}
-                style={{ width: "93%" }}
+                
               />
               {/* <PlacesAutocomplete /> from useautocomplete new pckg */}
               {/* <AutoPlaceComplete /> old packged used in home page */}
@@ -194,9 +194,9 @@ const Index = () => {
                 }}
               />
             </div>
-            <label>
+            <label className="set-work">
               Set Working Radius{"      "}
-              {`${workingRadius}Km`}
+             <span className="working-radius"> {`${workingRadius}Km`}</span>
             </label>
             <div className="input-group">
               <input
@@ -213,6 +213,7 @@ const Index = () => {
                 }}
               />
               {/* <Range /> */}
+              <p className="km-miter">10km <span>100km</span></p>
             </div>
             <div className="input-group">
               <span

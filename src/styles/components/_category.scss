@@ -4,6 +4,7 @@
 	margin-bottom: 4rem;
 	@include tablet {
 		flex-basis: 47%;
+		text-align: left;
 	}
 	@include phone {
 		flex-basis: 100%;

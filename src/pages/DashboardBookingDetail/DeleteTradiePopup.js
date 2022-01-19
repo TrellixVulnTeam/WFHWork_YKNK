@@ -32,7 +32,7 @@ const DeleteTradie = ({ setDeletePopup, tradeDeleteData }) => {
             <section className="user-info-modal popup">
                 <form className="popup__form" >
                     <h2>
-                        <img src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.png"
+                        <img src="http://78.46.210.25/tapatradieweb/assets/images/confirmmation-icon.png"
                             alt=""
                         />
                         <span

@@ -199,7 +199,6 @@ const Index = () => {
       }
     });
   }
-
   const sortFilter = searchingTradie?.filter((tradieDatas) =>
     tradieDatas?.service_type?.includes(sortTradieType)
   );
@@ -228,7 +227,7 @@ const Index = () => {
         dispatch(slected_to_All_tradie_Id());
         setSelectAllTradie(true);
       } else {
-        setModelOpenTradieRequest(false);
+        setModelOpenTradieRequest(true);
       }
     } else {
       setalertPopup(true);
@@ -372,7 +371,7 @@ const Index = () => {
             </label>
             <LocationIcon />
             <LocationAutocomplete
-              addressValue={adressCookie?.address}
+              addressValue={adressTerm}
               state={searchFormData}
               setStateFunction={setSearchFormData}
             />
@@ -450,18 +449,14 @@ const Index = () => {
           </a> */}
         </form>
         <nav className="tradies__filter-nav">
-          {selectAllTradies ? (
-            <Button className="btn-secondary font-m">Selected to All</Button>
-          ) : (
-            <Button
-              className="btn-secondary font-m"
-              onClick={() => {
-                selectAllTradie();
-              }}
-            >
-              Select to All{" "}
-            </Button>
-          )}
+          <Button
+            className="btn-secondary font-m"
+            onClick={() => {
+              selectAllTradie();
+            }}
+          >
+            Select to All{" "}
+          </Button>
           <button
             className="btn-primary font-m"
             style={{ marginLeft: 20 }}
@@ -472,12 +467,12 @@ const Index = () => {
           >
             Send Request
           </button>
-          {/* <a href="#">
+          <a href="#">
             <img src={tradie_directory_2} alt="" />
-          </a> */}
+          </a>
         </nav>
 
-        {/* {searchingTradie &&
+        {searchingTradie &&
           sortTradie()?.map((item, index) => {
             return (
               <div className="tradies-item tradies-item--row" key={index}>
@@ -490,7 +485,7 @@ const Index = () => {
                 />
               </div>
             );
-          })} */}
+          })}
 
         <div className="tradies__grid">
           {searchingTradie &&
@@ -501,7 +496,7 @@ const Index = () => {
                     className="tradies-item__image"
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      handleChangeRoute(item.id);
+                      handleChangeRoute();
                     }}
                   >
                     <img
@@ -581,7 +576,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.fullname ? (
+      {userInfo.full_name  ? (
         ""
       ) : (
         <section

@@ -33,6 +33,9 @@
 			font-weight: $font-light;
 			font-size: var(--font-size-24);
 			margin-bottom: 5rem;
+			@include tablet {
+				text-align: left;
+			}
 		}
 		a {
 			padding: 1rem 3rem;
@@ -60,5 +63,11 @@
 			width: 100%;
 			height: auto;
 		}
+	}
+}
+.streetaddress-input{
+	width: 93%;
+	@include tablet {
+		width: 100%;
 	}
 }
