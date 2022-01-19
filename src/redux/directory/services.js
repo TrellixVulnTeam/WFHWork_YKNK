@@ -188,7 +188,7 @@ export const Single_tradie_delete_Service = async (data, userInfo) => {
   return response;
 };
 export const user_job_delete_Service = async (data, userInfo) => {
-  console.log("Dataa", data);
+ 
   var UserLeads = {
     access_token: userInfo.access_token,
     device_id: userInfo.device_id,
@@ -338,7 +338,7 @@ export const provider_job_accept_Service = async (data, userInfo) => {
     device_id: userInfo.device_id,
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
-    type: "single",
+    type: data.type,
     action: data.action,
     uid: userInfo.uid,
     job_id: data.id,

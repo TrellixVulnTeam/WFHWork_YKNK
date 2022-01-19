@@ -187,7 +187,9 @@ const Index = () => {
         />
       </section>
 
+
       {userInfo.fullname ? (
+
         ""
       ) : (
         <section className="section--register-tradie">

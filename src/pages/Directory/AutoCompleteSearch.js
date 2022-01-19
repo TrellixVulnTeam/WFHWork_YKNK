@@ -7,8 +7,8 @@ import { ReactComponent as LocationIcon } from "../../assets/icons/locationSvg.s
 
 let addrees = "";
 const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
-  console.log("location :", addressValue);
-  const [searchQuery, setSeacrhQuery] = useState("");
+  
+  const [searchQuery, setSeacrhQuery] = useState(addressValue? addressValue : "");
 
   const handleChange = (value) => {
     setSeacrhQuery(value);
@@ -49,7 +49,9 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
                   className: "location-search-input",
                 })}
                 className="section-top__autocomplete-search-input"
-                defaultValue={addressValue ? addressValue : null}
+
+                // defaultValue={addressValue ? addressValue : null}
+
               />
             ) : (
               <input

@@ -19,8 +19,13 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
   const handleClose = () => {
     setAlert(false);
   };
+
   const handleDelete = () => {
-    const data = { action: "completed", id: alertData.id };
+    const data = {
+      action: "completed",
+      id: alertData.id,
+      type: alertData.type,
+    };
     dispatch(provider_job_accept_request(data));
     setAlert(false);
     setViewDetailPopup(false);

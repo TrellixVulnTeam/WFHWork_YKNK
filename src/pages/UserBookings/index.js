@@ -114,7 +114,21 @@ const Index = () => {
                     return (
                       <div className="event">
                         <p className="event__budge">
-                          {userBooking.job_post.length > 0
+                          {userBooking.type == "multiple"
+                            ? userBooking.status == "completed "
+                              ? "Completed "
+                              : userBooking.status == "open"
+                              ? "Pending"
+                              : userBooking.status == "accept"
+                              ? "Accepted"
+                              : userBooking.status == "active"
+                              ? userBooking.job_post.map((leads, i) =>
+                                  leads.provider_status == "completed"
+                                    ? "Completed"
+                                    : leads.provider_status
+                                )
+                              : ""
+                            : userBooking.job_post.length > 0
                             ? userBooking.job_post.map((leads, i) =>
                                 userBooking.type == "multiple" ? (
                                   userBooking.status == "open" ? (
@@ -142,9 +156,13 @@ const Index = () => {
                                   <p key={i}>Settled</p>
                                 ) : leads.provider_status == "accept" ? (
                                   "Accepted"
+
+                                ) : leads.provider_status == "completed" ? (
+                                  "Completed"
                                 ) : leads.provider_status == "completed" &&
-                                  leads.user_status == "completed" ? (
-                                  <p>Completed</p>
+                                  leads.user_status == "accept" ? (
+                                  <p>Accepted</p>
+
                                 ) : leads.provider_status == "Pending" ? (
                                   <p style={{ color: "red" }}>Pending</p>
                                 ) : (
@@ -299,7 +317,9 @@ const Index = () => {
                 ) : (
                   <div className="no-listing-box">
                     <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
-                    <p>No Booking History Found</p>
+
+                    <p>No History Found</p>
+
                   </div>
                 )}
               </div>

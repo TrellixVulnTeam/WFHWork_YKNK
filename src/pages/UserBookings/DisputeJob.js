@@ -54,13 +54,13 @@ const DisputeJob = ({ setDisputeAlert, disputeData }) => {
               fontSize: "24px",
               fontWeight: 500,
               marginBottom: "10px",
-              marginTop: "-35px",
+              marginTop: "-150px",
             }}
           >
             Raise A Dispute
           </p>
           <p>
-            <input
+            <textarea
               type="text"
               style={{
                 width: "100%",

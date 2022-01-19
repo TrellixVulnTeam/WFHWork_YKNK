@@ -25,7 +25,6 @@ const AutoCompleteSearch = () => {
   );
   const [currentLocation, setCurrentLocation] = useState(false);
   const [detectButton, setDetectButton] = useState();
-  console.log("detectButton", detectButton);
 
   const [searchQuery, setSeacrhQuery] = useState("");
 
@@ -106,16 +105,17 @@ const AutoCompleteSearch = () => {
 
   useEffect(() => {
     if (businessUpdateres) {
-      history.push("/tradie-my-profile");
       toast.success(businessUpdateres, {
         position: "bottom-left",
         autoClose: 2000,
         size: "small",
       });
+      setTimeout(() => {
+        history.push("/tradie-my-profile");
+      }, 2000);
     }
-    setTimeout(() => {
-      dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
-    }, 1000);
+
+    dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
   }, [businessUpdateres]);
   return (
     <>

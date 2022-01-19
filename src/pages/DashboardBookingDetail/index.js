@@ -8,16 +8,21 @@ import StarSvg from "../../assets/icons/star.svg";
 import starActive from "../../assets/icons/starActive.svg";
 import { useParams } from "react-router-dom";
 import moment from "moment";
-
+import { IoMdCloudDone } from "react-icons/io";
+import { MdOutlineCancel } from "react-icons/md";
 import DeleteTradie from "./DeleteTradiePopup";
 import DeleteJobPost from "./DeleteJobPost";
 import StarRatings from "react-star-ratings";
+import { toast } from "react-toastify";
+
 const Index = () => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { user_single_lead_request } = Actions;
-  const { singleLead } = useSelector((state) => state.directory);
+  const { user_single_lead_request, single_tradie_delete_request } = Actions;
+  const { singleLead, singleTradieRes } = useSelector(
+    (state) => state.directory
+  );
   const [deletePopup, setDeletePopup] = useState(false);
   const [deleteJobPopup, setDeleteJobPopup] = useState(false);
   const [deleteJobData, setDeleteJobData] = useState("");
@@ -29,6 +34,21 @@ const Index = () => {
     type: "",
     action: "",
   });
+  useEffect(() => {
+    if (singleTradieRes) {
+      if (singleTradieRes.success == 1) {
+        toast.success(singleTradieRes.message, {
+          position: "bottom-left",
+          autoClose: 2000,
+          size: "small",
+        });
+        history.push("/user-bookings");
+      }
+    }
+    setTimeout(() => {
+      dispatch({ type: "SINGLE_TRADIE_DELETE_SUCCESS", payload: "" });
+    }, 1000);
+  }, [singleTradieRes]);
 
   useEffect(() => {
     dispatch(user_single_lead_request({ jobid: id }));
@@ -87,7 +107,25 @@ const Index = () => {
     setDeleteJobData(job_id);
     setDeleteJobPopup(true);
   };
-  console.log("tradeDeleteData ", tradeDeleteData);
+  const acceptProvider = (data) => {
+    const acceptData = {
+      id: data?.job_post_id,
+      action: "accept",
+      type: data?.type,
+      pid: data?.provider_id,
+    };
+    dispatch(single_tradie_delete_request(acceptData));
+  };
+  const rejectProvider = (data) => {
+    const acceptData = {
+      id: data.job_post_id,
+      action: "reject",
+      type: data.type,
+      pid: data.provider_id,
+    };
+    dispatch(single_tradie_delete_request(acceptData));
+  };
+
   return (
     <div>
       <Header />
@@ -110,12 +148,22 @@ const Index = () => {
                     return (
                       <>
                         <div className="booking_status">
-                          {singleBooking.job_post.length > 0
+                          {singleBooking.type == "multiple"
+                            ? singleBooking.status == "completed "
+                              ? "Completed "
+                              : singleBooking.status == "open"
+                              ? "Pending"
+                              : singleBooking.status == "accept"
+                              ? "Accepted"
+                              : singleBooking.status == "active"
+                              ? "Accepted"
+                              : ""
+                            : singleBooking.job_post.length > 0
                             ? singleBooking.job_post.map((leads, i) =>
                                 leads.provider_status == "reject" ? (
                                   <p key={i}>Settled</p>
                                 ) : leads.provider_status == "accept" ? (
-                                  "Accept"
+                                  "Accepted"
                                 ) : leads.provider_status == "completed" ? (
                                   "Completed"
                                 ) : (
@@ -199,7 +247,6 @@ const Index = () => {
                               </div>
                               <div className="list-box_detail">
                                 <h3>{singleTradie.full_name}</h3>
-
                                 <div className="list-box_detail_img">
                                   <StarRatings
                                     rating={
@@ -218,6 +265,34 @@ const Index = () => {
                                 </div>
                                 {/* <p>Review: {singleTradie.review}</p> */}
                                 <p>{singleBooking.service_name}</p>
+                                {
+                                  (singleBooking.type = "multiple" ? (
+                                    singleTradie.provider_status == "accept" ? (
+                                      singleTradie.user_status == "accept" ? (
+                                        ""
+                                      ) : (
+                                        <>
+                                          {console.log("S :", singleTradie)}{" "}
+                                          <IoMdCloudDone
+                                            size={22}
+                                            style={{ color: "green" }}
+                                            onClick={(e) =>
+                                              acceptProvider(singleTradie)
+                                            }
+                                          />
+                                          {"  "} &nbsp;
+                                          <MdOutlineCancel
+                                            size={22}
+                                            style={{ color: "red" }}
+                                            onClick={() =>
+                                              rejectProvider(singleTradie)
+                                            }
+                                          />{" "}
+                                        </>
+                                      )
+                                    ) : null
+                                  ) : null)
+                                }
                                 {/* <button
                                   style={{ cursor: "pointer" }}
                                   onClick={() => {

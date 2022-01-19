@@ -60,7 +60,9 @@ const Index = () => {
         </div>
       </section>
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.fullname  ? (
+
+      {userInfo?.fullname  ? (
+
         ""
       ) : (
         <section className="section--register-tradie">

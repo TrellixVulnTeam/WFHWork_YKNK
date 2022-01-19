@@ -157,7 +157,7 @@ const Index = () => {
             </nav>
             <h3 className="section__title sign-up__title">Sign Up</h3>
             <p className="sign-up__description">
-              Welcome, Please sign up to continue.
+              Welcome, We are excited to have you onboard. Please sign up to continue.
             </p>
             <div className="sign-up-form">
               <div className="sign-up-form__navigation">

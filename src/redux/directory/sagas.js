@@ -192,7 +192,7 @@ function* single_tradie_delete_service_Saga(action) {
 
     yield put({
       type: types.SINGLE_TRADIE_DELETE_SUCCESS,
-      payload: result.data.data.data,
+      payload: result.data.data,
     });
     yield put({
       type: types.SINGLE_TRADIE_DELETE_RESET,
@@ -365,6 +365,7 @@ function* provider_leads_Saga() {
     let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
     const result = yield call(api.provider_leads_Service, userInfo);
+    
 
     yield put({
       type: types.PROVIDER_LEADS_SUCCESS,

@@ -29,11 +29,11 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
 
   const accepted = (alertData, e) => {
     e.preventDefault();
-    const data = { action: "accept", id: alertData };
+    const data = { action: "accept", id: alertData?.id, type: alertData.type };
     dispatch(provider_job_accept_request(data));
     localStorage.setItem("provideLeadAction", JSON.stringify("accept"));
   };
- 
+
   useEffect(() => {
     if (providerJobAccept.success == 1) {
       toast.success(providerJobAccept.message, {
@@ -126,7 +126,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
               type="submit"
               className="btn-primary accept"
               onClick={(e) => {
-                accepted(viewData.id, e);
+                accepted(viewData, e);
               }}
             >
               Accept

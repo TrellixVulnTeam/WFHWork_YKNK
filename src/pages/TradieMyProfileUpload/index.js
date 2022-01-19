@@ -21,7 +21,9 @@ const Index = () => {
     Image_Upload_Action,
     Image_list_Delete_Action,
   } = Actions;
-  const { businessUpdateres } = useSelector((state) => state.auth);
+  const { businessUpdateres, imgUpdateres } = useSelector(
+    (state) => state.auth
+  );
   const { userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -60,16 +62,17 @@ const Index = () => {
 
   useEffect(() => {
     if (businessUpdateres) {
-      history.push("/tradie-additional-services");
       toast.success(businessUpdateres, {
         position: "bottom-left",
         autoClose: 2000,
         size: "small",
       });
+      setTimeout(() => {
+        history.push("/tradie-additional-services");
+      }, 2000);
     }
-    setTimeout(() => {
-      dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
-    }, 1000);
+
+    dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
   }, [businessUpdateres]);
   return (
     <div>
@@ -148,26 +151,26 @@ const Index = () => {
       {/* {userData.access === "provider" ? (
         ""
       ) : ( */}
-        <section className="section section--left">
-          <div className="professional-tradie">
-            <div className="professional-tradie__description">
-              <h3 className="professional-tradie__title">
-                Are you a Professional Tradie?
-              </h3>
-              <p>
-                If you would like to be part of our Tradie community and are
-                ready to meet new clients today please continue so we can
-                welcome you onboard.
-              </p>
-              <Link to="/about-us" className="btn-primary">
-                Learn More
-              </Link>
-            </div>
-            <div className="professional-tradie__image">
-              <img src={tradie_my_profile_2} alt="" />
-            </div>
+      <section className="section section--left">
+        <div className="professional-tradie">
+          <div className="professional-tradie__description">
+            <h3 className="professional-tradie__title">
+              Are you a Professional Tradie?
+            </h3>
+            <p>
+              If you would like to be part of our Tradie community and are ready
+              to meet new clients today please continue so we can welcome you
+              onboard.
+            </p>
+            <Link to="/about-us" className="btn-primary">
+              Learn More
+            </Link>
           </div>
-        </section>
+          <div className="professional-tradie__image">
+            <img src={tradie_my_profile_2} alt="" />
+          </div>
+        </div>
+      </section>
       {/* )} */}
       <Footer />
     </div>
