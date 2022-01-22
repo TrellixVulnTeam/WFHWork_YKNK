@@ -12,7 +12,8 @@ import tradie_directory_1 from "../../assets/icons/section-top-directory-before.
 const Index = () => {
   const [termsData, setTerm] = useState([]);
   const { userData } = useSelector((state) => state.directory);
-
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+  
   useEffect(() => {
     axios
       .get("https://api.tapatradie.com/backend/v2/pages/termsandconditions")
@@ -25,7 +26,7 @@ const Index = () => {
 
       {/* <!-- My Leads --> */}
       <section className="directory-top-section privacypolicy">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -36,9 +37,9 @@ const Index = () => {
         <span>{parse(`${termsData?.content}`)}</span>
       </section>
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section className="section section--left">
           <div className="professional-tradie">
             <div className="professional-tradie__description">
@@ -59,7 +60,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+      )}
 
       <Footer />
     </div>

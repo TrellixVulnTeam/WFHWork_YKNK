@@ -25,7 +25,7 @@ const CategoryInfo = ({ fullName, serviceName, picture, id, about }) => {
         <img
           src={
             picture
-              ? `https://api.tapatradie.com/uploads/` + picture
+              ? `https://api.tapatradie.com/profile/${id}/` + picture
               : tradie_directory_3
           }
           alt="no image"

@@ -7,6 +7,7 @@
   &__image {
     @include squire(16rem);
     flex-shrink: 0;
+    margin-right: 10px;
     flex-grow: 0;
     border-radius: 50%;
     overflow: hidden;
@@ -88,14 +89,15 @@
     align-items: center;
     color: inherit;
     text-decoration: none;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    margin-right: 10px;
   }
 
   &__address {
   }
   &__tel {
     white-space: nowrap;
-    margin: 3rem 0;
+    margin: 3rem 0 0;
     @include tablet {
       margin-right: 0;
       margin-left: 0;
@@ -222,10 +224,15 @@
       margin-right: -2rem;
       & > div {
         @include squire(17.7rem);
-        margin-right: 2rem;
-        margin-bottom: 2rem;
+        margin: auto auto 15px;
+        @include tablet {
+          width: 12.7rem;
+    height: 12.7rem;
+    float: left;
+        }
         @include phone {
-          @include squire(14.7rem);
+          width: 100%;
+          height: 100%;
         }
         img {
           @include squire(100%);
@@ -296,6 +303,10 @@
           background-size: 1.5rem 1.5rem;
           left: 0.7rem;
           top: 2rem;
+
+          @include tablet {
+            top: 2.5rem;
+          } 
         }
       }
       &:not(:last-child) { 
@@ -308,4 +319,25 @@
 
 .additional-service-information{
   width: 100% !important;
+}
+button.close-btn {
+  float: right;
+  margin-bottom: 10px;
+  background: linear-gradient(96.33deg, #DB5B1B 0%, #EC9422 109.53%, #EC9422 109.53%);
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.ReactModal__Content{
+  width: 50%;
+  height: 100%;
+  @include tablet {
+    width: 90%;
+  } 
+  img{
+    width: 100%;
+  }
+  
 }

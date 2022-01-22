@@ -25,7 +25,7 @@ const Index = () => {
   );
   const { house_no, street, pincode, country, state, city } = businessData;
   const { business_name, license_number, working_radius } = userData;
-
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const [businessName, setBusinessName] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
@@ -89,7 +89,25 @@ const Index = () => {
       workingRadius,
       PinCode,
     };
-    dispatch(Get_Business_Details_Update_Action(makeData));
+    if (
+      businessName &&
+      licenseNumber &&
+      streetAddress &&
+      houseNo &&
+      countryAdress &&
+      cityAdress &&
+      stateAdress &&
+      workingRadius &&
+      PinCode
+    ) {
+      dispatch(Get_Business_Details_Update_Action(makeData));
+    } else {
+      toast.error("Please fill all the field", {
+        position: "bottom-left",
+        autoClose: 1000,
+        size: "small",
+      });
+    }
   };
 
   useEffect(() => {
@@ -106,13 +124,14 @@ const Index = () => {
 
     dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
   }, [businessUpdateres]);
+
   return (
     <div>
       <Header />
 
       {/* <!-- My Profile--> */}
       <section className="directory-top-section section-top--tradie-my-profile">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -149,14 +168,13 @@ const Index = () => {
             <label>Business Address</label>
             <div className="input-group">
               <input
-              className="streetaddress-input"
                 type="text"
                 placeholder="Street"
                 value={streetAddress}
                 onChange={(e) => {
                   setStreetAddress(e.target.value);
                 }}
-                
+                style={{ width: "93%" }}
               />
               {/* <PlacesAutocomplete /> from useautocomplete new pckg */}
               {/* <AutoPlaceComplete /> old packged used in home page */}
@@ -200,9 +218,6 @@ const Index = () => {
                 }}
               />
             </div>
-
-            <label className="set-work">
-
             <div className="input-group">
               <input
                 type="text"
@@ -215,9 +230,9 @@ const Index = () => {
               />
             </div>
             <label>
-
               Set Working Radius{"      "}
-             <span className="working-radius"> {`${workingRadius}Km`}</span>
+              {/* {`${workingRadius}Km`} */}
+              <span className="working-radius"> {`${workingRadius}Km`}</span>
             </label>
             <div className="input-group">
               <input
@@ -252,30 +267,30 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section class="section section--left">
-        <div class="professional-tradie">
-          <div class="professional-tradie__description">
-            <h3 class="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" class="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section class="section section--left">
+          <div class="professional-tradie">
+            <div class="professional-tradie__description">
+              <h3 class="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" class="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div class="professional-tradie__image">
+              <img src={business_details_2} alt="" />
+            </div>
           </div>
-          <div class="professional-tradie__image">
-            <img src={business_details_2} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
 
       <Footer />
     </div>

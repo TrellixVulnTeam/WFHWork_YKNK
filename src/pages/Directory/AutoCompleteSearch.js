@@ -43,14 +43,14 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
 
-            <input
+            {/* <input
               {...getInputProps({
                 placeholder: "Address",
                 className: "location-search-input",
               })}
               className="section-top__autocomplete-search-input"
             //   value={addressValue ? addressValue : null}
-            />
+            /> */}
 
             {addressValue ? (
               <input

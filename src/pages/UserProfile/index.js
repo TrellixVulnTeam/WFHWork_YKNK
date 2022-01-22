@@ -49,7 +49,7 @@ const Index = () => {
             <img
               src={
                 profile_pic
-                  ? `https://api.tapatradie.com/uploads/` + profile_pic
+                  ? `https://api.tapatradie.com/profile/${id}/` + profile_pic
                   : user_profile_1
               }
               alt=""
@@ -63,10 +63,11 @@ const Index = () => {
 
           <h4 className="tradie-profile__name">
             {full_name}
-            <Link to="/user-update-profile">
+           
+          </h4>
+          <Link to="/user-update-profile">
               <span>Edit profile</span>
             </Link>
-          </h4>
           <div>
             <p className="tradie-profile__address">
               <img

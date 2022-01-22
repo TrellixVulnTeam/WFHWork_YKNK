@@ -22,7 +22,9 @@
   }
 
   &__back {
-    position: relative;
+    position: absolute;
+    left: 10px;
+    top: 10px;
     &::before {
       content: "<";
       margin-right: 0.5rem;

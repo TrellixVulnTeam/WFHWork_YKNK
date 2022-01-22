@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 
 const Index = () => {
   const { userData } = useSelector((state) => state.auth);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   return (
     <div>
       <Header />
@@ -140,7 +141,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{  height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -154,7 +155,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://www.freeiconspng.com/uploads/ios-png-6.png"
-                style={{  height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
           </div>
@@ -194,9 +195,9 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section className="section section--left">
           <div className="professional-tradie">
             <div className="professional-tradie__description">
@@ -217,7 +218,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+      )}
 
       <Footer />
     </div>

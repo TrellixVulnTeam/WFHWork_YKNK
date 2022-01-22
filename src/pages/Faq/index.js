@@ -12,6 +12,7 @@ const Index = () => {
   const [changeToggle, setChangeToggle] = useState("1");
   const [faqData, setFaqData] = useState([]);
   const { userData } = useSelector((state) => state.auth);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
   useEffect(() => {
     let coll = document.getElementsByClassName("collapsible");
@@ -112,7 +113,7 @@ const Index = () => {
       return (
         <>
           <h4 class="collapsible">Rating & Reviews</h4>
-      
+
           <div class="content">
             {faqData.map((val, i) => {
               if (val.faq_category == 4) {
@@ -255,30 +256,30 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={faq_2} alt="" loading="lazy" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={faq_2} alt="" loading="lazy" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
 
       <Footer />
     </div>

@@ -134,7 +134,8 @@
         margin-bottom: 1.5rem;
       }
       .booking-section1_inner_row {
-        display: flex;
+        display: inline-block;
+        width: 100%;
         flex-wrap: wrap;
         .booking-section1_col3 {
           // width: 32%;
@@ -145,6 +146,8 @@
             background: #fff;
             border-radius: 0.25rem;
             padding: 16px;
+            margin-left: 20px;
+            position: relative;
             display: -webkit-box;
             display: flex;
             -webkit-box-align: start;
@@ -153,6 +156,7 @@
             justify-content: flex-start;
             margin-bottom: 30px;
             width: 253px;
+            float: left;
             .list-box_img_sec {
               text-align: center;
               .list-box_img {
@@ -258,4 +262,9 @@
 }
 .booking-section1_col2 {
   margin-left: 260px;
+}
+.user-profile {
+  a {
+    color: #000;
+  }
 }

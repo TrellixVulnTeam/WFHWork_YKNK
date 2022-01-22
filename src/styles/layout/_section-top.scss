@@ -367,15 +367,41 @@ background-size: cover;
   padding-bottom: 0 !important;
 }
 
+.residential-commercial  {
+  .on {
+    padding: 1rem 1.3rem !important;
+    border: 0.25px solid #000000 !important;
+    color: #000000 !important;
+    cursor: pointer;
+  }
+}
 // Responsive Css
 @media screen and (max-width: 1200px) {
+  .section {
+    padding: 0 20px;
+}
 .location-srch{
   width: 100%;
   margin-bottom: 10px;
 }
+.residential-btn {
+  width: 200px !important;
+}
 .header {
   padding: 30px 20px;
 }
+.section-top__title-before {
+  left: 13rem;
+}
+ .user-profile {
+  .tradie-profile__name {
+    a {
+      position: absolute;
+      right: 0;
+    }
+  }
+ }
+ 
 }
 @media screen and (max-width: 992px) {
   .section-top__title {
@@ -384,6 +410,14 @@ background-size: cover;
     margin: auto;
     text-align: center;
 }
+.user-profile {
+  .tradie-profile__name {
+    a {
+    position: absolute;
+    right: 20px;
+  }
+  }
+ }
 .articles-slider-section{
   padding: 50px 0;
 }
@@ -426,9 +460,27 @@ background-size: cover;
     font-size: 3.2rem;
   }
 }
-
+.about-section-top {
+  .section-top__title-after{
+    right: 60%;
+  }
+}
 }
 @media screen and (max-width: 767px) {
+  .event { 
+    text-align: left;
+  }
+  .user-profile .tradie-profile__name a {
+    position: absolute;
+    right: 30px;
+    top: 21px;
+}
+.tradie-profile__name{
+  position: relative;
+}
+  li.nav__item {
+    width: 100%;
+}
   .professional-tradie__title {
     font-size: 31px;
     line-height: 44px;
@@ -442,7 +494,7 @@ background-size: cover;
     width: 80%;
 } 
 .nav__menu{
-  .nav__item:not(:last-child){
+  .nav__item{
     margin: 10px;
   }
 }
@@ -454,8 +506,8 @@ background-size: cover;
 }
 .search-form__address svg {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 4px;
+  top: 15px;
 }
 input.section-top__autocomplete-search-input {
   background: transparent;
@@ -482,6 +534,11 @@ input.section-top__autocomplete-search-input {
   .search-form{
     width: 360px !important;
   } 
+  .calender__back {
+    position: absolute;
+    left: 10px;
+    top: 0 !important;
+}
   .section-top__title {
     font-size: 37px !important;
 }
@@ -489,7 +546,7 @@ input.section-top__autocomplete-search-input {
     display: block;
 }
 .search-form__address label { 
-  top: 80px;
+  top: 15px;
 }
 .booking-section1 {
   .booking-section1_row{
@@ -529,12 +586,15 @@ input.section-top__autocomplete-search-input {
 }
 .list-box_online{
   position: absolute !important;
-  top: 10px;
+  bottom: 10px;
   right: 10px;
 }
+.event__when-where {
+  font-size: 13px;
 }
-@media only screen and (max-width: 575px) {
-  
+.event { 
+text-align: left;
+}
 }
 .professional-tradie{
   @include phone {
@@ -542,11 +602,20 @@ input.section-top__autocomplete-search-input {
   }
 }
 @media only screen and (max-width: 440px) {
+  .event__when-where {
+    font-size: 18px;
+    text-align: center;
+}
+
+
   .section-top__title {
     font-size: 52px;
     width: 100%;
     margin: auto;
 } 
+.section-top__title-before {
+  left: 30px;
+}
 }
 
 .text-left{

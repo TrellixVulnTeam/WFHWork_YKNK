@@ -155,7 +155,7 @@ const AutoCompleteSearch = () => {
           const res = await axios.get(url);
           // console.log("res",res);
           SetFulladdress(res.data.results)
-          console.log("res",res.data.results);
+        
       }
     
     

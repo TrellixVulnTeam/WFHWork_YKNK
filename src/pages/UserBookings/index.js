@@ -13,7 +13,6 @@ import RateTradie from "./RateTradie";
 import DisputeJob from "./DisputeJob";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
 
-
 const Index = () => {
   const dispatch = useDispatch();
 
@@ -28,6 +27,7 @@ const Index = () => {
     user_leads_history_request,
   } = Actions;
   const [tabSelect, setTabSelect] = useState("current");
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const [alert, setAlert] = useState(false);
   const [rateAlert, setRateAlert] = useState(false);
   const [disputeAlert, setDisputeAlert] = useState(false);
@@ -40,6 +40,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(user_leads_request({ lead_type: "new" }));
     dispatch(user_leads_history_request({ lead_type: "history" }));
+    dispatch({ type: "SINGLE_TRADIE_DELETE_SUCCESS", payload: "" });
   }, [reviewRes, singleTradieRes, providerJobAccept, disputeRes]);
 
   const singleTradie = (id) => {
@@ -61,15 +62,14 @@ const Index = () => {
     setRateData(viewData);
     setRateAlert(true);
   };
- 
-  
+
   return (
     <div>
       <Header />
 
       {/* <!-- My Bookings --> */}
       <section className="directory-top-section section-top--calender">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -110,61 +110,71 @@ const Index = () => {
             </nav>
             {tabSelect === "current" ? (
               <div className="calender__events">
-                {Object.keys(userLeads).length>0 ? (
+                {Object.keys(userLeads).length > 0 ? (
                   userLeads.map((userBooking) => {
                     return (
                       <div className="event">
                         <p className="event__budge">
-                          {userBooking.type == "multiple"
-                            ? userBooking.status == "completed "
-                              ? "Completed "
-                              : userBooking.status == "open"
-                              ? "Pending"
-                              : userBooking.status == "accept"
-                              ? "Accepted"
-                              : userBooking.status == "active"
-                              ? userBooking.job_post.map((leads, i) =>
-                                  leads.provider_status == "completed"
-                                    ? "Completed"
-                                    : leads.provider_status
-                                )
-                              : ""
-                            : userBooking.job_post.length > 0
-                            ? userBooking.job_post.map((leads, i) =>
-                                userBooking.dispute == 1 ? (
-                                  leads.user_status == "completed" ? (
-                                    <p>Completed</p>
-                                  ) : (
-                                    "Disputed"
-                                  )
-                                ) : leads.provider_status == "reject" ? (
-                                  <p key={i}>Settled</p>
-                                ) : leads.provider_status == "accept" ? (
-
-                                  "Accept"
-                                ) : leads.provider_status == "completed" ? (
+                          {userBooking.type == "multiple" ? (
+                            userBooking.status == "completed " ? (
+                              <p>Completed</p>
+                            ) : userBooking.status == "open" ? (
+                              <p className="pending-btn">Pending</p>
+                            ) : userBooking.status == "accept" ? (
+                              "Accepted"
+                            ) : userBooking.status == "active" ? (
+                              userBooking.job_post.map((leads, i) =>
+                                leads.provider_status == "completed" ? (
                                   <p>Completed</p>
-                                ) : leads.user_status == "completed" ? (
-                                  "Completed"
-                                ) : leads.provider_status == "pending" ? (
-                                  <p>Pending</p>
-
-                                  "Accepted"
-
-                                ) : leads.provider_status == "completed" ? (
-                                  "Completed"
-                                ) : leads.provider_status == "completed" &&
-                                  leads.user_status == "accept" ? (
-                                  <p>Accepted</p>
-
-                                ) : leads.provider_status == "Pending" ? (
-                                  <p style={{ color: "red" }}>Pending</p>
-
                                 ) : (
-                                  "Pending"
+                                  leads.provider_status
                                 )
                               )
-                            : ""}
+                            ) : (
+                              ""
+                            )
+                          ) : userBooking.job_post.length > 0 ? (
+                            userBooking.job_post.map((leads, i) =>
+                              userBooking.type == "multiple" ? (
+                                userBooking.status == "open" ? (
+                                  <p className="pending-btn">Pending</p>
+                                ) : leads.provider_status == "reject" ? (
+                                  <p key={i}>Settled</p>
+                                ) : leads.provider_status == "accept" &&
+                                  leads.user_status == "accept" ? (
+                                  "Accepted"
+                                ) : leads.provider_status == "completed" &&
+                                  leads.user_status == "completed" ? (
+                                  <p>Completed</p>
+                                ) : leads.provider_status == "Pending" ? (
+                                  <p className="pending-btn">Pending</p>
+                                ) : (
+                                  <p className="pending-btn">Pending</p>
+                                )
+                              ) : userBooking.dispute == 1 ? (
+                                leads.user_status == "completed" ? (
+                                  <p>Completed</p>
+                                ) : (
+                                  "Disputed"
+                                )
+                              ) : leads.provider_status == "reject" ? (
+                                <p key={i}>Settled</p>
+                              ) : leads.provider_status == "accept" ? (
+                                "Accepted"
+                              ) : leads.provider_status == "completed" ? (
+                                "Completed"
+                              ) : leads.provider_status == "completed" &&
+                                leads.user_status == "accept" ? (
+                                <p>Accepted</p>
+                              ) : leads.provider_status == "Pending" ? (
+                                <p className="pending-btn">Pending</p>
+                              ) : (
+                                <p className="pending-btn">Pending</p>
+                              )
+                            )
+                          ) : (
+                            ""
+                          )}
                         </p>
                         <br />
                         <div className="event__what">
@@ -224,7 +234,7 @@ const Index = () => {
                   })
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                     <p>No Booking Found</p>
                   </div>
                 )}
@@ -311,11 +321,9 @@ const Index = () => {
                   })
                 ) : (
                   <div className="no-listing-box">
-
                     <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
 
                     <p>No History Found</p>
-
                   </div>
                 )}
               </div>
@@ -335,26 +343,30 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      {userInfo?.access == "provider" ? (
+        ""
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={user_bookings__2} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={user_bookings__2} alt="" />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Footer />
     </div>

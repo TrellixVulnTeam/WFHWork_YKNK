@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import tradie_directory_1 from "../../assets/icons/section-top-directory-before.svg";
 
-
 const Index = () => {
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const { userData } = useSelector((state) => state.auth);
   return (
     <div>
@@ -19,7 +19,7 @@ const Index = () => {
 
       {/* <!-- Frequently Asked Questions --> */}
       <section className="directory-top-section section-top--membership">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -155,9 +155,9 @@ const Index = () => {
         </div>
       </section>
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section className="section section--left">
           <div className="professional-tradie">
             <div className="professional-tradie__description">
@@ -178,7 +178,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+      )}
 
       <Footer />
     </div>

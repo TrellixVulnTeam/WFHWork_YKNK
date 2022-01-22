@@ -29,7 +29,10 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
     dispatch(provider_job_accept_request(data));
     setAlert(false);
     setViewDetailPopup(false);
-    localStorage.setItem("provideLeadAction", JSON.stringify("completed"));
+    localStorage.setItem(
+      "provideLeadAction",
+      JSON.stringify({ action: "completed", id: alertData.id })
+    );
   };
 
   return (
@@ -38,7 +41,7 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
         <form className="popup__form">
           <h2>
             <img
-              src="http://78.46.210.25/tapatradieweb/assets/images/confirmmation-icon.png"
+              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.png"
               alt=""
             />
             <span

@@ -19,8 +19,26 @@ import StarActive from "../../assets/icons/starActive.svg";
 import * as Actions from "../../redux/directory/action";
 import { Link, useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
+import Modal from "react-modal";
 
 const Index = () => {
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [imgData, setImagData] = useState();
+
+  function openModal(data) {
+    setIsOpen(true);
+    setImagData(data);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -114,6 +132,17 @@ const Index = () => {
       }
     });
   }
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
   return (
     <div>
@@ -127,16 +156,25 @@ const Index = () => {
       </section>
 
       <section className="section section--tradie-profile">
-        {getProviderProfile &&
+        {getProviderProfile ? (
           getProviderProfile?.map((tradiePersonalInfo, i) => {
             return (
               <>
                 <div className="tradie-profile tradie-profile--public" key={i}>
                   <div className="tradie-profile__image">
                     <img
+                      onClick={() =>
+                        openModal(
+                          tradiePersonalInfo?.user_data?.profile_pic
+                            ? `https://api.tapatradie.com/profile/${tradiePersonalInfo?.user_data?.id}/` +
+                                tradiePersonalInfo?.user_data?.profile_pic
+                            : tradie_public_profile_1
+                        )
+                      }
                       src={
                         tradiePersonalInfo?.user_data?.profile_pic
-                          ? `https://api.tapatradie.com/uploads/` + tradiePersonalInfo?.user_data?.profile_pic
+                          ? `https://api.tapatradie.com/profile/${tradiePersonalInfo?.user_data?.id}/` +
+                            tradiePersonalInfo?.user_data?.profile_pic
                           : tradie_public_profile_1
                       }
                       alt=""
@@ -144,7 +182,7 @@ const Index = () => {
                   </div>
                   <div>
                     <div>
-                      <h4 className="tradie-profile__name">
+                      <h4 className="tradie-profile__name w-100 text-left">
                         {tradiePersonalInfo.user_data.full_name}
                       </h4>
                       <div
@@ -178,22 +216,6 @@ const Index = () => {
                           starSpacing="1px"
                           starDimension="17px"
                         />
-                        {/* )} */}
-                        <svg>
-                          {/* <use xlink:href="/assets/icons/sprite.svg#icon-star"></use> */}
-                        </svg>
-                        <svg>
-                          {/* <use xlink:href="/assets/icons/sprite.svg#icon-star"></use> */}
-                        </svg>
-                        <svg>
-                          {/* <use xlink:href="/assets/icons/sprite.svg#icon-star"></use> */}
-                        </svg>
-                        <svg>
-                          {/* <use xlink:href="/assets/icons/sprite.svg#icon-star"></use> */}
-                        </svg>
-                        <svg>
-                          {/* <use xlink:href="/assets/icons/sprite.svg#icon-star"></use> */}
-                        </svg>
                       </div>
                       <ul className="tradie-profile__specialties">
                         {tradiePersonalInfo?.services.map((serviceType, i) => {
@@ -268,7 +290,7 @@ const Index = () => {
                           to={{
                             pathname: "/tradie-request",
                             state: {
-                              id: id,
+                              id: [id],
                             },
                           }}
                         >
@@ -314,8 +336,14 @@ const Index = () => {
                           return (
                             <div>
                               <img
+                                onClick={() =>
+                                  openModal(
+                                    `https://api.tapatradie.com/gallery/${tradiePersonalInfo?.user_data?.id}/` +
+                                      galleryImage.image
+                                  )
+                                }
                                 src={
-                                  `https://api.tapatradie.com/uploads/` +
+                                  `https://api.tapatradie.com/gallery/${tradiePersonalInfo?.user_data?.id}/` +
                                   galleryImage.image
                                 }
                                 alt=""
@@ -329,15 +357,37 @@ const Index = () => {
                 </div>
               </>
             );
-          })}
+          })
+        ) : (
+          <center>
+            <img
+              src="https://i.pinimg.com/originals/43/c7/a0/43c7a0928088b901910ab187816c8f65.gif"
+              alt="avatar"
+              width={100}
+              height={100}
+            />
+          </center>
+        )}
       </section>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
+        <button className="close-btn" onClick={closeModal}>
+          close
+        </button>
+        <div className="img-show">
+          <img src={imgData} />
+        </div>
+      </Modal>
 
       {/* <!-- Register as a Tradie Today! --> */}
 
-
       {userInfo?.fullname ? (
-
-
         ""
       ) : (
         <section className="section--register-tradie">
@@ -348,9 +398,7 @@ const Index = () => {
               where you work and meet some amazing new clients.
             </p>
             <a href="/sign-up" role="button">
-
               Register Now
-
             </a>
           </div>
         </section>

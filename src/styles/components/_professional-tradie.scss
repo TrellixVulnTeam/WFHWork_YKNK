@@ -19,7 +19,7 @@
 	&__description {
 		flex-basis: 47%;
 		margin-top: $padding-main;
-		z-index: 1 !important;
+		// z-index: 1 !important;
 
 		@include phone {
 			margin-bottom: 4rem;

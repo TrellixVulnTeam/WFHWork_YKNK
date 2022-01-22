@@ -109,6 +109,12 @@ const Index = () => {
         autoClose: 2000,
         size: "small",
       });
+    } else if (searchFormData.searchQuery == "") {
+      toast.error("Please Select Service", {
+        // position: "bottom-left",
+        autoClose: 2000,
+        size: "small",
+      });
     } else {
       dispatch(search_trading_onClick_search_Action(searchFormData));
       setRedirectpPage(true);
@@ -166,50 +172,50 @@ const Index = () => {
           </svg>
         </div>
         <div className="section-heading">
-        <h2 className="section-top__title">
-          <span>Any Trade</span>, Anywhere, Anytime
-        </h2>
-        <form
-          className="search-form header-form text-left"
-          onSubmit={(evt) => evt.preventDefault()}
-          style={{ zIndex: 2 }}
-        >
-          <input
-            type="text"
-            value={searchTerm}
-            placeholder="What service do you need?"
-            className="search-form__service"
-            onChange={handleInputValueSet}
-          />
-          {isComponentVisible && modelOpen ? (
-            searchTerm?.length === 0 ? null : (
-              <div
-                ref={ref}
-                className="section-top__autocomplete-search-category"
-              >
-                {content4?.props?.children?.length === 0 ? (
-                  <span>No Search Found</span>
-                ) : null}
-                {content4}
-              </div>
-            )
-          ) : null}
-          <div className="search-form__address">
-            <label for="address">
-              <img src={icon_address} alt="search address" />
-            </label>
-            <AutoCompleteSearch
-              state={searchFormData}
-              setStateFunction={setSearchFormData}
+          <h2 className="section-top__title">
+            <span>Any Trade</span>, Anywhere, Anytime
+          </h2>
+          <form
+            className="search-form header-form text-left"
+            onSubmit={(evt) => evt.preventDefault()}
+            style={{ zIndex: 2 }}
+          >
+            <input
+              type="text"
+              value={searchTerm}
+              placeholder="What service do you need?"
+              className="search-form__service"
+              onChange={handleInputValueSet}
             />
-          </div>
-          <input
-            type="submit"
-            className=" btn-primary"
-            value="Search"
-            onClick={handleSubmit}
-          />
-        </form>
+            {isComponentVisible && modelOpen ? (
+              searchTerm?.length === 0 ? null : (
+                <div
+                  ref={ref}
+                  className="section-top__autocomplete-search-category"
+                >
+                  {content4?.props?.children?.length === 0 ? (
+                    <span>No Search Found</span>
+                  ) : null}
+                  {content4}
+                </div>
+              )
+            ) : null}
+            <div className="search-form__address">
+              <label for="address">
+                <img src={icon_address} alt="search address" />
+              </label>
+              <AutoCompleteSearch
+                state={searchFormData}
+                setStateFunction={setSearchFormData}
+              />
+            </div>
+            <input
+              type="submit"
+              className=" btn-primary"
+              value="Search"
+              onClick={handleSubmit}
+            />
+          </form>
         </div>
         <div className="section-top__after">
           <svg>
@@ -227,27 +233,21 @@ const Index = () => {
           alt=""
         />
 
-
-
-      {userInfo?.fullname ? (
-
-
-        ""
-      ) : (
-        <section className="section--register-tradie">
-          <div className="register-tradie">
-            <h4>Register as a Tradie Today!</h4>
-            <p>
-              List your business here, fill in your profile, control when and
-              where you work and meet some amazing new clients.
-            </p>
-            <Link to="/sign-up">Register Now</Link>
-          </div>
-        </section>
-      )}
+        {userInfo?.fullname ? (
+          ""
+        ) : (
+          <section className="section--register-tradie">
+            <div className="register-tradie">
+              <h4>Register as a Tradie Today!</h4>
+              <p>
+                List your business here, fill in your profile, control when and
+                where you work and meet some amazing new clients.
+              </p>
+              <Link to="/sign-up">Register Now</Link>
+            </div>
+          </section>
+        )}
       </section>
-
-    
 
       <section className="gallery" style={{ zIndex: 0 }}>
         <div>
@@ -491,9 +491,7 @@ const Index = () => {
                 Download
               </a>
               <img src={contact_us_7} />
-              <img
-                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" 
-              />
+              <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" />
             </div>
             <div style={{ marginTop: "12px" }}>
               <a
@@ -504,9 +502,7 @@ const Index = () => {
                 Download
               </a>
               <img src={contact_us_7} />
-              <img
-                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
-              />
+              <img src="https://www.freeiconspng.com/uploads/ios-png-6.png" />
             </div>
           </div>
           <div className="download-app__tradies">
@@ -521,9 +517,7 @@ const Index = () => {
                 Download
               </a>
               <img src={contact_us_10} />
-              <img
-                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" 
-              />
+              <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png" />
             </div>
             <div style={{ marginTop: "12px" }}>
               <a
@@ -534,39 +528,35 @@ const Index = () => {
                 Download
               </a>
               <img src={contact_us_10} />
-              <img
-                src="https://www.freeiconspng.com/uploads/ios-png-6.png"
-
-              />
+              <img src="https://www.freeiconspng.com/uploads/ios-png-6.png" />
             </div>
           </div>
         </div>
       </section>
-
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={professional_tradie} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={professional_tradie} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
       <Footer />
     </div>
   );

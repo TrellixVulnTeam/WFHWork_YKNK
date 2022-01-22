@@ -34,6 +34,7 @@ const Index = () => {
   const { userLeads, userLeadHistory } = useSelector(
     (state) => state.directory
   );
+
   const [tradeDeleteData, setTradeDeleteData] = useState({
     job_id: "",
     pid: "",
@@ -49,7 +50,7 @@ const Index = () => {
           autoClose: 2000,
           size: "small",
         });
-        history.push("/user-bookings");
+        history.push("/");
       }
     }
     setTimeout(() => {
@@ -62,8 +63,6 @@ const Index = () => {
     dispatch(user_leads_request({ lead_type: "new" }));
     dispatch(user_leads_history_request({ lead_type: "history" }));
   }, []);
-
-
 
   const selectedRadieType = (singleBooking) => {
     if (singleBooking == "residential,commercial")
@@ -155,14 +154,13 @@ const Index = () => {
                   </a>
                 </div>
                 {singleLead &&
-                  singleLead.map((singleBooking) => {
+                  singleLead?.map((singleBooking) => {
                     return (
                       <>
                         <div className="booking_status">
-                          {userLeads.map((res) =>
+                          {userLeads?.map((res) =>
                             res.id == singleBooking.id
-                              ?
-                               res.type == "multiple"
+                              ? res.type == "multiple"
                                 ? res.status == "completed"
                                   ? "Completed"
                                   : res.status == "open"
@@ -174,7 +172,13 @@ const Index = () => {
                                   : ""
                                 : res.job_post.length > 0
                                 ? res.job_post.map((leads, i) =>
-                                    leads.provider_status == "reject" ? (
+                                    res.dispute == 1 ? (
+                                      leads.user_status == "completed" ? (
+                                        <p>Completed</p>
+                                      ) : (
+                                        "Disputed"
+                                      )
+                                    ) : leads.provider_status == "reject" ? (
                                       <p key={i}>Settled</p>
                                     ) : leads.provider_status == "accept" ? (
                                       "Accepted"
@@ -188,7 +192,7 @@ const Index = () => {
                               : ""
                           )}
 
-                          {userLeadHistory.map((res) =>
+                          {userLeadHistory?.map((res) =>
                             res.id == singleBooking.id
                               ? res.type == "multiple"
                                 ? res.status == "completed"
@@ -202,7 +206,13 @@ const Index = () => {
                                   : "Pending"
                                 : res.job_post.length > 0
                                 ? res.job_post.map((leads, i) =>
-                                    leads.provider_status == "reject" ? (
+                                    res.dispute == 1 ? (
+                                      leads.user_status == "completed" ? (
+                                        <p>Completed</p>
+                                      ) : (
+                                        "Disputed"
+                                      )
+                                    ) : leads.provider_status == "reject" ? (
                                       <p key={i}>Settled</p>
                                     ) : leads.provider_status == "accept" ? (
                                       "Accepted"
@@ -240,27 +250,46 @@ const Index = () => {
                         <div className="booking_status_job_desc_list">
                           {singleBooking.detail}
                         </div>
-                    
+
                         <div className="booking_status_service_delete">
-                          {singleBooking.job_post.length <= 1
-                            ? singleBooking.job_post.map((singleTradie) =>
-                                singleTradie.provider_status == "accept" ? (
-                                  ""
-                                ) : singleTradie.provider_status ==
-                                  "completed" ? (
-                                  ""
-                                ) : (
-                                  <button
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                      handleDeleteJob(singleBooking.id);
-                                    }}
-                                  >
-                                    Delete This Job
-                                  </button>
-                                )
+                          {singleBooking?.job_post?.length <= 1 ? (
+                            singleBooking?.job_post?.map((singleTradie) =>
+                              singleTradie.provider_status == "accept" ? (
+                                ""
+                              ) : singleTradie.provider_status ==
+                                "completed" ? (
+                                ""
+                              ) : singleTradie.provider_status == "accept" &&
+                                singleTradie.user_status != "reject" ? (
+                                <button
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    handleDeleteJob(singleBooking.id);
+                                  }}
+                                >
+                                  Delete This Job
+                                </button>
+                              ) : (
+                                <button
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    handleDeleteJob(singleBooking.id);
+                                  }}
+                                >
+                                  Delete This Job
+                                </button>
                               )
-                            : ""}
+                            )
+                          ) : (
+                            <button
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                handleDeleteJob(singleBooking.id);
+                              }}
+                            >
+                              Delete This Job
+                            </button>
+                          )}
                         </div>
                       </>
                     );
@@ -271,8 +300,8 @@ const Index = () => {
               <h4>List All Tradie</h4>
               <div className="booking-section1_inner_row">
                 {singleLead &&
-                  singleLead.map((singleBooking) => {
-                    return singleBooking.job_post.map((singleTradie) => {
+                  singleLead?.map((singleBooking) => {
+                    return singleBooking?.job_post?.map((singleTradie) => {
                       return (
                         <>
                           <div className="booking-section1_col3">
@@ -283,14 +312,15 @@ const Index = () => {
                                     className="img1"
                                     src={
                                       singleTradie.profile_pic
-                                        ? `https://tat-images-dev.s3.ap-south-1.amazonaws.com/profile/${singleTradie.provider_id}/${singleTradie.profile_pic}`
+                                        ? `https://api.tapatradie.com/profile/${singleTradie.provider_id}/` +
+                                          singleTradie.profile_pic
                                         : "/static/media/user.8d49e377.png"
                                     }
                                     alt=""
                                   />
                                   <img
                                     className="img2"
-                                    src="http://78.46.210.25/tapatradieweb/assets/images/creator-icon.svg"
+                                    src="http://sample.jploftsolutions.in/tapImages/creator-icon.svg"
                                     alt=""
                                   />
                                 </div>

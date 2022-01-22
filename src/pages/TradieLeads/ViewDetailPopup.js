@@ -31,7 +31,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
     e.preventDefault();
     const data = { action: "accept", id: alertData?.id, type: alertData.type };
     dispatch(provider_job_accept_request(data));
-    localStorage.setItem("provideLeadAction", JSON.stringify("accept"));
+    localStorage.setItem("provideLeadAction", JSON.stringify({action: "accept", id: alertData?.id,}));
   };
 
   useEffect(() => {

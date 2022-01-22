@@ -189,7 +189,7 @@ const Index = () => {
 
 
 
-      {userInfo.fullname ? (
+      {userInfo?.fullname ? (
 
 
         ""

@@ -27,6 +27,7 @@ const Index = () => {
   const history = useHistory();
   const { userData } = useSelector((state) => state.auth);
   const { userUpdateRes } = useSelector((state) => state.auth);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const {
     full_name,
     email,
@@ -427,9 +428,9 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
       <section className="section section--left">
         <div className="professional-tradie">
           <div className="professional-tradie__description">
@@ -450,7 +451,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {/* )} */}
+      )} 
 
       <Footer />
     </div>

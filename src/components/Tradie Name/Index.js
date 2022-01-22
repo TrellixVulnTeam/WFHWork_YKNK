@@ -6,6 +6,7 @@ import tradie_review_1 from "../../assets/images/1601545174666_user-profile_2020
 import * as Actions from "../../redux/auth/action";
 import { useDispatch, useSelector } from "react-redux";
 import IconArrow from "../../assets/icons/icon-arrow.svg";
+import tradie_directory_3 from "../../assets/images/user.png";
 import StarRatings from "react-star-ratings";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,6 +45,7 @@ const Index = () => {
     id,
     profile_pic,
     rating,
+    submit_for_approval,
   } = userData;
   const { house_no, street, pincode, state } = businessData;
 
@@ -133,8 +135,8 @@ const Index = () => {
         <img
           src={
             profile_pic
-              ? `https://api.tapatradie.com/uploads/` + profile_pic
-              : tradie_review_1
+              ? `https://api.tapatradie.com/profile/${id}/` + profile_pic
+              : tradie_directory_3
           }
           alt=""
         />
@@ -154,9 +156,9 @@ const Index = () => {
           starDimension="17px"
         />
       </div>
-      <a href="/tradie-review" className="tradie-profile__link">
-        View Reviews{" "}
-      </a>
+      <Link to="/tradie-review" className="tradie-profile__link">
+        View Reviews
+      </Link>
       <p className="tradie-profile__text">
         {complete &&
         businesDone &&
@@ -224,16 +226,42 @@ const Index = () => {
       gallery.length > 0 &&
       services.length > 0 &&
       tradiaServiceLocation.length > 0 ? (
-        <a onClick={submitForApp} className="btn-primary">
-          Submit for approval
-        </a>
+        submit_for_approval == 1 ? (
+          ""
+        ) : submit_for_approval == 0 ? (
+          <a onClick={submitForApp} className="btn-primary">
+            Submit for approval
+          </a>
+        ) : submit_for_approval == 3 ? (
+          <button className="btn-primary" disabled={true}>
+            Submited for approval
+          </button>
+        ) : submit_for_approval == 2 ? (
+          <a onClick={submitForApp} className="btn-primary">
+            Re Submit for approval
+          </a>
+        ) : (
+          <button
+            onClick={submitForApp}
+            className="btn-primary"
+            disabled={true}
+          >
+            Submit for approval
+          </button>
+        )
       ) : (
         <a onClick={completAlert} className="btn-primary">
           Submit for approval
         </a>
       )}
       <a className="tradie-profile__link">
-        <Link to={"/tradie-public-profile/" + id}>View Profile</Link>
+        {complete && businesDone ? (
+          <Link to={"/tradie-public-profile/" + id}>View Profile</Link>
+        ) : (
+          <a onClick={completAlert} style={{ cursor: "pointer" }}>
+            View Profile
+          </a>
+        )}
       </a>
     </div>
   );

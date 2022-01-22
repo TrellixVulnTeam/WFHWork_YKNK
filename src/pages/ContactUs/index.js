@@ -53,11 +53,11 @@ const Index = () => {
         </h2>
       </section>
       <div
-          className="contact-us__map"
-          style={{ marginTop: "-5px", marginBottom: "15px" }}
-        >
-          <img src={contact_us_map} alt="" />
-        </div>
+        className="contact-us__map"
+        style={{ marginTop: "-5px", marginBottom: "15px" }}
+      >
+        <img src={contact_us_map} alt="" />
+      </div>
       {/* <!-- Get in touch --> */}
       <section className="contact-us section--left">
         <div className="contact-us__info">
@@ -82,7 +82,7 @@ const Index = () => {
                 type="text"
                 placeholder="Your Name"
                 {...register("full_name", {
-                  required: { value: true, message: " name is required" },
+                  required: { value: true, message: "Name is required" },
                   minLength: { value: 2, message: "Full name is required" },
                 })}
               />
@@ -108,7 +108,7 @@ const Index = () => {
                 type="text"
                 placeholder="Your Message"
                 {...register("message", {
-                  required: { value: true, message: "Full name is required" },
+                  required: { value: true, message: "Message is required" },
                   minLength: { value: 5, message: "short Text character" },
                 })}
               />
@@ -123,15 +123,11 @@ const Index = () => {
             </div>
           </form>
         </div>
-        
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
 
-
-      {userInfo.fullname ? (
-
-
+      {userInfo?.fullname ? (
         ""
       ) : (
         <section className="section--register-tradie">
@@ -169,7 +165,7 @@ const Index = () => {
               <img src={contact_us_7} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{ height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -183,7 +179,7 @@ const Index = () => {
               <img src={contact_us_7} />
               <img
                 src="https://www.freeiconspng.com/uploads/ios-png-6.png"
-                style={{ height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
           </div>
@@ -201,7 +197,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://cdn1.iconfinder.com/data/icons/logotypes/32/android-512.png"
-                style={{ height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
             <div style={{ marginTop: "12px" }}>
@@ -215,7 +211,7 @@ const Index = () => {
               <img src={contact_us_10} />
               <img
                 src="https://www.freeiconspng.com/uploads/ios-png-6.png"
-                style={{ height: "8rem", width: "8rem"}}
+                style={{ height: "8rem", width: "8rem" }}
               />
             </div>
           </div>
@@ -223,30 +219,30 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={contact_us_12} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={contact_us_12} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
 
       <Footer />
     </div>

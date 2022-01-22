@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 const Index = () => {
   const [privacyData, setPrivacy] = useState([]);
   const { userData } = useSelector((state) => state.directory);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
   useEffect(() => {
     axios
@@ -39,9 +40,9 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section className="section section--left">
           <div className="professional-tradie">
             <div className="professional-tradie__description">
@@ -62,7 +63,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+       )} 
 
       <Footer />
     </div>

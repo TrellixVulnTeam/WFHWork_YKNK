@@ -171,7 +171,7 @@ const Pop1 = () => {
                       src={
                         profile_pic === ""
                           ? Upload
-                          : `https://api.tapatradie.com/uploads/` + profile_pic
+                          : `https://api.tapatradie.com/profile/${id}/` + profile_pic
                       }
                     />
                   </label>

@@ -19,7 +19,7 @@ const DeleteJobPost = ({
   const handleDelete = () => {
     dispatch(user_job_delete_request({ job_id: deleteJobData }));
 
-    history.push("/user-bookings");
+    history.push("/");
   };
 
   return (
@@ -28,7 +28,7 @@ const DeleteJobPost = ({
         <form className="popup__form">
           <h2>
             <img
-              src="http://78.46.210.25/tapatradieweb/assets/images/confirmmation-icon.png"
+              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.pngg"
               alt=""
             />
             <span

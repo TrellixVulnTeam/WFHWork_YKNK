@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 const Index = () => {
   const { userData } = useSelector((state) => state.auth);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   return (
     <div>
       <Header />
@@ -79,9 +80,9 @@ const Index = () => {
         </div> */}
       </section>
 
-      {/* {userData.access === "provider" ? (
+      {userInfo.access === "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section class="section section--left">
           <div class="professional-tradie">
             <div class="professional-tradie__description">
@@ -102,7 +103,7 @@ const Index = () => {
             </div>
           </div>
         </section>
-      {/* )} */}
+     )}
       <Footer />
     </div>
   );

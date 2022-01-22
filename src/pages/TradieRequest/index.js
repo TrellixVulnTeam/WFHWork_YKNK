@@ -35,12 +35,12 @@ const Index = (props) => {
   });
   const serviceId = localStorage.getItem("tradiesearchCat");
   const SearchItem = JSON.parse(localStorage.getItem("tradiesearch"));
-
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const initialValues = {
     uid: "",
     title: "",
     detail: "",
-    tradie_id: tradieId.id,
+    tradie_id: tradieId?.id,
     service_id: serviceId,
     search: SearchItem.search,
     search_type: SearchItem.search,
@@ -220,7 +220,7 @@ const Index = (props) => {
                   </button>
                 </div>
                 <button type="submit" className="btn-primary">
-                  Next
+                  Submit
                 </button>
                 {/* </form> */}
               </Form>
@@ -230,9 +230,9 @@ const Index = (props) => {
       </section>
 
       {/* // <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
         <section className="section section--left">
           <div className="professional-tradie">
             <div className="professional-tradie__description">
@@ -253,8 +253,7 @@ const Index = (props) => {
             </div>
           </div>
         </section>
-      {/* )} */}
-
+      )}
       <Footer />
     </div>
   );

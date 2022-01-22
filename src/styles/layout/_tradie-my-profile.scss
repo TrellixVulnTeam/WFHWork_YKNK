@@ -46,11 +46,12 @@
     @include tablet {
       padding: 4rem 2rem;
     }
-    input{
+    input {
       width: 45%;
     }
-    select{
+    select {
       width: 45%;
+      height: 40px;
       @include breakpoint(1024) {
         width: 100%;
       }
@@ -71,7 +72,7 @@
         -webkit-print-color-adjust: exact;
         padding: 1.3rem;
         background: transparent;
-        width: 290px !important;
+        width: 290px;
         border: 1px solid #f1f2f2;
         margin-right: 15px;
         font-family: inherit;
@@ -93,13 +94,13 @@
     margin: 5px 5px;
     width: 45%;
     @include breakpoint(1024) {
-			margin:0 0 15px;
-		}
+      margin: 0 0 15px;
+    }
     @include breakpoint(1200) {
-			margin:0 0 15px;
-		}
-    
-	font-size: inherit;
+      margin: 0 0 15px;
+    }
+
+    font-size: inherit;
     @include phone {
       width: 100%;
     }
@@ -117,43 +118,43 @@
   &__countries-li > li {
   }
 }
-.country-section{
-  .css-b62m3t-container{
+.country-section {
+  .css-b62m3t-container {
     width: 45%;
     float: left;
     margin-right: 25px;
     @include breakpoint(1024) {
-			width: 100%;
-    float: left;
-    margin-right: 25px;
-    margin-bottom: 20px;
-		}
+      width: 100%;
+      float: left;
+      margin-right: 25px;
+      margin-bottom: 20px;
+    }
   }
-  input{
+  input {
     width: 45%;
   }
 }
-.residential-commercial{
-  button{
-    padding: 1rem 1.3rem !important;
-    border: 0.25px solid #000000 !important;
-    color: #000000 !important;  
+// .residential-commercial  {
+//   .active {
+//     padding: 1rem 1.3rem !important;
+//     border: 0.25px solid #000000 !important;
+//     color: #000000 !important;
+//     cursor: pointer;
+//   }
+// }
+.detect-location-btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+  width: auto !important;
+
+  img {
+    margin-right: 20px;
   }
 }
-.detect-location-btn{
-  display: flex;
-    align-items: center;
-    text-align: center;
-    margin: auto;
-    justify-content: center;
-    width: auto !important;
-
-
-    img{
-      margin-right: 20px;
-    }
-}
-.location-srch{
+.location-srch {
   float: left;
   margin-right: 15px;
   @include breakpoint(1024) {

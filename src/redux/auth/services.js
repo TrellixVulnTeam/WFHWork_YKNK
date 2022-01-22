@@ -68,13 +68,14 @@ export const otpLogin_Service = async (data, userInfo) => {
   return response;
 };
 export const facebookLogin_Service = async (data, userInfo) => {
-  const { facebook_id, tab } = data;
+  const { facebook_id, tab, name } = data;
   var fbloginData = {
     access_token: userInfo.access_token,
     device_id: userInfo.device_id,
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
     facebook_id: facebook_id,
+    name: name,
     role: tab,
   };
 
@@ -334,9 +335,9 @@ export const Gallary_Delete_Service = async (userInfo) => {
 export const Image_Upload_Serivce = async (data, userInfo) => {
   let formData = new FormData(); //formdata object
   for (let i = 0; i < data.length; i++) {
-    formData.append("image", data[0]);
+    formData.append("image", data[i]);
   }
-
+  console.log("Data Img :", data.length);
   formData.append("access_token", userInfo.access_token); //append the values with key, value pair
   formData.append("api_key", userInfo.api_key);
   formData.append("device_id", userInfo.device_id);

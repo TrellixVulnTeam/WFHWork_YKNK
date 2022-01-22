@@ -16,6 +16,7 @@ import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
 
 const Index = () => {
   const { userData } = useSelector((state) => state.auth);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   return (
     <div>
       <Header />
@@ -42,9 +43,9 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
       <section className="section section--left">
         <div className="professional-tradie">
           <div className="professional-tradie__description">
@@ -65,7 +66,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {/* )} */}
+     )} 
 
       <Footer />
     </div>

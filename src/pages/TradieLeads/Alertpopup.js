@@ -24,7 +24,10 @@ const AlertLead = ({ setAlert, alertData, setViewDetailPopup }) => {
     dispatch(provider_job_accept_request(data));
     setAlert(false);
     setViewDetailPopup(false);
-    localStorage.setItem("provideLeadAction", JSON.stringify("reject"));
+    localStorage.setItem(
+      "provideLeadAction",
+      JSON.stringify({ action: "reject", id: alertData.id })
+    );
   };
 
   return (
@@ -33,7 +36,7 @@ const AlertLead = ({ setAlert, alertData, setViewDetailPopup }) => {
         <form className="popup__form">
           <h2>
             <img
-              src="http://78.46.210.25/tapatradieweb/assets/images/confirmmation-icon.png"
+              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.png"
               alt=""
             />
             <span

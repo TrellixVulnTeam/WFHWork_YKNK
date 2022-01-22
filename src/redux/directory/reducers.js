@@ -136,6 +136,9 @@ const directoryReducer = (state = initState, action) => {
         if (tradiefilterData.id) {
           tradiefilterData.isBtnSelect = true;
         }
+        if (payload == 1) {
+          tradiefilterData.isBtnSelect = false;
+        }
       });
       return {
         ...state,
@@ -216,7 +219,7 @@ const directoryReducer = (state = initState, action) => {
         ...state,
         success: true,
         loading: false,
-        singleLead: payload,
+        singleLead: [payload],
       };
     // USER_SINGLE_LEAD_RESET
     case types.USER_SINGLE_LEAD_RESET:

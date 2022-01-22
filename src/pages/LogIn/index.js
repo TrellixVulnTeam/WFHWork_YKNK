@@ -56,10 +56,12 @@ const Index = () => {
   };
 
   const responseFacebook = (response) => {
+    
     Dispatch(
       faceBookLogin_Action({
         facebook_id: response.id,
         tab: btnTab ? "provider" : "user",
+        name: response.name,
       })
     );
   };
@@ -141,7 +143,7 @@ const Index = () => {
   const SelectOption = countries_code?.map((val) => {
     return { value: val.id, label: val.id };
   });
- 
+
   return (
     <div>
       <section className="section section--sign-up">
@@ -216,7 +218,7 @@ const Index = () => {
                     onChange={(e) => {
                       setCountryCode(e.target.value);
                     }}
-                    style={{color:"#535353 !important"}}
+                    style={{ color: "#535353 !important" }}
                     required
                   />
                   {/* <Select

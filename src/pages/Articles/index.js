@@ -18,6 +18,7 @@ const Index = () => {
   const Dispatch = useDispatch();
   const { userData } = useSelector((state) => state.auth);
   const { change_blogs_article_Action } = Actions;
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   return (
     <div>
       <Header />
@@ -240,7 +241,7 @@ const Index = () => {
         </div>
       </section>
 
-      {userData?.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
       ) : (
         <section class="section section--left">

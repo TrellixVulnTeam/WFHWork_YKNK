@@ -22,6 +22,7 @@ import LocationAutocomplete from "../Directory/AutoCompleteSearch";
 import Button from "@restart/ui/esm/Button";
 import TradieRequestModel from "./TradieRequestModel";
 import AlertPopup from "./AlertPopup";
+import { GoPrimitiveDot } from "react-icons/go";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
@@ -30,7 +31,7 @@ toast.configure();
 const Index = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userData } = useSelector((state) => state.auth);
+
   let searchCookie = JSON.parse(localStorage.getItem("tradiesearch"));
   let adressCookie = JSON.parse(localStorage.getItem("onloaddata"));
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
@@ -89,6 +90,8 @@ const Index = () => {
     longitude: adressCookie?.loadlongitude,
   });
   const [redirectpPage, setRedirectpPage] = useState(false);
+  var tradiesIdss = [];
+
   const [tradieIds, setTradieIds] = useState([]);
 
   useEffect(() => {
@@ -129,6 +132,12 @@ const Index = () => {
   const handleSubmit = () => {
     if (searchFormData?.latitude == "") {
       toast.error("Please Select Location", {
+        // position: "bottom-left",
+        autoClose: 2000,
+        size: "small",
+      });
+    } else if (searchFormData?.searchQuery == "") {
+      toast.error("Please Select  Service", {
         // position: "bottom-left",
         autoClose: 2000,
         size: "small",
@@ -182,23 +191,33 @@ const Index = () => {
   };
 
   const submitTradieRequest = () => {
-    history.push({
-      pathname: "/tradie-request",
-      state: {
-        id: tradiesIds,
-      },
-    });
+    //  return console.log("traide id",tradiesIds)
+
+    if (tradiesIdss.length === 0) {
+      toast.error("Please Select Traide", {
+        position: "bottom-left",
+        autoClose: 2000,
+        size: "small",
+      });
+    } else {
+      history.push({
+        pathname: "/tradie-request",
+        state: {
+          id: tradiesIdss,
+        },
+      });
+    }
     // setModelOpenTradieRequest(true);
   };
 
-  let tradiesIds = [];
   if (searchingTradie?.length > 0) {
     searchingTradie?.filter((tradieDatas) => {
       if (tradieDatas?.isBtnSelect === true) {
-        tradiesIds.push(tradieDatas.id);
+        tradiesIdss.push(tradieDatas.id);
       }
     });
   }
+
   const sortFilter = searchingTradie?.filter((tradieDatas) =>
     tradieDatas?.service_type?.includes(sortTradieType)
   );
@@ -227,7 +246,7 @@ const Index = () => {
         dispatch(slected_to_All_tradie_Id());
         setSelectAllTradie(true);
       } else {
-        setModelOpenTradieRequest(true);
+        setModelOpenTradieRequest(false);
       }
     } else {
       setalertPopup(true);
@@ -328,6 +347,15 @@ const Index = () => {
     JSON.stringify(SearchId ? SearchId[0]?.id : "")
   );
 
+  const deselectall = () => {
+    if (tradiesIdss.length > 0) {
+      let TradieId = 1;
+      tradiesIdss.length = 0;
+      setSelectAllTradie(false);
+      dispatch(slected_to_All_tradie_Id(TradieId));
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -370,7 +398,7 @@ const Index = () => {
             </label>
             <LocationIcon />
             <LocationAutocomplete
-              addressValue={adressTerm}
+              addressValue={adressCookie?.address}
               state={searchFormData}
               setStateFunction={setSearchFormData}
             />
@@ -445,30 +473,39 @@ const Index = () => {
           </a> */}
         </form>
         <nav className="tradies__filter-nav">
-          <Button
-            className="btn-secondary font-m"
-            onClick={() => {
-              selectAllTradie();
-            }}
-          >
-            Select to All{" "}
-          </Button>
+          {selectAllTradies && tradiesIdss.length > 0 ? (
+            // <Button className="btn-secondary font-m">Selected to All</Button>
+            <Button className="btn-secondary font-m" onClick={deselectall}>
+              Deselect All
+            </Button>
+          ) : (
+            <Button
+              className="btn-secondary font-m"
+              onClick={() => {
+                selectAllTradie();
+              }}
+            >
+              Select All{" "}
+            </Button>
+          )}
+
           <button
             className="btn-primary font-m"
             style={{ marginLeft: 20 }}
             onClick={() => {
               submitTradieRequest();
             }}
-            disabled={tradiesIds?.length === 0}
+            // disabled={ tradiesIds?.length === 0}
           >
             Send Request
           </button>
-          <a href="#">
+
+          {/* <a href="#">
             <img src={tradie_directory_2} alt="" />
-          </a>
+          </a> */}
         </nav>
 
-        {searchingTradie &&
+        {/* {searchingTradie &&
           sortTradie()?.map((item, index) => {
             return (
               <div className="tradies-item tradies-item--row" key={index}>
@@ -481,7 +518,7 @@ const Index = () => {
                 />
               </div>
             );
-          })}
+          })} */}
 
         <div className="tradies__grid">
           {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
@@ -492,13 +529,13 @@ const Index = () => {
                     className="tradies-item__image"
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      handleChangeRoute();
+                      handleChangeRoute(item.id);
                     }}
                   >
                     <img
                       src={
                         item.profile_pic
-                          ? `https://api.tapatradie.com/uploads/` +
+                          ? `https://api.tapatradie.com/profile/${item.id}/` +
                             item.profile_pic
                           : tradie_directory_3
                       }
@@ -506,6 +543,7 @@ const Index = () => {
                       loading="lazy"
                     />
                   </div>
+
                   <div className="tradies-item__content">
                     <div
                       style={{ cursor: "pointer" }}
@@ -532,6 +570,17 @@ const Index = () => {
                         />
                       </div>
                     </div>
+                    <span className="list-box_online" style={{marginTop:"-10px", marginBottom:"3px"}}>
+                      {item.online === 1 ? (
+                        <>
+                          <GoPrimitiveDot color="green" /> Online
+                        </>
+                      ) : (
+                        <>
+                          <GoPrimitiveDot color="red" /> Offline
+                        </>
+                      )}
+                    </span>
                     {/* {item?.isBtnSelect  === true ? (
                       <Link
                         to={{
@@ -577,7 +626,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo.full_name  ? (
+      {userInfo?.fullname ? (
         ""
       ) : (
         <section
@@ -599,32 +648,36 @@ const Index = () => {
       )}
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      <section section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      {userInfo?.access == "provider" ? (
+        ""
+      ) : (
+        <section section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_directory_4} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_directory_4} alt="" />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Footer />
       {modelOpenTradieRequest && (
         <TradieRequestModel
           modelOpenTradieRequest={modelOpenTradieRequest}
-          tradiesIds={tradiesIds}
+          tradiesIds={tradiesIdss}
           setModelOpenTradieRequest={setModelOpenTradieRequest}
         />
       )}

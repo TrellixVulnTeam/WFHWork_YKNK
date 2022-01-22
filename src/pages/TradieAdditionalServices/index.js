@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
 
-
 toast.configure();
 
 const Index = () => {
@@ -35,15 +34,21 @@ const Index = () => {
   const [commercial, setCommercial] = useState(false);
   const [tradie_type, setTradie_type] = useState([]);
   const [removeItem, setRemoveItem] = useState([]);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   useEffect(() => {
     if (services) {
       services?.map((res) => {
         if (res.service_type == "residential") {
           setResidential(true);
-          setTradie_type("residential");
+          setTradie_type(["residential"]);
         } else if (res.service_type == "commercial") {
           setCommercial(true);
-          setTradie_type("commercial");
+          setTradie_type(["commercial"]);
+        } else if (res.service_type == "residential,commercial") {
+          setCommercial(true);
+          setResidential(true);
+          setTradie_type(["commercial"]);
+          setTradie_type(["residential"]);
         }
       });
     }
@@ -70,6 +75,9 @@ const Index = () => {
     services.filter((res) => {
       if (res.id === id) {
         setRemoveItem([...removeItem, res.id]);
+      } else if (res.id !== id) {
+        console.log("REs :", res.id);
+        setDataToSend((prevState) => [...prevState, res.id]);
       }
     });
 
@@ -119,14 +127,13 @@ const Index = () => {
             <label
               className="container"
               style={{ textTransform: "capitalize" }}
+              key={val.id}
             >
               {val.name}
               {/* {services?.map((res) => ( */}
               <input
                 type="checkbox"
-                defaultChecked={services.find((res) => {
-                  return res.id == val.id;
-                })}
+                defaultChecked={services.find((res) => res.id == val.id)}
                 onChange={(e) => handleChange(val)}
               />
               {/* ))} */}
@@ -186,7 +193,7 @@ const Index = () => {
 
       {/* <!-- My Profile--> */}
       <section className="directory-top-section section-top--tradie-my-profile">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -209,7 +216,7 @@ const Index = () => {
                 }}
                 className="w-100 additional-service-information"
                 type="text"
-                placeholder="Search for a service"
+                placeholder="Search for a Category"
               />
             </div>
             <label className="m-b-1">Select your service type</label>
@@ -219,11 +226,9 @@ const Index = () => {
                 onClick={() => {
                   handleTradieType("residential");
                 }}
-                style={{
-                  color: `${residential ? "#ec9422" : "#666"}`,
-                  border: `${residential ? "#ec9422 solid 1px" : "#666 "}`,
-                  cursor: "pointer",
-                }}
+                className={
+                  residential ? "on residential-btn" : "residential-btn"
+                }
               >
                 Residential
               </button>
@@ -232,11 +237,9 @@ const Index = () => {
                 onClick={() => {
                   handleTradieType("commercial");
                 }}
-                style={{
-                  color: `${commercial ? "#ec9422" : "#666"}`,
-                  border: `${commercial ? "#ec9422 solid 1px" : "#666 "}`,
-                  cursor: "pointer",
-                }}
+                className={
+                  commercial ? "on residential-btn" : "residential-btn"
+                }
               >
                 Commercial
               </button>
@@ -285,30 +288,30 @@ const Index = () => {
       </section>
 
       {/* // <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_add_service_2} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_add_service_2} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
 
       <Footer />
     </div>

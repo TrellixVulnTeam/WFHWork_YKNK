@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import tradie_my_profile_2 from "../../assets/images/professional-tradie.jpg";
@@ -14,20 +14,25 @@ import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
 toast.configure();
 
 const Index = () => {
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const history = useHistory();
   const dispatch = useDispatch();
   const {
     Get_Image_list_Action,
     Image_Upload_Action,
-    Image_list_Delete_Action,
+    Get_Business_Details_Action,
+    User_Profile_Get_Information_Action,
   } = Actions;
   const { businessUpdateres, imgUpdateres } = useSelector(
     (state) => state.auth
   );
   const { userData } = useSelector((state) => state.auth);
+  const [multiImgs, setMultiImg] = useState([]);
 
   useEffect(() => {
     dispatch(Get_Image_list_Action());
+    dispatch(Get_Business_Details_Action());
+    dispatch(User_Profile_Get_Information_Action());
     // console.log("from use effect");
   }, []);
 
@@ -49,15 +54,28 @@ const Index = () => {
 
   const handleImageChangeInput = async (event) => {
     const { target } = event;
-    const file = [target.files[0]];
+    // const file = [target.files[0]];
     // const newImagesPromises = [];
     // for (let i = 0; i < target.files.length; i++) {
     //   newImagesPromises.push(fileToDataUri(target.files[i]));
     // }
     // const newImages = await Promise.all(newImagesPromises);
-    // http://3.109.98.222:3349/api/provider-upload-image
+    setMultiImg([...multiImgs, ...target.files]);
 
-    dispatch(Image_Upload_Action(file));
+  };
+  
+
+  const UploadeMulti = (e) => {
+    e.preventDefault();
+    if (multiImgs.length > 0) {
+      dispatch(Image_Upload_Action(multiImgs));
+    } else {
+      toast.error("Please Select an Image ", {
+        position: "bottom-left",
+        autoClose: 1000,
+        size: "small",
+      });
+    }
   };
 
   useEffect(() => {
@@ -80,7 +98,7 @@ const Index = () => {
 
       {/* <!-- My Profile--> */}
       <section className="directory-top-section section-top--tradie-my-profile">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -142,15 +160,21 @@ const Index = () => {
               </div>
             </div>
             <div className="input-group">
-              {/* <input type="submit" className="btn-primary" value="Save" /> */}
+              <input
+                type="submit"
+                onClick={(e) => UploadeMulti(e)}
+                style={{ float: "right" }}
+                className="btn-primary"
+                value="Save"
+              />
             </div>
           </form>
         </div>
       </section>
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
+      ) : (
       <section className="section section--left">
         <div className="professional-tradie">
           <div className="professional-tradie__description">
@@ -171,7 +195,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {/* )} */}
+       )}
       <Footer />
     </div>
   );

@@ -33,6 +33,7 @@ const Index = () => {
     reviewRes,
     disputeRes,
   } = useSelector((state) => state.directory);
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const providerAccepted = JSON.parse(
     localStorage.getItem("provideLeadAction")
   );
@@ -99,7 +100,7 @@ const Index = () => {
       }
     }
   });
- 
+
   const Back = () => {
     history.goBack();
   };
@@ -154,29 +155,21 @@ const Index = () => {
                   providerLeads?.map((leads) => (
                     <div className="event">
                       <a href="javascript:void(0)" className="event__budge">
-                        {leads.dispute == 1 ? (
-                          leads.user_status == "completed" ? (
-                            <p>Completed</p>
-                          ) : (
-                            "Disputed"
-                          )
+                        {leads.user_status == "pending" ? (
+                          <p className="pending-btn">Pending</p>
                         ) : leads.status == "deleted" ? (
                           "Deleted"
                         ) : leads.user_status == "pending" &&
                           leads.provider_status == "pending" ? (
-                          "Pending"
+                          <p className="pending-btn">Pending</p>
                         ) : leads.status == "cancel" ? (
                           "Settled"
-                        ) : leads.user_status == "accept" ? (
-                          "Accepted"
                         ) : leads.provider_status == "accept" ? (
                           "Accepted"
+                        ) : leads.user_status == "accept" ? (
+                          "Accepted"
                         ) : (
-                          (leads.provider_status = "completed"
-                            ? "Completed"
-                            : (leads.user_status = "deleted"
-                                ? "Deleted"
-                                : "Declined"))
+                          ""
                         )}
                         {leads.user_status == "reject"
                           ? localStorage.removeItem("provideLeadAction")
@@ -187,7 +180,7 @@ const Index = () => {
                           <img
                             src={
                               leads.profile_pic
-                                ? `https://api.tapatradie.com/uploads/` +
+                                ? `https://api.tapatradie.com/profile/${leads.id}/` +
                                   leads.profile_pic
                                 : "http://78.46.210.25/tapatradieweb/assets/images/dummy-icon-round.png"
                             }
@@ -223,7 +216,9 @@ const Index = () => {
                         <img src={tradie_leads_3} />
                         {leads.address}
                       </p>
-                      {providerAccepted == "accept" ? (
+
+                      {providerAccepted?.action == "accept" &&
+                      providerAccepted?.id == leads.id ? (
                         <a
                           href="javascript:void(0)"
                           className="btn-primary"
@@ -251,7 +246,7 @@ const Index = () => {
                   ))
                 ) : (
                   <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
+                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
                     <p>No Leads Found</p>
                   </div>
                 )}
@@ -287,7 +282,7 @@ const Index = () => {
                             <img
                               src={
                                 leads.profile_pic !== ""
-                                  ? `https://api.tapatradie.com/uploads/` +
+                                  ? `https://api.tapatradie.com/profile/${leads.id}/` +
                                     leads.profile_pic
                                   : "http://78.46.210.25/tapatradieweb/assets/images/dummy-icon-round.png"
                               }
@@ -313,11 +308,6 @@ const Index = () => {
                     ))}
                   </div>
                 ) : (
-
-                  <div className="no-listing-box">
-                    <img src="http://78.46.210.25/tapatradieweb/assets/images/no-listing.png" />
-                    <p>No Leads Found</p>
-
                   <div className="calender__events">
                     <div className="no-listing-box">
                       <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
@@ -344,30 +334,30 @@ const Index = () => {
         />
       )}
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo?.access == "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_leads_4} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_leads_4} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
       <Footer />
     </div>
   );

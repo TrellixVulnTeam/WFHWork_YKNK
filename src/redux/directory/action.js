@@ -27,9 +27,11 @@ export const slected_tradie_Id = (data) => {
   };
 };
 
-export const slected_to_All_tradie_Id = () => {
+export const slected_to_All_tradie_Id = (data) => {
+
   return {
     type: types.SELECTED__TO_ALL_TRADIE_PROFILE_ID_REQUEST,
+    payload: data,
   };
 };
 

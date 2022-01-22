@@ -13,6 +13,7 @@
 		font-size: var(--font-size-24);
 		font-weight: $font-light;
 		line-height: 1.5;
+		margin: 0 0 0 30px;
 		@include tablet {
 			margin-bottom: 4rem;
 			order: 1;
@@ -43,6 +44,7 @@
 			border-radius: 2rem;
 			position: relative;
 			z-index: 2;
+			margin-left: 20px;
 		}
 	}
 	&__row:first-of-type {

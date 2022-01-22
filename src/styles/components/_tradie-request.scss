@@ -7,7 +7,7 @@
   width: 58rem;
   max-width: 98%;
   margin: 0 auto;
-  padding: 5rem 6%;
+  padding: 5rem 6% 8rem;
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1), -2px -2px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 
@@ -34,7 +34,8 @@
 
   .input-group-2,
   .input-group-3 {
-    display: flex;
+    display: inline-block;
+    width: 100%;
     // flex-wrap: wrap;
 
     @include tablet {
@@ -44,6 +45,7 @@
     input {
       width: 49%;
       padding: 1.5rem 2rem;
+      float: left;
 
       @include phone {
         width: 100%;
@@ -71,6 +73,7 @@
     width: 18rem;
     padding: 1.5rem 10px;
     margin: 10px 10px;
+    float: left;
 
     @include phone {
       width: 100%;

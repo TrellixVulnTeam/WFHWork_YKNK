@@ -13,7 +13,6 @@ const Pop1 = () => {
   const { Profile_Provider_Register_Action } = Actions;
   const { login, verify_OTP } = useSelector((state) => state.auth);
 
-
   if (
     verify_OTP?.fullname !== "" &&
     verify_OTP?.role === "provider" &&
@@ -22,10 +21,7 @@ const Pop1 = () => {
     history.push("/");
   }
 
-  if (
-    verify_OTP?.fullname !== "" &&
-    verify_OTP?.register_complete === 0
-  ) {
+  if (verify_OTP?.fullname !== "" && verify_OTP?.register_complete === 0) {
     history.push("/tradie-popup-step2");
   }
   const {
@@ -149,7 +145,7 @@ const Pop1 = () => {
                 required: { value: true, message: "Full name is required" },
               })}
             />
-            <span>City *</span>
+            <span>City</span>
           </div>
 
           <button type="submit" className="btn-primary">
