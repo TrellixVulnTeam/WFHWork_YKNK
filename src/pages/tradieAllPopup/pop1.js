@@ -76,7 +76,7 @@ const Pop1 = () => {
       <section className="user-info-modal popup">
         <form className="popup__form" onSubmit={handleSubmit(onSubmit)}>
           <h2>
-            Enter Your Details{" "}
+           Create your Account{" "}
             {/* <span
               onClick={(e) => {
                 e.target.parentElement.parentElement.parentElement.style.display =
@@ -149,7 +149,7 @@ const Pop1 = () => {
           </div>
 
           <button type="submit" className="btn-primary">
-            Get Started
+          Create Account
           </button>
         </form>
       </section>

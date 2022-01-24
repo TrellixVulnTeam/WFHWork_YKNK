@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-import tradie_leads_1 from "../../assets/images/1601545174666_user-profile_2020_10_01_17_39_31_786_ 1.jpg";
+import tradie_leads_1 from "../../assets/images/user.png";
 import tradie_leads_2 from "../../assets/icons/icon-deadline.png";
 import tradie_leads_3 from "../../assets/icons/icon-location.png";
 import tradie_leads_4 from "../../assets/images/professional-tradie.jpg";
@@ -45,21 +45,7 @@ const Index = () => {
       Authorization: "my-auth-token",
     },
   };
-  // useEffect(() => {
-  //   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
-  //   var UserLeads = {
-  //     access_token: userInfo.access_token,
-  //     device_id: userInfo.device_id,
-  //     api_key: userInfo.api_key,
-  //     device_type: userInfo.device_type,
-  //     lead_type: "new",
-  //     page: 1,
-  //     uid: userInfo.uid,
-  //   };
-  //   axios
-  //     .post("https://api.tapatradie.com/api/provider-leads", UserLeads, config)
-  //     .then((res) => setTradieLeads(res?.data));
-  // }, []);
+
   useEffect(() => {
     dispatch(provider_leads_request());
     dispatch(provider_leads_history_request());
@@ -122,8 +108,7 @@ const Index = () => {
               className="calender__back"
               style={{ cursor: "pointer" }}
             >
-              {" "}
-              Back{" "}
+              Back
             </a>
             <nav className="calender__nav">
               <span
@@ -162,12 +147,14 @@ const Index = () => {
                         ) : leads.user_status == "pending" &&
                           leads.provider_status == "pending" ? (
                           <p className="pending-btn">Pending</p>
+                        ) : leads.user_status == "accept" &&
+                          leads.provider_status == "pending" ? (
+                          "New Lead"
                         ) : leads.status == "cancel" ? (
                           "Settled"
-                        ) : leads.provider_status == "accept" ? (
-                          "Accepted"
-                        ) : leads.user_status == "accept" ? (
-                          "Accepted"
+                        ) : leads.provider_status == "accept" &&
+                          leads.user_status == "accept" ? (
+                          "Confirmed"
                         ) : (
                           ""
                         )}
@@ -180,9 +167,9 @@ const Index = () => {
                           <img
                             src={
                               leads.profile_pic
-                                ? `https://api.tapatradie.com/profile/${leads.id}/` +
+                                ? `https://api.tapatradie.com/profile/${leads.uid}/` +
                                   leads.profile_pic
-                                : "http://78.46.210.25/tapatradieweb/assets/images/dummy-icon-round.png"
+                                : tradie_leads_1
                             }
                             alt=""
                           />
@@ -201,7 +188,6 @@ const Index = () => {
                       >
                         <h4>Title</h4>
                         <p>
-                          {" "}
                           {leads?.title?.charAt(0).toUpperCase() +
                             leads?.title?.slice(1)}
                         </p>
@@ -222,9 +208,6 @@ const Index = () => {
                         <a
                           href="javascript:void(0)"
                           className="btn-primary"
-                          //  onClick={() => {
-                          //    handleViewDetailLead(leads);
-                          //  }}
                           onClick={(e) => {
                             handleAlert(leads, e);
                           }}
@@ -282,9 +265,9 @@ const Index = () => {
                             <img
                               src={
                                 leads.profile_pic !== ""
-                                  ? `https://api.tapatradie.com/profile/${leads.id}/` +
+                                  ? `https://api.tapatradie.com/profile/${leads.uid}/` +
                                     leads.profile_pic
-                                  : "http://78.46.210.25/tapatradieweb/assets/images/dummy-icon-round.png"
+                                  : tradie_leads_1
                               }
                               alt=""
                             />

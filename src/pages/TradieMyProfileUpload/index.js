@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import NavigationLinks from "../../components/Tradie Name/Index";
 import UploadProfile from "../../assets/icons/uploadProfile.svg";
 import { Link, useHistory } from "react-router-dom";
+import { Fab, Grid, CircularProgress } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
@@ -28,12 +30,14 @@ const Index = () => {
   );
   const { userData } = useSelector((state) => state.auth);
   const [multiImgs, setMultiImg] = useState([]);
+  const [preImgs, setPreImg] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(Get_Image_list_Action());
     dispatch(Get_Business_Details_Action());
     dispatch(User_Profile_Get_Information_Action());
-    // console.log("from use effect");
+   
   }, []);
 
   const fileToDataUri = (image) => {
@@ -60,13 +64,23 @@ const Index = () => {
     //   newImagesPromises.push(fileToDataUri(target.files[i]));
     // }
     // const newImages = await Promise.all(newImagesPromises);
+    let ImageArray = Object.entries(target.files).map((e) =>
+      URL.createObjectURL(e[1])
+    );
+    setPreImg([...preImgs, ...ImageArray]);
     setMultiImg([...multiImgs, ...target.files]);
-
   };
-  
+
+  const deleteFile = (e) => {
+    const removeFilter = multiImgs.filter((item, index) => index !== e);
+    const removeFilterPre = preImgs.filter((item, index) => index !== e);
+    setMultiImg(removeFilter);
+    setPreImg(removeFilterPre);
+  };
 
   const UploadeMulti = (e) => {
     e.preventDefault();
+    setLoading(false);
     if (multiImgs.length > 0) {
       dispatch(Image_Upload_Action(multiImgs));
     } else {
@@ -80,6 +94,7 @@ const Index = () => {
 
   useEffect(() => {
     if (businessUpdateres) {
+      setLoading(true);
       toast.success(businessUpdateres, {
         position: "bottom-left",
         autoClose: 2000,
@@ -159,14 +174,54 @@ const Index = () => {
                 </div>
               </div>
             </div>
+            {/* <div className="tradie-profile__work-photos"> */}
+            <Grid container spacing={2}>
+              {preImgs.length > 0 &&
+                preImgs.map((item, Index) => {
+                  return (
+                    <Grid item key={item} xs={12} md={4}>
+                      {/* <div key={item} style={{ width: "20rem" }}> */}
+                        <Fab
+                          size="small"
+                          aria-label="add"
+                          style={{
+                            position: "absolute",
+                            color: "white",
+                            backgroundColor: "#ef2c2c",
+                            opacity: "0.8",
+                          }}
+                          onClick={() => deleteFile(Index)}
+                        >
+                          <CloseIcon />
+                        </Fab>
+                        <img
+                          src={item}
+                          alt=""
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            borderRadius: "10%",
+                          }}
+                        />
+                      {/* </div> */}
+                    </Grid>
+                  );
+                })}
+            </Grid>
             <div className="input-group">
-              <input
-                type="submit"
-                onClick={(e) => UploadeMulti(e)}
-                style={{ float: "right" }}
-                className="btn-primary"
-                value="Save"
-              />
+              {loading ? (
+                <input
+                  type="submit"
+                  onClick={(e) => UploadeMulti(e)}
+                  style={{ float: "right" }}
+                  className="btn-primary img-save-btn"
+                  value="Save"
+                />
+              ) : (
+                <center>
+                  <CircularProgress />
+                </center>
+              )}
             </div>
           </form>
         </div>
@@ -175,27 +230,27 @@ const Index = () => {
       {userInfo?.access == "provider" ? (
         ""
       ) : (
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_my_profile_2} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_my_profile_2} alt="" />
-          </div>
-        </div>
-      </section>
-       )}
+        </section>
+      )}
       <Footer />
     </div>
   );

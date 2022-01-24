@@ -17,9 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
-
 
 toast.configure();
 
@@ -28,6 +26,14 @@ const Index = () => {
   const { userData } = useSelector((state) => state.auth);
   const { userUpdateRes } = useSelector((state) => state.auth);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+  useEffect(() => {
+    dispatch(User_Profile_Get_Information_Action());
+    dispatch(Get_Business_Details_Action());
+    dispatch(Profile_steps_Action());
+    dispatch(Get_User_Address_Action());
+  }, []);
+
   const {
     full_name,
     email,
@@ -61,33 +67,11 @@ const Index = () => {
   const [selectedCountry, setSelectOption] = useState("");
 
   useEffect(() => {
-    //   if (full_name) {
-    //     setfullname(full_name);
-    //   }
-    //   if (email) {
-    //     setEmailAddress(email);
-    //   }
-    //   if (mobile) {
-    //     setPhoneNumber(mobile);
-    //   }
-    //   if (gender) {
-    //     setGender(gender);
-    //   }
+   
     if (country) {
       setSelectOption(country);
     }
-    //   if (city) {
-    //     setCity(city);
-    //   }
-    //   if (professional_experience) {
-    //     setProfessionalExperience(professional_experience);
-    //   }
-    //   if (website_link) {
-    //     setWebsiteLink(website_link);
-    //   }
-    //   if (about_me) {
-    //     setAboutme(about_me);
-    //   }
+   
   }, [userData]);
 
   useEffect(() => {
@@ -104,13 +88,6 @@ const Index = () => {
 
     dispatch({ type: "UPDATE_PROFILE_VERIFICATION_SUCCESS", payloade: "" });
   }, [userUpdateRes]);
-
-  useEffect(() => {
-    dispatch(User_Profile_Get_Information_Action());
-    dispatch(Get_Business_Details_Action());
-    dispatch(Profile_steps_Action());
-    dispatch(Get_User_Address_Action());
-  }, []);
 
   const initialValues = {
     fullname: full_name,
@@ -136,18 +113,6 @@ const Index = () => {
   });
 
   const handleSubmit = (values) => {
-    // e.preventDefault();
-    // const dataSend = {
-    //   Aboutme,
-    //   EmailAddress,
-    //   fullname,
-    //   Gender,
-    //   PhoneNumber,
-    //   ProfessionalExperience,
-    //   WebsiteLink,
-    //   City,
-    //   selectedCountry,
-    // };
 
     const dataSend = Object.assign({}, values, {
       selectedCountry: selectedCountry,
@@ -213,11 +178,10 @@ const Index = () => {
 
       {/* <!-- My Profile--> */}
       <section className="directory-top-section section-top--tradie-my-profile">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
-         
           My <span>Profile</span>
         </h2>
       </section>
@@ -320,41 +284,39 @@ const Index = () => {
                     : Setexpre(false)}
 
                   <div className="input-group">
-                  <div className="country-section">
-                        <Select
-                          options={countryListAlpha3}
-                          onChange={handleChangeCountry}
-                          value={countryListAlpha3.filter(function (option) {
-                            return option.label === selectedCountry;
-                          })}
-                          autoFocus={false}
-                          styles={customStyles}
-                        />
-                          <input
-                          name="PhoneNumber"
-                          type="number"
-                          placeholder="Phone Number"
-                          onChange={formik.handleChange}
-                          value={formik.values.PhoneNumber}
-                        />
+                    <div className="country-section">
+                      <Select
+                        options={countryListAlpha3}
+                        onChange={handleChangeCountry}
+                        value={countryListAlpha3.filter(function (option) {
+                          return option.label === selectedCountry;
+                        })}
+                        autoFocus={false}
+                        styles={customStyles}
+                      />
+                      <input
+                        name="PhoneNumber"
+                        type="number"
+                        placeholder="Phone Number"
+                        onChange={formik.handleChange}
+                        value={formik.values.PhoneNumber}
+                      />
                       {formik.errors.PhoneNumber && formik.touched.PhoneNumber
                         ? Setphone(true)
                         : Setphone(false)}
-                      </div>
-                      </div>
-                      <div className="input-group">
+                    </div>
+                  </div>
+                  <div className="input-group">
                     <div className="">
-                     
                       {/* {formik.errors.ProfessionalExperience && formik.touched.ProfessionalExperience ? SetError(true): SetError(false) }  */}
-                      
-                        {/* <input
+
+                      {/* <input
                           type="text"
                           value={formik.values.country_code}
                           onChange={formik.handleChange}
                           style={{ width: "70px" }}
                           placeholder="+91"
                         /> */}
-                      
                     </div>
                   </div>
 
@@ -431,27 +393,27 @@ const Index = () => {
       {userInfo?.access == "provider" ? (
         ""
       ) : (
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_my_profile_2} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_my_profile_2} alt="" />
-          </div>
-        </div>
-      </section>
-      )} 
+        </section>
+      )}
 
       <Footer />
     </div>

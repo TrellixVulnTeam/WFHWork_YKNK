@@ -91,9 +91,10 @@ export const get_provider_profile_request = (data) => {
   };
 };
 
-export const get_provider_reviewList_request = () => {
+export const get_provider_reviewList_request = (data) => {
   return {
     type: types.GET_PROVIDER_REVIEW_LIST_REQUEST,
+    payload: data,
   };
 };
 export const send_newsLetter_request = (data) => {

@@ -4,6 +4,7 @@ import { ReactComponent as Close } from "../../assets/icons/icon-cancelpopup.svg
 import * as Actions from "../../redux/directory/action";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import tradie_leads_1 from "../../assets/images/user.png";
 import AlertPopup from "./Alertpopup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,7 +32,10 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
     e.preventDefault();
     const data = { action: "accept", id: alertData?.id, type: alertData.type };
     dispatch(provider_job_accept_request(data));
-    localStorage.setItem("provideLeadAction", JSON.stringify({action: "accept", id: alertData?.id,}));
+    localStorage.setItem(
+      "provideLeadAction",
+      JSON.stringify({ action: "accept", id: alertData?.id })
+    );
   };
 
   useEffect(() => {
@@ -71,6 +75,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
       day: "numeric",
     });
   };
+ 
   return (
     <>
       <section className="user-lead-modal popup" style={{ zIndex: 3 }}>
@@ -78,7 +83,12 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
           <div className="first">
             <div className="lead-img-box">
               <img
-                src="http://78.46.210.25/tapatradieweb/assets/images/dummy-icon-round.png"
+                src={
+                  viewData.profile_pic
+                    ? `https://api.tapatradie.com/profile/${viewData.uid}/` +
+                      viewData.profile_pic
+                    : tradie_leads_1
+                }
                 alt=""
               />
             </div>
@@ -88,7 +98,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
                 {viewData && tConvert(viewData.time)} on{" "}
                 {viewData && dateConvert(viewData.date)}
               </p>
-              <p className="city">{viewData.city} ,</p>
+              <p className="city">{viewData.city}</p>
             </div>
 
             <span
@@ -110,7 +120,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
             </div>
             <div className="service_required">
               <p className="title">Service Required</p>
-              <p className="description">Required {viewData.service_name}</p>
+              <p className="description">{viewData.service_name}</p>
             </div>
             <div className="service_type">
               <p className="title">Service Type</p>

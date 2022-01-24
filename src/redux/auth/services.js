@@ -337,7 +337,7 @@ export const Image_Upload_Serivce = async (data, userInfo) => {
   for (let i = 0; i < data.length; i++) {
     formData.append("image", data[i]);
   }
-  console.log("Data Img :", data.length);
+
   formData.append("access_token", userInfo.access_token); //append the values with key, value pair
   formData.append("api_key", userInfo.api_key);
   formData.append("device_id", userInfo.device_id);

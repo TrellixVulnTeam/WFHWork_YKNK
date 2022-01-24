@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import tradie_add_service_2 from "../../assets/images/professional-tradie.jpg";
 import NavigationLinks from "../../components/Tradie Name/Index";
 import * as Actions from "../../redux/auth/action";
+import {trendingAllCategories_Action} from "../../redux/directory/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -34,6 +35,9 @@ const Index = () => {
   const [commercial, setCommercial] = useState(false);
   const [tradie_type, setTradie_type] = useState([]);
   const [removeItem, setRemoveItem] = useState([]);
+  const { trendingCategories } = useSelector(
+    (state) => state.directory
+  );
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   useEffect(() => {
     if (services) {
@@ -57,6 +61,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(Get_Service_list_Action());
     dispatch(User_Profile_Get_Information_Action());
+    dispatch(trendingAllCategories_Action())
   }, []);
 
   const handleSearch = (e) => {
@@ -76,7 +81,6 @@ const Index = () => {
       if (res.id === id) {
         setRemoveItem([...removeItem, res.id]);
       } else if (res.id !== id) {
-        console.log("REs :", res.id);
         setDataToSend((prevState) => [...prevState, res.id]);
       }
     });
@@ -113,8 +117,8 @@ const Index = () => {
   }, [businessUpdateres]);
 
   const serachServicesTradie = () => {
-    if (getServiceList?.length) {
-      const getAllSErvce = getServiceList
+    if (trendingCategories?.length) {
+      const getAllSErvce = trendingCategories
         ?.filter((val) => {
           if (search === "") {
             return val;
@@ -245,7 +249,10 @@ const Index = () => {
               </button>
             </div>
             <label className="m-b-1">All Categories</label>
-            <div className="input-group mb-1">
+            <div
+              className="input-group mb-1"
+              style={{ height: "30rem", overflowY: "scroll" }}
+            >
               {serachServicesTradie()}
               {/* {getServiceList && getServiceList.map((servericeItem) => (
                 <label className="container" style={{ textTransform: "capitalize" }}>

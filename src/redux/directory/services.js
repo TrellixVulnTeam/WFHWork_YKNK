@@ -124,7 +124,7 @@ export const User_leads_Service = async (data, userInfo) => {
     device_id: userInfo.device_id,
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
-    page: 1,
+    page: "all",
     lead_type: data.lead_type,
     uid: userInfo.uid,
   };
@@ -141,7 +141,7 @@ export const User_leads_history_Service = async (data, userInfo) => {
     device_id: userInfo.device_id,
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
-    page: 1,
+    page: "all",
     lead_type: data.lead_type,
     uid: userInfo.uid,
   };
@@ -188,7 +188,6 @@ export const Single_tradie_delete_Service = async (data, userInfo) => {
   return response;
 };
 export const user_job_delete_Service = async (data, userInfo) => {
- 
   var UserLeads = {
     access_token: userInfo.access_token,
     device_id: userInfo.device_id,
@@ -251,13 +250,13 @@ export const get_provider_profile_Service = async (data, userInfo) => {
 
   return response;
 };
-export const provider_get_reviewList_Service = async (userInfo) => {
+export const provider_get_reviewList_Service = async (data, userInfo) => {
   var UserLeads = {
     access_token: userInfo.access_token,
     device_id: userInfo.device_id,
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
-    uid: userInfo.uid,
+    uid: data ? data : userInfo.uid,
   };
 
   const link = "/provider-get-review-list";
@@ -305,7 +304,7 @@ export const provider_leads_Service = async (userInfo) => {
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
     lead_type: "new",
-    page: 1,
+    page: "all",
     uid: userInfo.uid,
   };
 
@@ -322,7 +321,7 @@ export const provider_leads_history_Service = async (userInfo) => {
     api_key: userInfo.api_key,
     device_type: userInfo.device_type,
     lead_type: "history",
-    page: 1,
+    page: "all",
     uid: userInfo.uid,
   };
 

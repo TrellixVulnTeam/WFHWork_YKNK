@@ -21,7 +21,7 @@ const Pop3 = () => {
   const handleSelectRole = (e) => {
     const dataSend = {
       serviceIdRole: dataFromPop2,
-      role: SelectRole ? "commercial" : "residential",
+      role: tradie_type.toString(),
     };
 
     dispatch(Provider_Asssign_Service_Action(dataSend));
@@ -40,6 +40,34 @@ const Pop3 = () => {
   ) {
     history.push("/");
   }
+
+  const [residential, setResidential] = useState(false);
+  const [commercial, setCommercial] = useState(false);
+  const [tradie_type, setTradie_type] = useState([]);
+  const [removeItem, setRemoveItem] = useState([]);
+
+  const handleTradieType = (tradieType) => {
+    if (tradieType === "residential" && residential === false) {
+      setResidential(true);
+      setTradie_type([...tradie_type, tradieType]);
+    } else if (tradieType === "residential" && residential === true) {
+      const data = tradie_type.filter(function (item) {
+        return item !== tradieType;
+      });
+      setTradie_type(data);
+
+      setResidential(false);
+    } else if (tradieType === "commercial" && commercial === false) {
+      setCommercial(true);
+      setTradie_type([...tradie_type, tradieType]);
+    } else if (tradieType === "commercial" && commercial === true) {
+      const data = tradie_type.filter(function (item) {
+        return item !== tradieType;
+      });
+      setTradie_type(data);
+      setCommercial(false);
+    }
+  };
 
   return (
     <div>
@@ -60,7 +88,7 @@ const Pop3 = () => {
           </div>
           <p>Add your primary business if not listed</p>
           <div className="popup__btns">
-            <button
+            {/* <button
               onClick={() => {
                 setSelectRole(false);
               }}
@@ -78,6 +106,31 @@ const Pop3 = () => {
               style={{
                 color: `${SelectRole ? "#ec9422" : "black"}`,
                 border: `${SelectRole ? "#ec9422 solid 1px" : ""}`,
+              }}
+            >
+              Commercial
+            </button> */}
+
+            <button
+              type="button"
+              onClick={() => {
+                handleTradieType("residential");
+              }}
+              style={{
+                color: `${residential ? "#ec9422" : "black"}`,
+                border: `${residential ? "#ec9422 solid 1px" : ""}`,
+              }}
+            >
+              Residential
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                handleTradieType("commercial");
+              }}
+              style={{
+                color: `${commercial ? "#ec9422" : "black"}`,
+                border: `${commercial ? "#ec9422 solid 1px" : ""}`,
               }}
             >
               Commercial

@@ -28,7 +28,7 @@ const DeleteJobPost = ({
         <form className="popup__form">
           <h2>
             <img
-              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.pngg"
+              src="https://sample.jploftsolutions.in/tapImages/confirmmation-icon.png"
               alt=""
             />
             <span

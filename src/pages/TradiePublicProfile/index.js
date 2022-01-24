@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import tradie_public_profile_1 from "../../assets/images/1601545174666_user-profile_2020_10_01_17_39_31_786_ 1.jpg";
+import tradie_directory_3 from "../../assets/images/user.png";
 import tradie_public_profile_2 from "../../assets/icons/icon-location.png";
 import tradie_public_profile_3 from "../../assets/icons/icon-phone.png";
 import tradie_public_profile_4 from "../../assets/icons/icon-email.png";
@@ -20,11 +21,17 @@ import * as Actions from "../../redux/directory/action";
 import { Link, useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import Modal from "react-modal";
+import moment from "moment";
 
 const Index = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [imgData, setImagData] = useState();
+
+  useEffect(() => {
+    dispatch(get_provider_profile_request({ provider_id: id }));
+    dispatch(get_provider_reviewList_request(id));
+  }, []);
 
   function openModal(data) {
     setIsOpen(true);
@@ -42,14 +49,14 @@ const Index = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { get_provider_profile_request } = Actions;
-  const { getProviderProfile } = useSelector((state) => state.directory);
+  const { get_provider_profile_request, get_provider_reviewList_request } =
+    Actions;
+  const { getProviderProfile, getProviderReviewList } = useSelector(
+    (state) => state.directory
+  );
   const { userData } = useSelector((state) => state.auth);
   const { profile_pic } = userData;
-  useEffect(() => {
-    dispatch(get_provider_profile_request({ provider_id: id }));
-  }, []);
-  // console.log(getProviderProfile[0].user_data.rating);
+
   const loginData = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
@@ -168,14 +175,14 @@ const Index = () => {
                           tradiePersonalInfo?.user_data?.profile_pic
                             ? `https://api.tapatradie.com/profile/${tradiePersonalInfo?.user_data?.id}/` +
                                 tradiePersonalInfo?.user_data?.profile_pic
-                            : tradie_public_profile_1
+                            : tradie_directory_3
                         )
                       }
                       src={
                         tradiePersonalInfo?.user_data?.profile_pic
                           ? `https://api.tapatradie.com/profile/${tradiePersonalInfo?.user_data?.id}/` +
                             tradiePersonalInfo?.user_data?.profile_pic
-                          : tradie_public_profile_1
+                          : tradie_directory_3
                       }
                       alt=""
                     />
@@ -254,11 +261,7 @@ const Index = () => {
                           src={tradie_public_profile_2}
                           alt=""
                         />
-                        {`${tradiePersonalInfo.business_data.house_no} ${""} ${
-                          tradiePersonalInfo.business_data.city
-                        } , ${tradiePersonalInfo.business_data.state} , ${
-                          tradiePersonalInfo.business_data.country
-                        } ${""} ${tradiePersonalInfo.business_data.pincode}`}
+                        {`${tradiePersonalInfo?.business_data?.house_no}, ${tradiePersonalInfo?.business_data?.street}, ${tradiePersonalInfo?.business_data?.city} , ${tradiePersonalInfo?.business_data?.state} , ${tradiePersonalInfo?.business_data?.country}`}
                       </p>
                       <a
                         href="tel:0412 345 678"
@@ -326,7 +329,7 @@ const Index = () => {
                   </div>
                   <div className="tradie-profile__column">
                     <div className="tradie-profile__about">
-                      <h4>About us</h4>
+                      <h4>About Us</h4>
                       <p>{tradiePersonalInfo.user_data.about_me}</p>
                     </div>
                     <div className="tradie-profile__work-photos">
@@ -369,6 +372,78 @@ const Index = () => {
           </center>
         )}
       </section>
+      <div className="tradie-profile__about">
+        <h4>What our customer say</h4>
+        <div style={{ height: "50rem", overflowY: "scroll" }}>
+          {Object.keys(getProviderReviewList).length > 0 ? (
+            getProviderReviewList?.map((res) => (
+              <div className="input-group review" key={res.id}>
+                <div>
+                  <div
+                    style={{
+                      width: "7rem",
+                      height: "7rem",
+                      flexShrink: 0,
+                      marginRight: "10px",
+                      flexGrow: 0,
+                      float: "left",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                      // marginBottom: "1rem !important",
+                    }}
+                  >
+                    <img
+                      src={
+                        res?.profile_pic
+                          ? `https://api.tapatradie.com/profile/${res.updated_by}/${res.profile_pic}`
+                          : tradie_directory_3
+                      }
+                      alt="avatar"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        border: "2px solid black",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+
+                  <h4 key={res.id}>
+                    {res?.full_name?.charAt(0).toUpperCase() +
+                      res?.full_name?.slice(1)}
+                  </h4>
+                  <p style={{ float: "right", fontSize: "16px" }}>
+                    {moment(res.created_on, "x").format("DD MMM YYYY")}
+                  </p>
+                  <p>
+                    {" "}
+                    <StarRatings
+                      rating={
+                        res?.rating
+                          ? Math.round(Number(res?.rating) * 10) / 10
+                          : 0
+                      }
+                      starRatedColor="orange"
+                      numberOfStars={5}
+                      name="rating"
+                      starSpacing="1px"
+                      starDimension="17px"
+                    />
+                  </p>
+                </div>
+                <div>
+                  <div className="review-decs">
+                    <h5> Reviews:</h5> <p> {res.review}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <center>No review/rating found</center>
+          )}
+        </div>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -387,7 +462,7 @@ const Index = () => {
 
       {/* <!-- Register as a Tradie Today! --> */}
 
-      {userInfo?.fullname ? (
+      {userInfo?.access ? (
         ""
       ) : (
         <section className="section--register-tradie">
@@ -405,28 +480,28 @@ const Index = () => {
       )}
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {/* {userData.access === "provider" ? (
+      {userInfo.access === "provider" ? (
         ""
-      ) : ( */}
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h2 className="section__title">Are you a Professional Tradie?</h2>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h2 className="section__title">Are you a Professional Tradie?</h2>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_public_profile_11} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_public_profile_11} alt="" />
-          </div>
-        </div>
-      </section>
-      {/* )} */}
+        </section>
+      )}
 
       <Footer />
     </div>

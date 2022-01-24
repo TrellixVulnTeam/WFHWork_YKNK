@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as Actions from "../../redux/directory/action";
 import StarSvg from "../../assets/icons/star.svg";
@@ -254,6 +255,17 @@ const Index = () => {
                         <div className="booking_status_service_delete">
                           {singleBooking?.job_post?.length <= 1 ? (
                             singleBooking?.job_post?.map((singleTradie) =>
+                              // singleTradie.provider_status == "completed" &&
+                              // singleTradie.user_status == "completed" ? (
+                              //   <button
+                              //     style={{ cursor: "pointer" }}
+                              //     onClick={() => {
+                              //       handleDeleteJob(singleBooking.id);
+                              //     }}
+                              //   >
+                              //     Delete This Job
+                              //   </button>
+                              // ) :
                               singleTradie.provider_status == "accept" ? (
                                 ""
                               ) : singleTradie.provider_status ==
@@ -330,63 +342,72 @@ const Index = () => {
                                     : "Offline"}
                                 </span>
                               </div>
-                              <div className="list-box_detail">
-                                <h3>{singleTradie.full_name}</h3>
-                                <div className="list-box_detail_img">
-                                  <StarRatings
-                                    rating={
-                                      singleTradie.avg_rating
-                                        ? Math.round(
-                                            Number(singleTradie.avg_rating) * 10
-                                          ) / 10
-                                        : 0
-                                    }
-                                    starRatedColor="orange"
-                                    numberOfStars={5}
-                                    name="rating"
-                                    starSpacing="1px"
-                                    starDimension="17px"
-                                  />
-                                </div>
-
-                                {/* <p>Review: {singleTradie.review}</p> */}
-                                <p>{singleBooking.service_name}</p>
-                                {
-                                  (singleBooking.type = "multiple" ? (
-                                    singleBooking.job_post.length > 1 ? (
-                                      singleTradie.provider_status ==
-                                      "accept" ? (
-                                        singleTradie.user_status == "reject" ? (
-                                          ""
-                                        ) : singleTradie.user_status ==
-                                          "accept" ? (
-                                          ""
-                                        ) : (
-                                          <>
-                                            <IoMdCloudDone
-                                              size={22}
-                                              style={{ color: "green" }}
-                                              onClick={(e) =>
-                                                acceptProvider(singleTradie)
-                                              }
-                                            />
-                                            {"  "} &nbsp;
-                                            <MdOutlineCancel
-                                              size={22}
-                                              style={{ color: "red" }}
-                                              onClick={() =>
-                                                rejectProvider(singleTradie)
-                                              }
-                                            />{" "}
-                                          </>
-                                        )
-                                      ) : null
-                                    ) : (
-                                      ""
-                                    )
-                                  ) : null)
+                              <Link
+                                to={
+                                  "/tradie-public-profile/" +
+                                  singleTradie.provider_id
                                 }
-                                {/* <button
+                                style={{ textDecoration: "none" }}
+                              >
+                                <div className="list-box_detail">
+                                  <h3>{singleTradie.full_name}</h3>
+                                  <div className="list-box_detail_img">
+                                    <StarRatings
+                                      rating={
+                                        singleTradie.avg_rating
+                                          ? Math.round(
+                                              Number(singleTradie.avg_rating) *
+                                                10
+                                            ) / 10
+                                          : 0
+                                      }
+                                      starRatedColor="orange"
+                                      numberOfStars={5}
+                                      name="rating"
+                                      starSpacing="1px"
+                                      starDimension="17px"
+                                    />
+                                  </div>
+
+                                  {/* <p>Review: {singleTradie.review}</p> */}
+                                  <p>{singleBooking.service_name}</p>
+                                  {
+                                    (singleBooking.type = "multiple" ? (
+                                      singleBooking.job_post.length > 1 ? (
+                                        singleTradie.provider_status ==
+                                        "accept" ? (
+                                          singleTradie.user_status ==
+                                          "reject" ? (
+                                            ""
+                                          ) : singleTradie.user_status ==
+                                            "accept" ? (
+                                            ""
+                                          ) : (
+                                            <>
+                                              <IoMdCloudDone
+                                                size={22}
+                                                style={{ color: "green" }}
+                                                onClick={(e) =>
+                                                  acceptProvider(singleTradie)
+                                                }
+                                              />
+                                              {"  "} &nbsp;
+                                              <MdOutlineCancel
+                                                size={22}
+                                                style={{ color: "red" }}
+                                                onClick={() =>
+                                                  rejectProvider(singleTradie)
+                                                }
+                                              />{" "}
+                                            </>
+                                          )
+                                        ) : null
+                                      ) : (
+                                        ""
+                                      )
+                                    ) : null)
+                                  }
+                                  {/* <button
                                   style={{ cursor: "pointer" }}
                                   onClick={() => {
                                     handleDeleteTradie(
@@ -405,7 +426,8 @@ const Index = () => {
                                     <span>Remove</span>
                                   </div>
                                 </button> */}
-                              </div>
+                                </div>
+                              </Link>
                             </div>
                           </div>
                         </>

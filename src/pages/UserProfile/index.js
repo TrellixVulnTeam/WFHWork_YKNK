@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as AuthActions from "../../redux/auth/action";
 
 import user_profile_1 from "../../assets/icons/tradieTV-title-after.svg";
+import user_dummmy_img from "../../assets/images/user.png";
 import user_profile_2 from "../../assets/images/1601545174666_user-profile_2020_10_01_17_39_31_786_ 1.jpg";
 import user_profile_3 from "../../assets/icons/icon-location.png";
 import user_profile_4 from "../../assets/icons/icon-phone.png";
@@ -50,7 +51,7 @@ const Index = () => {
               src={
                 profile_pic
                   ? `https://api.tapatradie.com/profile/${id}/` + profile_pic
-                  : user_profile_1
+                  : user_dummmy_img
               }
               alt=""
               style={{border:"1 px solid black"}}

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const AboutUsApp = () => {
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const { userData } = useSelector((state) => state.auth);
   return (
     <div>
@@ -167,7 +168,7 @@ const AboutUsApp = () => {
         </div>
       </section>
 
-      {userData?.access === "provider" ? (
+      {userInfo?.access === "provider" ? (
         ""
       ) : (
         <section className="section section--left">

@@ -126,6 +126,9 @@ const Index = () => {
                               userBooking.job_post.map((leads, i) =>
                                 leads.provider_status == "completed" ? (
                                   <p>Completed</p>
+                                ) : leads.provider_status == "accept" &&
+                                leads.user_status == "accept" ? (
+                                  "Accepted"
                                 ) : (
                                   leads.provider_status
                                 )
@@ -178,7 +181,8 @@ const Index = () => {
                         </p>
                         <br />
                         <div className="event__what">
-                          <h4>{userBooking.title}</h4>
+                          <h4>{userBooking?.title}</h4>
+                          <p>{userBooking?.detail}</p>
                         </div>
                         <p className="event__when-where">
                           <img src={user_bookings__1} alt="" />

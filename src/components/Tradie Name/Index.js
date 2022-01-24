@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 //   1601545174666_user-profile_2020_10_01_17_39_31_786_ 1.jpg
 // professional-tradie.jpg
 import tradie_review_1 from "../../assets/images/1601545174666_user-profile_2020_10_01_17_39_31_786_ 1.jpg";
 import * as Actions from "../../redux/auth/action";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import IconArrow from "../../assets/icons/icon-arrow.svg";
 import tradie_directory_3 from "../../assets/images/user.png";
 import StarRatings from "react-star-ratings";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 toast.configure();
 
 const Index = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const fileRef = useRef(null);
   const {
     userData,
     businessData,
@@ -24,11 +27,23 @@ const Index = () => {
     submitApprovalRes,
   } = useSelector((state) => state.auth);
 
-  const { Profile_steps_Action, submitForApproval } = Actions;
+  const {
+    Profile_steps_Action,
+    submitForApproval,
+    User_Profile_Get_Information_Action,
+  } = Actions;
   const userDetails = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const { fullname } = userDetails;
+
   const [complete, setComplete] = useState(false);
   const [businesDone, setBusinesDone] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(User_Profile_Get_Information_Action());
+  }, []);
+
   const {
     full_name,
     email,
@@ -49,7 +64,6 @@ const Index = () => {
   } = userData;
   const { house_no, street, pincode, state } = businessData;
 
-  useEffect(() => {}, []);
   const handleProviderProfileCall = () => {
     dispatch(Profile_steps_Action());
   };
@@ -129,26 +143,89 @@ const Index = () => {
     });
   };
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "my-auth-token",
+    },
+  };
+
+  const ChangeProfilePic = async (e) => {
+    const imgs = e.target.files;
+    setLoading(false);
+    const formData = new FormData();
+    formData.append("image", imgs[0]);
+    formData.append("access_token", userInfo.access_token); //append the values with key, value pair
+    formData.append("api_key", userInfo.api_key);
+    // formData.append("device_id", userInfo.device_id);
+    formData.append("device_type", userInfo.device_type);
+    formData.append("uid", userInfo.uid);
+    formData.append("length", imgs.length);
+
+    const response = await axios
+      .post(
+        "https://api.tapatradie.com/api/upload-profile-picture",
+        formData,
+        config
+      )
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+    if (response) {
+      setLoading(true);
+    }
+    if (response?.success === 1) {
+      dispatch(User_Profile_Get_Information_Action());
+      toast.success(response.message, {
+        position: "bottom-left",
+        autoClose: 2000,
+        size: "small",
+      });
+    }
+  };
+
   return (
     <div className="tradie-my-profile__profile">
-      <div className="tradie-profile__image">
-        <img
-          src={
-            profile_pic
-              ? `https://api.tapatradie.com/profile/${id}/` + profile_pic
-              : tradie_directory_3
-          }
-          alt=""
-        />
+      <div className="tradie-profile__image" style={{ display: "flex" }}>
+        {loading ? (
+          <img
+            src={
+              profile_pic
+                ? `https://api.tapatradie.com/profile/${id}/` + profile_pic
+                : tradie_directory_3
+            }
+            alt=""
+          />
+        ) : (
+          <div className="upload-profile-loader">
+            <CircularProgress />
+          </div>
+        )}
       </div>
-      <Link to="/ChangeProfile" style={{ textDecoration: "none" }}>
-        <small style={{ cursor: "pointer" }}>Change profile</small>
-      </Link>
+      {/* <Link to="/ChangeProfile" style={{ textDecoration: "none" }}> */}
+      <small
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          fileRef.current.click();
+        }}
+      >
+        Change profile
+      </small>
+      {/* </Link> */}
+      <input
+        type="file"
+        ref={fileRef}
+        onChange={(e) => ChangeProfilePic(e)}
+        hidden
+      />
       <h4 className="tradie-profile__name">{full_name}</h4>
 
       <div className="tradie-profile__rating">
         <StarRatings
-          rating={rating ? Math.round(Number(rating) * 10) / 10 : 0}
+          rating={
+            userData?.rating
+              ? Math.round(Number(userData?.rating) * 10) / 10
+              : 0
+          }
           starRatedColor="orange"
           numberOfStars={5}
           name="rating"

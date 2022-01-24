@@ -296,7 +296,11 @@ function* provider_get_reviewList_service_Saga(action) {
   try {
     let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
-    const result = yield call(api.provider_get_reviewList_Service, userInfo);
+    const result = yield call(
+      api.provider_get_reviewList_Service,
+      action.payload,
+      userInfo
+    );
 
     yield put({
       type: types.GET_PROVIDER_REVIEW_LIST_SUCCESS,
@@ -365,7 +369,6 @@ function* provider_leads_Saga() {
     let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
     const result = yield call(api.provider_leads_Service, userInfo);
-    
 
     yield put({
       type: types.PROVIDER_LEADS_SUCCESS,

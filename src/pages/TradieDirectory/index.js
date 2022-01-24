@@ -23,6 +23,7 @@ import Button from "@restart/ui/esm/Button";
 import TradieRequestModel from "./TradieRequestModel";
 import AlertPopup from "./AlertPopup";
 import { GoPrimitiveDot } from "react-icons/go";
+import { CircularProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
@@ -31,7 +32,7 @@ toast.configure();
 const Index = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const [loading, setLoading] = useState(true);
   let searchCookie = JSON.parse(localStorage.getItem("tradiesearch"));
   let adressCookie = JSON.parse(localStorage.getItem("onloaddata"));
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
@@ -83,6 +84,12 @@ const Index = () => {
     (state) => state.directory
   );
 
+  useEffect(() => {
+    if (searchingTradie) {
+      setLoading(true);
+    }
+  }, [searchingTradie]);
+
   const { login, verify_OTP } = useSelector((state) => state.auth);
   const [searchFormData, setSearchFormData] = useState({
     searchQuery: searchTerm,
@@ -130,6 +137,7 @@ const Index = () => {
   };
 
   const handleSubmit = () => {
+    setLoading(false);
     if (searchFormData?.latitude == "") {
       toast.error("Please Select Location", {
         // position: "bottom-left",
@@ -520,68 +528,74 @@ const Index = () => {
             );
           })} */}
 
-        <div className="tradies__grid">
-          {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
-            sortTradie()?.map((item, index) => {
-              return (
-                <div className="tradies-item" key={index}>
-                  <div
-                    className="tradies-item__image"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      handleChangeRoute(item.id);
-                    }}
-                  >
-                    <img
-                      src={
-                        item.profile_pic
-                          ? `https://api.tapatradie.com/profile/${item.id}/` +
-                            item.profile_pic
-                          : tradie_directory_3
-                      }
-                      alt="User"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="tradies-item__content">
+        {loading ? (
+          <div className="tradies__grid">
+            {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
+              sortTradie()?.map((item, index) => {
+                return (
+                  <div className="tradies-item" key={index}>
                     <div
+                      className="tradies-item__image"
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         handleChangeRoute(item.id);
                       }}
                     >
-                      <h4 className="tradies-item__name">{item?.full_name}</h4>
-                      <ul className="tradies-item__specialties">
-                        <li>{item?.service_name}</li>
-                      </ul>
-                      <div className="tradies-item__rating">
-                        <StarRatings
-                          rating={
-                            item?.rating
-                              ? Math.round(Number(item?.rating) * 10) / 10
-                              : 0
-                          }
-                          starRatedColor="orange"
-                          numberOfStars={5}
-                          name="rating"
-                          starSpacing="1px"
-                          starDimension="17px"
-                        />
-                      </div>
+                      <img
+                        src={
+                          item.profile_pic
+                            ? `https://api.tapatradie.com/profile/${item.id}/` +
+                              item.profile_pic
+                            : tradie_directory_3
+                        }
+                        alt="User"
+                        loading="lazy"
+                      />
                     </div>
-                    <span className="list-box_online" style={{marginTop:"-10px", marginBottom:"3px"}}>
-                      {item.online === 1 ? (
-                        <>
-                          <GoPrimitiveDot color="green" /> Online
-                        </>
-                      ) : (
-                        <>
-                          <GoPrimitiveDot color="red" /> Offline
-                        </>
-                      )}
-                    </span>
-                    {/* {item?.isBtnSelect  === true ? (
+
+                    <div className="tradies-item__content">
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          handleChangeRoute(item.id);
+                        }}
+                      >
+                        <h4 className="tradies-item__name">
+                          {item?.full_name}
+                        </h4>
+                        <ul className="tradies-item__specialties">
+                          <li>{item?.service_name}</li>
+                        </ul>
+                        <div className="tradies-item__rating">
+                          <StarRatings
+                            rating={
+                              item?.rating
+                                ? Math.round(Number(item?.rating) * 10) / 10
+                                : 0
+                            }
+                            starRatedColor="orange"
+                            numberOfStars={5}
+                            name="rating"
+                            starSpacing="1px"
+                            starDimension="17px"
+                          />
+                        </div>
+                      </div>
+                      <span
+                        className="list-box_online"
+                        style={{ marginTop: "-10px", marginBottom: "3px" }}
+                      >
+                        {item.online === 1 ? (
+                          <>
+                            <GoPrimitiveDot color="green" /> Online
+                          </>
+                        ) : (
+                          <>
+                            <GoPrimitiveDot color="red" /> Offline
+                          </>
+                        )}
+                      </span>
+                      {/* {item?.isBtnSelect  === true ? (
                       <Link
                         to={{
                           pathname: "/tradie-request",
@@ -598,35 +612,40 @@ const Index = () => {
                         {item.isBtnSelect === true ? "Deselect" : "Select"}
                       </Link>
                     ) : ( */}
-                    <Button
-                      role="button"
-                      to="/tradie-request"
-                      className={`tradies-item__select ${
-                        item?.isBtnSelect === true
-                          ? "bg-light-orange"
-                          : "btn-primary"
-                      }`}
-                      onClick={() => {
-                        slectedTradie(item.id);
-                      }}
-                    >
-                      {item.isBtnSelect === true ? "Deselect" : "Select"}
-                    </Button>
-                    {/* )} */}
+                      <Button
+                        role="button"
+                        to="/tradie-request"
+                        className={`tradies-item__select ${
+                          item?.isBtnSelect === true
+                            ? "bg-light-orange"
+                            : "btn-primary"
+                        }`}
+                        onClick={() => {
+                          slectedTradie(item.id);
+                        }}
+                      >
+                        {item.isBtnSelect === true ? "Deselect" : "Select"}
+                      </Button>
+                      {/* )} */}
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="tradies-item">
-              <center>No Tradie Found!</center>
-            </div>
-          )}
-        </div>
+                );
+              })
+            ) : (
+              <div className="tradies-item">
+                <center>No Tradie Found!</center>
+              </div>
+            )}
+          </div>
+        ) : (
+          <center>
+            <CircularProgress />
+          </center>
+        )}
       </section>
 
       {/* <!-- Register as a Tradie Today! --> */}
-      {userInfo?.fullname ? (
+      {userInfo?.access ? (
         ""
       ) : (
         <section
