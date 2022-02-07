@@ -16,9 +16,17 @@ import LoginInPopup from "./login_verification_popop";
 import FacebookLogin from "react-facebook-login";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import IntlTelInput from "react-intl-tel-input";
+
+import libPhoneNumber from "react-intl-tel-input/dist/libphonenumber.js";
+import "../../../node_modules/react-intl-tel-input/dist/main.css";
 import Modal from "../../components/UserSignupModal";
 import { toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 toast.configure();
 
@@ -44,19 +52,47 @@ const Index = () => {
   } = useSelector((state) => state.auth);
 
   const [btnTab, setBtnTab] = useState(true);
-  const [countryCode, setCountryCode] = useState("+61");
+  const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isValidationMessage, setIsValidationMessage] = useState(false);
   const [regMsg, setRegMsg] = useState(false);
   const [namePopup, setnamePopup] = useState(false);
+  const [details, setDetails] = useState(null);
 
+  const getGeoInfo = () => {
+    axios
+      .get("https://ipapi.co/json/")
+      .then((response) => {
+        let data = response.data;
+        setDetails({
+          countryName: data.country_name,
+          countryDial: data.country_calling_code,
+          countryCode: data.country_code,
+        });
+        localStorage.setItem("countryCode", JSON.stringify(data.country_code));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getGeoInfo();
+  }, []);
+  let deviceCountry = JSON.parse(localStorage.getItem("countryCode"));
+
+  useEffect(() => {
+    if (location.state) {
+      if (location.state?.access == "user") {
+        setBtnTab(false);
+      }
+    }
+  }, [location]);
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
 
   const responseFacebook = (response) => {
-    
     Dispatch(
       faceBookLogin_Action({
         facebook_id: response.id,
@@ -91,17 +127,17 @@ const Index = () => {
   };
   const LoginBtn = () => {
     if (countryCode == "") {
-      toast.error("Please fill Country code", {
+      toast.error("Please Select Country", {
         position: "bottom-left",
         autoClose: 2000,
         size: "small",
       });
-    } else if (!countryCode.match(/^(\+?\d{1,3}|\d{1,4})$/g)) {
-      toast.error("Please fill valid Country code", {
-        position: "bottom-left",
-        autoClose: 2000,
-        size: "small",
-      });
+      // } else if (!countryCode.match(/^(\+?\d{1,3}|\d{1,4})$/g)) {
+      //   toast.error("Please fill valid Country code", {
+      //     position: "bottom-left",
+      //     autoClose: 2000,
+      //     size: "small",
+      //   });
     } else {
       Dispatch(updateAccessToken_Action());
       Dispatch(
@@ -143,6 +179,34 @@ const Index = () => {
   const SelectOption = countries_code?.map((val) => {
     return { value: val.id, label: val.id };
   });
+
+  const handlePhoneNumberChange = (value, country, e, formattedValue) => {
+    // console.log("Country", country);
+
+    // console.log("value", value);
+    // console.log("formattedValue", formattedValue);
+
+    let DialCode = country?.dialCode;
+    let valueLength = value?.length;
+
+    let result = value?.substr(
+      DialCode?.length,
+      valueLength - DialCode?.length
+    );
+
+    setCountryCode(DialCode);
+    if (result.length <= 9) {
+      setIsValidationMessage(true);
+    }
+    if (result.length >= 9) {
+      setIsValidationMessage(false);
+      Dispatch(otp_State_Change_Action(true));
+    }
+    if (result.length <= 10) {
+      setMobileNumber(result);
+      Dispatch(otp_State_Change_Action(true));
+    }
+  };
 
   return (
     <div>
@@ -203,8 +267,9 @@ const Index = () => {
 
               <div className="sign-up-form__mobile">
                 <p>Mobile Number</p>
+
                 <div className="sign-up-form__inputs">
-                  <label for="mobile-number">
+                  {/* <label for="mobile-number">
                     {countries_code.map((country) => {
                       if (country.id === countryCode) {
                         return country.flag;
@@ -220,17 +285,15 @@ const Index = () => {
                     }}
                     style={{ color: "#535353 !important" }}
                     required
-                  />
-                  {/* <Select
-                    className="sign-up-form__country-code"
-                    value={countryCode}
-                    onChange={(e) => {
-                      setCountryCode(e.value);
-                    }}
-                    options={SelectOption}
                   /> */}
 
-                  <input
+                  <PhoneInput
+                    country={`${
+                      deviceCountry ? deviceCountry?.toLowerCase() : "in"
+                    }`}
+                    onChange={handlePhoneNumberChange}
+                  />
+                  {/* <input
                     type="number"
                     className="sign-up-form__mobile-number"
                     id="mobile-number"
@@ -241,7 +304,8 @@ const Index = () => {
                     }}
                     onKeyDown={handleKeyDown}
                     required
-                  />
+                    h
+                  /> */}
                 </div>
               </div>
               <div className="sign-up-form__error_msg">

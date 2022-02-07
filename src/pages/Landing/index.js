@@ -6,6 +6,7 @@ import landing_1 from "../../assets/icons/how-it-works-1.svg";
 import landing_2 from "../../assets/icons/how-it-works-2.svg";
 import landing_3 from "../../assets/images/features-right.png";
 import landing_4 from "../../assets/icons/features-after.svg";
+import mobile from "../../assets/images/mobile-app.png";
 import landing_5 from "../../assets/icons/download-app-after.svg";
 import contact_us_9 from "../../assets/icons/download-app-tradies-left.svg";
 import contact_us_10 from "../../assets/icons/qr.png";
@@ -29,7 +30,7 @@ const Index = () => {
         <div className="download-app app-section">
           <img className="download-app__after" src={landing_1} />
           <div className="">
-            <img className="phone-img" src="/assets/phones.png" />
+            <img className="phone-img" src={mobile} />
           </div>
           <div className="download-app__tradies tradies_section_two t-bg">
             <h2 className="section-top__title text-center-top">

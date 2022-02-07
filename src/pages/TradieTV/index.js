@@ -22,6 +22,7 @@ const Index = () => {
   };
   const [tradietv, setTradeiTv] = useState([]);
   const [categoryVideos, setCategoryVideos] = useState([]);
+  const [OtherVideos, setOtherVideos] = useState([]);
 
   useEffect(() => {
     let a = tradietv?.filter((cal) => cal.categoryId == 1);
@@ -30,13 +31,14 @@ const Index = () => {
 
   // setCategoryVideos(eleval)
   // get videos from local storage
-  // useEffect(() => {
-  //   const videos =
-  //     JSON.parse(localStorage.getItem("categoryVideos"))
-  //     ||     videosCategories[1]?.videos;
+  useEffect(() => {
+    const videos =
+      JSON.parse(localStorage.getItem("categoryVideos")) ||
+      videosCategories[0]?.videos;
+    
+    setOtherVideos(videos);
+  }, []);
 
-  //   setCategoryVideos(videos);
-  // }, []);
   useEffect(() => {
     axios
       .get("https://api.tapatradie.com/backend/v2/tradietv")
@@ -54,16 +56,22 @@ const Index = () => {
     fetchVideos(name, nameid);
   }
   function fetchVideos(name, e) {
+   
     SetcatName(name);
     const targetCategory = tradietv?.filter((category) =>
       category.categoryId === e ? category.categoryId : null
     );
     setCategoryVideos(targetCategory);
 
+    const targetOtherCategory = videosCategories.find((category) =>
+      category.number === e ? category : null
+    );
+   
+    setOtherVideos(targetOtherCategory.videos);
     // store videos into local storage
     localStorage.setItem(
       "categoryVideos",
-      JSON.stringify(targetCategory?.video_link)
+      JSON.stringify(targetOtherCategory?.videos)
     );
   }
 
@@ -159,8 +167,8 @@ const Index = () => {
             )}
           </ul>
 
-          {/* <h3 class="section__title">Other videos</h3> */}
-          {/* 
+          {/* <h3 class="section__title">Other videos</h3> 
+        
           <ul className="tradie-tips__videos">
             {categoryVideos !== null
               ? categoryVideos?.map((video) => (
@@ -177,19 +185,19 @@ const Index = () => {
                   </li>
                 ))
               : ""}
-          </ul> */}
+          </ul> 
 
-          {/* <div class="tradie-tips__videos">
+          <div class="tradie-tips__videos">
             <a href="#" class="tips-video">
               <div class="tips-video__thumbnail">
                 <YouTube
                   videoId="QrD_oPhMVWs"
                   className="tips-video__youtubePlayer"
                 />
-                <svg class="tips-video__play-icon">
+                {/* <svg class="tips-video__play-icon">
                   <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
+                </svg> */}
+          {/*   </div>
               <h6 class="tips-video__title">
                 How to fix common leaks/Basic plumbing
               </h6>
@@ -200,10 +208,10 @@ const Index = () => {
                   videoId="QrD_oPhMVWs"
                   className="tips-video__youtubePlayer"
                 />
-                <svg class="tips-video__play-icon">
+                {/* <svg class="tips-video__play-icon">
                   <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
+                </svg> */}
+          {/*   </div>
               <h6 class="tips-video__title">
                 How to fix common leaks/Basic plumbing
               </h6>
@@ -215,64 +223,62 @@ const Index = () => {
                   className="tips-video__youtubePlayer"
                 />
 
-                <svg class="tips-video__play-icon">
+                {/* <svg class="tips-video__play-icon">
                   <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
-              <h6 class="tips-video__title">
-                How to fix common leaks/Basic plumbing
-              </h6>
-            </a>
-          </div>
-          <h3 class="section__title">Other videos</h3>
-          <div class="tradie-tips__videos">
-            <a href="#" class="tips-video">
-              <div class="tips-video__thumbnail">
-                <YouTube
-                  videoId="QrD_oPhMVWs"
-                  className="tips-video__youtubePlayer"
-                />
-                <svg class="tips-video__play-icon">
-                  <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
-
-              <h6 class="tips-video__title">
-                How to fix common leaks/Basic plumbing
-              </h6>
-            </a>
-            <a href="#" class="tips-video">
-              <div class="tips-video__thumbnail">
-                <YouTube
-                  videoId="QrD_oPhMVWs"
-                  className="tips-video__youtubePlayer"
-                />
-
-                <svg class="tips-video__play-icon">
-                  <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
-
-              <h6 class="tips-video__title">
-                How to fix common leaks/Basic plumbing
-              </h6>
-            </a>
-            <a href="#" class="tips-video">
-              <div class="tips-video__thumbnail">
-                <YouTube
-                  videoId="QrD_oPhMVWs"
-                  className="tips-video__youtubePlayer"
-                />
-
-                <svg class="tips-video__play-icon">
-                  <use xlink:href="/assets/icons/sprite.svg#icon-play"></use>
-                </svg>
-              </div>
+                </svg> */}
+          {/*   </div>
               <h6 class="tips-video__title">
                 How to fix common leaks/Basic plumbing
               </h6>
             </a>
           </div> */}
+          <h3 class="section__title">Other videos</h3>
+          <div class="tradie-tips__videos">
+            {OtherVideos.length > 0
+              ? OtherVideos?.map(
+                  (res) =>
+                    res.type === "other" && (
+                      <a href="#" class="tips-video" key={res.id}>
+                        <div class="tips-video__thumbnail">
+                          <YouTube
+                            videoId={res.videoId}
+                            className="tips-video__youtubePlayer"
+                          />
+                        </div>
+
+                        <h6 class="tips-video__title">{res.title}</h6>
+                      </a>
+                    )
+                )
+              : ""}
+            {/* <a href="#" class="tips-video">
+              <div class="tips-video__thumbnail">
+                <YouTube
+                  videoId="QrD_oPhMVWs"
+                  className="tips-video__youtubePlayer"
+                />
+
+              
+              </div>
+
+              <h6 class="tips-video__title">
+                How to fix common leaks/Basic plumbing
+              </h6>
+            </a>
+            <a href="#" class="tips-video">
+              <div class="tips-video__thumbnail">
+                <YouTube
+                  videoId="QrD_oPhMVWs"
+                  className="tips-video__youtubePlayer"
+                />
+
+                
+              </div>
+              <h6 class="tips-video__title">
+                How to fix common leaks/Basic plumbing
+              </h6>
+            </a> */}
+          </div>
         </div>
       </section>
 

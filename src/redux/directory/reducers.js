@@ -19,6 +19,9 @@ const initState = {
   providerJobReject: [],
   providerLeadsHistory: [],
   userLeadHistory: [],
+  subscription_list: [],
+  payment_history: [],
+  cancel_subs_Res: "",
 };
 
 const directoryReducer = (state = initState, action) => {
@@ -473,6 +476,30 @@ const directoryReducer = (state = initState, action) => {
         ...state,
         success: false,
         loading: false,
+      };
+    // TRADIE_SUBSCRIPTION_LIST_SUCCESS
+    case types.TRADIE_SUBSCRIPTION_LIST_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        subscription_list: payload,
+      };
+    // TRADIE_PAYMENT_HISTORY_SUCCESS
+    case types.TRADIE_PAYMENT_HISTORY_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        payment_history: payload,
+      };
+    // TRADIE_CANCEL_SUBSCRIPTION_SUCCESS
+    case types.TRADIE_CANCEL_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        cancel_subs_Res: payload,
       };
 
     default:

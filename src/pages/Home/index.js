@@ -45,6 +45,7 @@ import contact_us_6 from "../../assets/icons/download-app-customers-left.svg";
 import { Redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 toast.configure();
 
 const Index = () => {
@@ -74,6 +75,21 @@ const Index = () => {
     longitude: "",
   });
   const [enterNameModal, setModalClose] = useState(true);
+
+  const getGeoInfo = () => {
+    axios
+      .get("https://ipapi.co/json/")
+      .then((response) => {
+        let data = response.data;
+        localStorage.setItem("countryCode", JSON.stringify(data.country_code));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getGeoInfo();
+  }, []);
 
   useEffect(() => {
     dispatch(trendingAllCategories_Action());
@@ -116,6 +132,7 @@ const Index = () => {
         size: "small",
       });
     } else {
+      localStorage.setItem("SearchAllData", JSON.stringify(searchFormData))
       dispatch(search_trading_onClick_search_Action(searchFormData));
       setRedirectpPage(true);
     }

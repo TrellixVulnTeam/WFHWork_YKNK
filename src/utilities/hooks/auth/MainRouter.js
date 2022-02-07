@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../redux/auth/action";
-import { isGenerateAccessToken, isCookiePolicy } from "./util";
+import { isGenerateAccessToken, isCookiePolicy, isAuthenticated } from "./util";
 import PrivateRoute from "./PrivateRoute";
 import Homepage from "../../../pages/Home";
 import Directory from "../../../pages/Directory";
@@ -56,6 +56,13 @@ import NewRoutes from "./NewRoutes";
 const MainRouter = () => {
   const Dispatch = useDispatch();
   const { cookiePolicy_Action } = Actions;
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      Dispatch(Actions.Logout_Action());
+      Dispatch(Actions.generateAccessToken_Action());
+    }
+  }, [isAuthenticated()]);
 
   if (!isCookiePolicy()) {
     Dispatch(cookiePolicy_Action(false));

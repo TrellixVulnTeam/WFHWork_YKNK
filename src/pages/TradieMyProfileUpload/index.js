@@ -10,8 +10,11 @@ import { Link, useHistory } from "react-router-dom";
 import { Fab, Grid, CircularProgress } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
+import Modal from "react-modal";
 import "react-toastify/dist/ReactToastify.css";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 toast.configure();
 
@@ -19,16 +22,21 @@ const Index = () => {
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const history = useHistory();
   const dispatch = useDispatch();
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [imgData, setImagData] = useState();
+
   const {
     Get_Image_list_Action,
     Image_Upload_Action,
     Get_Business_Details_Action,
     User_Profile_Get_Information_Action,
+    Image_list_Delete_Action,
   } = Actions;
   const { businessUpdateres, imgUpdateres } = useSelector(
     (state) => state.auth
   );
-  const { userData } = useSelector((state) => state.auth);
+  const { gallery, galleryImgDelRes } = useSelector((state) => state.auth);
   const [multiImgs, setMultiImg] = useState([]);
   const [preImgs, setPreImg] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,9 +44,11 @@ const Index = () => {
   useEffect(() => {
     dispatch(Get_Image_list_Action());
     dispatch(Get_Business_Details_Action());
-    dispatch(User_Profile_Get_Information_Action());
-   
   }, []);
+
+  useEffect(() => {
+    dispatch(User_Profile_Get_Information_Action());
+  }, [businessUpdateres, galleryImgDelRes]);
 
   const fileToDataUri = (image) => {
     return new Promise((res) => {
@@ -64,18 +74,33 @@ const Index = () => {
     //   newImagesPromises.push(fileToDataUri(target.files[i]));
     // }
     // const newImages = await Promise.all(newImagesPromises);
-    let ImageArray = Object.entries(target.files).map((e) =>
-      URL.createObjectURL(e[1])
-    );
-    setPreImg([...preImgs, ...ImageArray]);
+    // let ImageArray = Object.entries(target.files).map((e) =>
+    //   URL.createObjectURL(e[1])
+    // );
+    // setPreImg([...preImgs, ...ImageArray]);
+
     setMultiImg([...multiImgs, ...target.files]);
   };
 
   const deleteFile = (e) => {
-    const removeFilter = multiImgs.filter((item, index) => index !== e);
-    const removeFilterPre = preImgs.filter((item, index) => index !== e);
-    setMultiImg(removeFilter);
-    setPreImg(removeFilterPre);
+    // const removeFilter = multiImgs.filter((item, index) => index !== e);
+    // const removeFilterPre = preImgs.filter((item, index) => index !== e);
+    // setMultiImg(removeFilter);
+    // setPreImg(removeFilterPre);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this image from gallery.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(Image_list_Delete_Action(e));
+      }
+    });
   };
 
   const UploadeMulti = (e) => {
@@ -91,6 +116,30 @@ const Index = () => {
       });
     }
   };
+  function openModal(data) {
+    setIsOpen(true);
+    setImagData(data);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
   useEffect(() => {
     if (businessUpdateres) {
@@ -100,9 +149,6 @@ const Index = () => {
         autoClose: 2000,
         size: "small",
       });
-      setTimeout(() => {
-        history.push("/tradie-additional-services");
-      }, 2000);
     }
 
     dispatch({ type: "BUSINESSS_DETAILS_UPDATE_SUCCESS", payloade: "" });
@@ -174,58 +220,112 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="tradie-profile__work-photos"> */}
-            <Grid container spacing={2}>
-              {preImgs.length > 0 &&
-                preImgs.map((item, Index) => {
-                  return (
-                    <Grid item key={item} xs={12} md={4}>
-                      {/* <div key={item} style={{ width: "20rem" }}> */}
-                        <Fab
-                          size="small"
-                          aria-label="add"
-                          style={{
-                            position: "absolute",
-                            color: "white",
-                            backgroundColor: "#ef2c2c",
-                            opacity: "0.8",
-                          }}
-                          onClick={() => deleteFile(Index)}
-                        >
-                          <CloseIcon />
-                        </Fab>
-                        <img
-                          src={item}
-                          alt=""
-                          style={{
-                            height: "100%",
-                            width: "100%",
-                            borderRadius: "10%",
-                          }}
-                        />
-                      {/* </div> */}
-                    </Grid>
-                  );
-                })}
-            </Grid>
             <div className="input-group">
-              {loading ? (
-                <input
-                  type="submit"
-                  onClick={(e) => UploadeMulti(e)}
-                  style={{ float: "right" }}
-                  className="btn-primary img-save-btn"
-                  value="Save"
-                />
-              ) : (
+              {/* {loading ? ( */}
+              <input
+                type="submit"
+                onClick={(e) => UploadeMulti(e)}
+                style={{ float: "right" }}
+                className="btn-primary img-save-btn"
+                value="Save"
+              />
+              {/* ) : (
                 <center>
                   <CircularProgress />
                 </center>
-              )}
+              )} */}
             </div>
+            {/* <div className="tradie-profile__work-photos"> */}
+            <Grid container spacing={2}>
+              {loading ? (
+                <>
+                  {gallery.length > 0 &&
+                    gallery.map((item, index) => {
+                      return index < 6 ? (
+                        <Grid item key={item.id} xs={12} md={4}>
+                          {/* <div key={item} style={{ width: "20rem" }}> */}
+                          <Fab
+                            size="small"
+                            aria-label="add"
+                            style={{
+                              position: "absolute",
+                              color: "white",
+                              backgroundColor: "#ef2c2c",
+                              opacity: "0.8",
+                            }}
+                            onClick={() => deleteFile(item.id)}
+                          >
+                            <CloseIcon />
+                          </Fab>
+                          <img
+                            onClick={() =>
+                              openModal(
+                                `https://api.tapatradie.com/gallery/${item?.uid}/` +
+                                  item.image
+                              )
+                            }
+                            src={
+                              `https://api.tapatradie.com/gallery/${item?.uid}/` +
+                              item.image
+                            }
+                            alt=""
+                            style={{
+                              height: "100%",
+                              width: "100%",
+                              borderRadius: "10%",
+                            }}
+                          />
+                          {/* </div> */}
+                        </Grid>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  {gallery.length > 5 ? (
+                    <Grid container justifyContent="right">
+                      <div
+                        style={{
+                          textDecoration: "none",
+                          float: "right",
+                          marginTop: "5px",
+                        }}
+                      >
+                        <Link
+                          to={"/tradie-public-profile/" + userInfo?.uid}
+                          style={{ float: "right" }}
+                        >
+                          View More
+                        </Link>
+                      </div>
+                    </Grid>
+                  ) : (
+                    ""
+                  )}
+                </>
+              ) : (
+                <div className="upload-profile-loader">
+                  <CircularProgress />
+                </div>
+              )}
+            </Grid>
           </form>
         </div>
       </section>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
+        <button className="close-btn" onClick={closeModal}>
+          close
+        </button>
+        <div className="img-show">
+          <img src={imgData} />
+        </div>
+      </Modal>
       {/* <!-- Are you a Professional Tradie? --> */}
       {userInfo?.access == "provider" ? (
         ""

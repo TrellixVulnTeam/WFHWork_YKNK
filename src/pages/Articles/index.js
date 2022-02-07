@@ -56,7 +56,7 @@ const Index = () => {
                     Dispatch(change_blogs_article_Action("painter.jpg"));
                   }}
                 >
-                  read more
+                  Read More
                 </Link>
               </div>
             </div>
@@ -129,7 +129,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("painter.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
           <div class="latest-article">
@@ -150,7 +150,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("electrician.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
           <div class="latest-article">
@@ -171,7 +171,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("kitchen.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
           <div class="latest-article">
@@ -192,7 +192,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("plumbing.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
           <div class="latest-article">
@@ -213,7 +213,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("concrete.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
           <div class="latest-article">
@@ -235,7 +235,7 @@ const Index = () => {
                 Dispatch(change_blogs_article_Action("painter.jpg"));
               }}
             >
-              read more
+              Read More
             </Link>
           </div>
         </div>

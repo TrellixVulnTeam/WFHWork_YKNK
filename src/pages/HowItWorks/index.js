@@ -25,7 +25,7 @@ const Index = () => {
 
       {/* <!-- How it Works --> */}
       <section className="section-top--htws">
-        <h2 className="section-top__title">
+        <h2 className="section-top__title directory-title">
           How it <span>Works</span>
         </h2>
       </section>

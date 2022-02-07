@@ -319,13 +319,14 @@ export const Get_Gallary_List_Service = async (userInfo) => {
   return response;
 };
 
-export const Gallary_Delete_Service = async (userInfo) => {
+export const Gallary_Delete_Service = async (data, userInfo) => {
   var UserData = {
     access_token: userInfo.access_token,
     api_key: userInfo.api_key,
     device_id: userInfo.device_id,
     device_type: userInfo.device_type,
     uid: userInfo.uid,
+    image_id: data,
   };
   const link = "/provider-delete-image";
   const response = await sendPostRequest(UserData, link, config);

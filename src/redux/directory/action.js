@@ -28,7 +28,6 @@ export const slected_tradie_Id = (data) => {
 };
 
 export const slected_to_All_tradie_Id = (data) => {
-
   return {
     type: types.SELECTED__TO_ALL_TRADIE_PROFILE_ID_REQUEST,
     payload: data,
@@ -128,6 +127,22 @@ export const provider_job_accept_request = (data) => {
 export const provider_job_reject_request = (data) => {
   return {
     type: types.PROVIDER_JOB_REJECT_REQUEST,
+    payload: data,
+  };
+};
+export const tradie_subscription_list_request = () => {
+  return {
+    type: types.TRADIE_SUBSCRIPTION_LIST_REQUEST,
+  };
+};
+export const tradie_payment_history_request = () => {
+  return {
+    type: types.TRADIE_PAYMENT_HISTORY_REQUEST,
+  };
+};
+export const tradie_cancel_subscription_request = (data) => {
+  return {
+    type: types.TRADIE_CANCEL_SUBSCRIPTION_REQUEST,
     payload: data,
   };
 };

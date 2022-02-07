@@ -181,7 +181,7 @@ const Index = () => {
         <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
-        <h2 className="section-top__title">
+        <h2 className="section-top__title directory-title">
           My <span>Profile</span>
         </h2>
       </section>

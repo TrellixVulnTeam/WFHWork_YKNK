@@ -460,7 +460,7 @@ function* Image_Gallary_Delete_Saga(action) {
    
     yield put({
       type: types.PROVIDER_GALLARY_DELETE_SUCCESS,
-      payload: result.data.data.message,
+      payload: result.data.data,
     });
     yield put({
       type: types.PROVIDER_GALLARY_DELETE_RESET,

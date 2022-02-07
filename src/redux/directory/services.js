@@ -365,3 +365,46 @@ export const provider_job_reject_Service = async (data, userInfo) => {
 
   return response;
 };
+export const tradie_subscription_list_Service = async (data, userInfo) => {
+  var UserLeads = {
+    access_token: userInfo.access_token,
+    device_id: userInfo.device_id,
+    api_key: userInfo.api_key,
+    device_type: userInfo.device_type,
+    uid: userInfo.uid,
+  };
+
+  const link = "/get-subscription-list";
+  const response = await sendPostRequest(UserLeads, link, config);
+
+  return response;
+};
+export const tradie_payment_history_Service = async (data, userInfo) => {
+  var UserLeads = {
+    access_token: userInfo.access_token,
+    device_id: userInfo.device_id,
+    api_key: userInfo.api_key,
+    device_type: userInfo.device_type,
+    uid: userInfo.uid,
+  };
+
+  const link = "/get-payment-history";
+  const response = await sendPostRequest(UserLeads, link, config);
+
+  return response;
+};
+export const tradie_cancel_subscription_Service = async (data, userInfo) => {
+  var UserLeads = {
+    access_token: userInfo.access_token,
+    device_id: userInfo.device_id,
+    api_key: userInfo.api_key,
+    device_type: userInfo.device_type,
+    uid: userInfo.uid,
+    subscription_id: data,
+  };
+
+  const link = "/cancel-subscription";
+  const response = await sendPostRequest(UserLeads, link, config);
+
+  return response;
+};

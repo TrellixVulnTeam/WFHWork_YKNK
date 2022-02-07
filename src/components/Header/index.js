@@ -13,6 +13,7 @@ import {
 } from "../../utilities/hooks/auth/util";
 import useComponentVisibleHook from "../../pages/Directory/useComponentVisibleHook";
 import Swal from "sweetalert2";
+
 const Index = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -57,9 +58,11 @@ const Index = () => {
       setLocalStorageAccessLoadSearchInfo(cookieData);
     }
   };
+  
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
+      text: " ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -70,7 +73,9 @@ const Index = () => {
         dispatch(Logout_Action());
         dispatch(generateAccessToken_Action());
         setLogoutUser(true);
-        history.push("/");
+        setTimeout(() => {
+          history.push({ pathname: "/login", state: { access: userInfo?.access } });
+        }, 1000);
       }
     });
   };

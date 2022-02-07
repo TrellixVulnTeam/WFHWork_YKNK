@@ -120,7 +120,7 @@ const Index = () => {
                   setTabSelect("current");
                 }}
               >
-                Current
+                New Leads
               </span>
               <span
                 onClick={() => {

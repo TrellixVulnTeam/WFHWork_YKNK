@@ -57,7 +57,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>
@@ -78,7 +78,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>
@@ -99,7 +99,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>
@@ -120,7 +120,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>
@@ -141,7 +141,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>
@@ -162,7 +162,7 @@ const Index = () => {
                 return (
                   <>
                     {/* <h5>{val.faq_title}</h5> */}
-                    <ul style={{ listStyle: "none" }}>
+                    <ul className="p-0">
                       <li>{val.faq_description}</li>
                     </ul>
                   </>

@@ -26,7 +26,6 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const Index = () => {
-
   const {
     trendingAllCategories_Action,
     search_trading_onClick_search_Action,
@@ -83,8 +82,9 @@ const Index = () => {
         size: "small",
       });
     } else {
-    dispatch(search_trading_onClick_search_Action(searchFormData));
-    setRedirectpPage(true);
+      localStorage.setItem("SearchAllData", JSON.stringify(searchFormData));
+      dispatch(search_trading_onClick_search_Action(searchFormData));
+      setRedirectpPage(true);
     }
   };
   if (searchingTradie && redirectpPage) {
@@ -93,36 +93,34 @@ const Index = () => {
 
   const content4 = (
     <div>
-      {trendingCategories?.length ? (
-        trendingCategories
-          ?.filter((val) => {
-            if (searchTerm === "") {
-              return val;
-            } else if (
-              val?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
-            ) {
-              return val;
-            }
-          })
-          .slice(0, 8)
-          .map((val) => {
-            return (
-              <Link
-                key={val.id}
-                href="#2"
-                onClick={(event) => {
-                  goalInputHandler1(val.name);
-                  event.preventDefault();
-                }}
-                className="section-top__search-category-Listitems"
-              >
-                <span> {val.name}</span>
-              </Link>
-            );
-          })
-      ) : (
-        null
-      )}
+      {trendingCategories?.length
+        ? trendingCategories
+            ?.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val?.name?.toLowerCase().includes(searchTerm?.toLowerCase())
+              ) {
+                return val;
+              }
+            })
+            .slice(0, 8)
+            .map((val) => {
+              return (
+                <Link
+                  key={val.id}
+                  href="#2"
+                  onClick={(event) => {
+                    goalInputHandler1(val.name);
+                    event.preventDefault();
+                  }}
+                  className="section-top__search-category-Listitems"
+                >
+                  <span> {val.name}</span>
+                </Link>
+              );
+            })
+        : null}
     </div>
   );
 
@@ -133,60 +131,63 @@ const Index = () => {
         <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
-       <div className="">
-       <h2 className="section-top__title">
-          <img
-            className="section-top__title-before"
-            src={Section_top_2}
-            alt=""
-          />
-          Start your project <span> today </span>
-        </h2>
-        <form
-          action="#"
-          className="search-form"
-          onClick={(e) => e.preventDefault()}
-        >
-          <input
-
-            type="text"
-            value={searchTerm}
-            placeholder="What service do you need?"
-            className="search-form__service"
-            onChange={handleInputValueSet}
-          />
-          {isComponentVisible &&
-            modelOpen ?
-            searchTerm?.length === 0 ? null : (
-              <div ref={ref} className="section-top__autocomplete-search-category" style={{ zIndex: 1 }}>
-                {content4?.props?.children?.length === 0 ? <p style={{ textAlign: "center" }}>No Search Found</p> :
-
-                  null
-                }
-                {content4}
-              </div>
+        <div className="">
+          <h2 className="section-top__title directory-title">
+            <img
+              className="section-top__title-before"
+              src={Section_top_2}
+              alt=""
+            />
+            Start your project <span> today </span>
+          </h2>
+          <form
+            action="#"
+            className="search-form"
+            onClick={(e) => e.preventDefault()}
+          >
+            <input
+              type="text"
+              value={searchTerm}
+              placeholder="What service do you need?"
+              className="search-form__service"
+              onChange={handleInputValueSet}
+            />
+            {isComponentVisible && modelOpen ? (
+              searchTerm?.length === 0 ? null : (
+                <div
+                  ref={ref}
+                  className="section-top__autocomplete-search-category"
+                  style={{ zIndex: 1 }}
+                >
+                  {content4?.props?.children?.length === 0 ? (
+                    <p style={{ textAlign: "center" }}>No Search Found</p>
+                  ) : null}
+                  {content4}
+                </div>
+              )
             ) : null}
 
-          <div className="search-form__address">
-            <label for="address">
-              <svg>
-                {/* <use xlink:href="/assets/icons/sprite.svg#icon-address"></use> */}
-              </svg>
-            </label>
-            <LocationIcon />
-            <AutoCompleteSearch
-              state={searchFormData}
-              setStateFunction={setSearchFormData}
+            <div className="search-form__address">
+              <label for="address">
+                <svg>
+                  {/* <use xlink:href="/assets/icons/sprite.svg#icon-address"></use> */}
+                </svg>
+              </label>
+              <LocationIcon />
+              <AutoCompleteSearch
+                label="Enter your ZIP Code"
+                state={searchFormData}
+                setStateFunction={setSearchFormData}
+              />
+            </div>
+            <input
+              type="submit"
+              className="search-form__submit btn-primary"
+              value="Search"
+              onClick={handleSubmit}
             />
-          </div>
-          <input
-            type="submit"
-            className="search-form__submit btn-primary"
-            value="Search"
-            onClick={handleSubmit}
-          />
-        </form>
-       </div>
+          </form>
+        </div>
       </section>
 
       <section className="section">
@@ -1299,7 +1300,7 @@ const Index = () => {
                 </li>
                 <li className="category__item">
                   <Link
-                   to="/tradie-directory"
+                    to="/tradie-directory"
                     className="category__link"
                     onClick={() => {
                       SendData({ search: "Windows" });
@@ -1336,7 +1337,7 @@ const Index = () => {
         </div>
       </section>
       <Footer />
-    </div >
+    </div>
   );
 };
 

@@ -453,6 +453,78 @@ function* provider_job_reject__service_Saga(action) {
     });
   }
 }
+function* tradie_subscription_list_Saga(action) {
+  try {
+    let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+    const result = yield call(
+      api.tradie_subscription_list_Service,
+      action.payload,
+      userInfo
+    );
+
+    yield put({
+      type: types.TRADIE_SUBSCRIPTION_LIST_SUCCESS,
+      payload: result.data.data.subscription,
+    });
+    yield put({
+      type: types.TRADIE_SUBSCRIPTION_LIST_RESET,
+    });
+  } catch (error) {
+    yield put({
+      type: types.TRADIE_SUBSCRIPTION_LIST_FAILURE,
+      payload: error,
+    });
+  }
+}
+function* tradie_payment_history_Saga(action) {
+  try {
+    let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+    const result = yield call(
+      api.tradie_payment_history_Service,
+      action.payload,
+      userInfo
+    );
+
+    yield put({
+      type: types.TRADIE_PAYMENT_HISTORY_SUCCESS,
+      payload: result.data.data?.current_membership,
+    });
+    yield put({
+      type: types.TRADIE_PAYMENT_HISTORY_RESET,
+    });
+  } catch (error) {
+    yield put({
+      type: types.TRADIE_PAYMENT_HISTORY_FAILURE,
+      payload: error,
+    });
+  }
+}
+function* tradie_cancel_subscription_Saga(action) {
+  try {
+    let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+    const result = yield call(
+      api.tradie_cancel_subscription_Service,
+      action.payload,
+      userInfo
+    );
+
+    yield put({
+      type: types.TRADIE_CANCEL_SUBSCRIPTION_SUCCESS,
+      payload: result.data.data,
+    });
+    yield put({
+      type: types.TRADIE_CANCEL_SUBSCRIPTION_RESET,
+    });
+  } catch (error) {
+    yield put({
+      type: types.TRADIE_CANCEL_SUBSCRIPTION_FAILURE,
+      payload: error,
+    });
+  }
+}
 
 export function* directoryWatcher() {
   yield takeLatest(
@@ -515,5 +587,17 @@ export function* directoryWatcher() {
   yield takeLatest(
     types.USER_LEADS_HISTORY_REQUEST,
     user_leads_history_service_Saga
+  );
+  yield takeLatest(
+    types.TRADIE_SUBSCRIPTION_LIST_REQUEST,
+    tradie_subscription_list_Saga
+  );
+  yield takeLatest(
+    types.TRADIE_PAYMENT_HISTORY_REQUEST,
+    tradie_payment_history_Saga
+  );
+  yield takeLatest(
+    types.TRADIE_CANCEL_SUBSCRIPTION_REQUEST,
+    tradie_cancel_subscription_Saga
   );
 }

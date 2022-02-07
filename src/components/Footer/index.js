@@ -51,7 +51,7 @@ const Index = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                   type="email"
-                  placeholder="Please enter email"
+                  placeholder="Email Address"
                   {...register("subscrib_email", {
                     required: { value: true, message: "Email is required" },
                     pattern: {

@@ -14,10 +14,17 @@ import photoFour from "../../assets/images/construction-worker-with-hard-hat-san
 import photoFive from "../../assets/images/photo-1574757987642-5755f0839101.jpeg";
 import SignupPopup from "./signup-verification_popup.js";
 import FacebookLogin from "react-facebook-login";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import IntlTelInput from "react-intl-tel-input";
+
+import libPhoneNumber from "react-intl-tel-input/dist/libphonenumber.js";
+import "../../../node_modules/react-intl-tel-input/dist/main.css";
 import Modal from "../../components/UserSignupModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory, useLocation } from "react-router-dom";
+import axios from "axios";
 
 toast.configure();
 
@@ -41,6 +48,22 @@ const Index = () => {
     otp_stateReg,
     otp_stateSignup,
   } = useSelector((state) => state.auth);
+
+  const getGeoInfo = () => {
+    axios
+      .get("https://ipapi.co/json/")
+      .then((response) => {
+        let data = response.data;
+        localStorage.setItem("countryCode", JSON.stringify(data.country_code));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getGeoInfo();
+  }, []);
+  let deviceCountry = JSON.parse(localStorage.getItem("countryCode"));
 
   useEffect(() => {
     if (login && verify_OTP?.role === "provider") {
@@ -126,6 +149,33 @@ const Index = () => {
   const Back = () => {
     history.goBack();
   };
+
+  const handlePhoneNumberChange = (value, country, e, formattedValue) => {
+    // console.log("Country", country?.dialCode);
+    // console.log("value", value);
+    // console.log("formattedValue", formattedValue);
+    let DialCode = country?.dialCode;
+    let valueLength = value?.length;
+
+    let result = value?.substr(
+      DialCode?.length,
+      valueLength - DialCode?.length
+    );
+
+    setCountryCode(DialCode);
+    if (result.length <= 9) {
+      setIsValidationMessage(true);
+    }
+    if (result.length >= 9) {
+      setIsValidationMessage(false);
+      Dispatch(otp_StateReg_Change_Action(true));
+    }
+    if (result.length <= 10) {
+      setMobileNumber(result);
+      Dispatch(otp_StateReg_Change_Action(true));
+    }
+    
+  };
   return (
     <>
       <section className="section section--sign-up">
@@ -157,7 +207,8 @@ const Index = () => {
             </nav>
             <h3 className="section__title sign-up__title">Sign Up</h3>
             <p className="sign-up__description">
-              Welcome, We are excited to have you onboard. Please sign up to continue.
+              Welcome, We are excited to have you onboard. Please sign up to
+              continue.
             </p>
             <div className="sign-up-form">
               <div className="sign-up-form__navigation">
@@ -183,8 +234,9 @@ const Index = () => {
 
               <div className="sign-up-form__mobile">
                 <p>Mobile Number</p>
+
                 <div className="sign-up-form__inputs">
-                  <label for="mobile-number">
+                  {/* <label for="mobile-number">
                     {countries_code.map((country) => {
                       if (country.id === countryCode) {
                         return country.flag;
@@ -199,19 +251,24 @@ const Index = () => {
                       setCountryCode(e.target.value);
                     }}
                     required={true}
+                  /> */}
+
+                  <PhoneInput
+                    country={`${deviceCountry?.toLowerCase()}`}
+                    onChange={handlePhoneNumberChange}
                   />
-                  <input
+                  {/* <input
                     type="number"
                     className="sign-up-form__mobile-number"
                     id="mobile-number"
                     placeholder="Enter your mobile number"
                     value={mobileNumber}
-                    min="0"
                     onChange={(e) => {
                       handleMobileNo(e);
                     }}
-                    required={true}
-                  />
+                    // onKeyDown={handleKeyDown}
+                    required
+                  /> */}
                 </div>
               </div>
               <div className="sign-up-form__error_msg">

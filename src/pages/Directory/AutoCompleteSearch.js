@@ -6,9 +6,15 @@ import PlacesAutocomplete, {
 import { ReactComponent as LocationIcon } from "../../assets/icons/locationSvg.svg";
 
 let addrees = "";
-const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
-  
-  const [searchQuery, setSeacrhQuery] = useState(addressValue? addressValue : "");
+const AutoCompleteSearch = ({
+  state,
+  setStateFunction,
+  addressValue,
+  label,
+}) => {
+  const [searchQuery, setSeacrhQuery] = useState(
+    addressValue ? addressValue : ""
+  );
 
   const handleChange = (value) => {
     setSeacrhQuery(value);
@@ -42,7 +48,6 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-
             {/* <input
               {...getInputProps({
                 placeholder: "Address",
@@ -55,18 +60,17 @@ const AutoCompleteSearch = ({ state, setStateFunction, addressValue }) => {
             {addressValue ? (
               <input
                 {...getInputProps({
-                  placeholder: "Address",
+                  placeholder: label ? label : "Address",
                   className: "location-search-input",
                 })}
                 className="section-top__autocomplete-search-input"
 
                 // defaultValue={addressValue ? addressValue : null}
-
               />
             ) : (
               <input
                 {...getInputProps({
-                  placeholder: "Address",
+                  placeholder: label ? label : "Address",
                   className: "location-search-input",
                 })}
                 className="section-top__autocomplete-search-input"

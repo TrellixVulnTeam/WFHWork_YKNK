@@ -1,0 +1,37 @@
+.choose-plan {
+  cursor: pointer;
+}
+.formDiv {
+  padding: 20px;
+}
+.ContainerInput input {
+  border: 1px solid #dfdfdf !important;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100%;
+}
+/* .inputStyle {
+  border: 1px px solid #dfdfdf !important;
+  padding: 8px;
+  border-radius: 5px;
+  width: 100%;
+} */
+
+.subscribeBtn {
+  background: linear-gradient(
+    96.33deg,
+    #db5b1b 0%,
+    #ec9422 109.53%,
+    #ec9422 109.53%
+  );
+  color: white !important;
+  font-size: 12px !important;
+}
+.subscribeBtn:hover{
+    background: linear-gradient(
+        96.33deg,
+        #e08354 0%,
+        #d89135 109.53%,
+        #e28409 109.53%
+      );
+}

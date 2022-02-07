@@ -1,3 +1,6 @@
+section.section--sign-up{
+  padding: 0 30px !important;
+}
 .sign-up-form {
   --spacing: 3rem;
   $spacing: var(--spacing);
@@ -56,6 +59,7 @@
       color: #b4b6b8;
       border: none;
       outline: transparent;
+      padding-left: 36px;
       font-family: inherit;
       font-size: inherit;
       width: 100%;
@@ -63,12 +67,12 @@
         color: #b4b6b8;
       }
       &:first-of-type {
-        width: 4rem;
+       
         margin: 0 1rem;
       }
     }
     span {
-      position: absolute;
+      // position: absolute;
       width: 23rem;
       top: 8rem;
       left: 2rem;
@@ -95,10 +99,12 @@
     }
   }
   &__inputs {
-    display: flex;
-    padding: 0.75rem 1.5rem;
+    display: inline-block;
+    // padding: 0.75rem 1.5rem;
+    width: 100%;
     border-radius: 1rem;
     border: 1px solid $color-line;
+    position: relative;
   }
   &__country-code {
   }
@@ -187,5 +193,38 @@
         $color-primary
       );
     }
+  }
+}
+
+
+.allow-dropdown.intl-tel-input{
+  input{
+    display: none !important;
+  }
+}
+// .react-tel-input{
+//   input{
+//     display: none !important;
+//   }
+//   position: absolute !important;
+//   display: inline-block;
+//   top: 15px !important;
+//   background: #fff !important;
+// }
+
+.react-tel-input .flag-dropdown{
+  border: none !important;
+}
+.intl-tel-input {
+  position: absolute !important;
+  display: inline-block;
+  top: 15px !important;
+  background: #fff;
+}
+
+.intl-tel-input .country-list{
+  
+  @include tablet {
+    width: 250px !important;
   }
 }

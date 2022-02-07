@@ -6,9 +6,9 @@
     padding: 6rem $padding-main 2rem $padding-main;
     text-align: center;
   }
-    @include phone {
-      padding: 4rem $padding-main 2rem $padding-main;
-    }
+  @include phone {
+    padding: 4rem $padding-main 2rem $padding-main;
+  }
   @include container;
   &__title {
     font-weight: $font-bold;
@@ -39,7 +39,7 @@
   }
   &--left &__title {
     width: 100%;
-  } 
+  }
   &--tradieTV {
     background: linear-gradient(
       180deg,
@@ -54,7 +54,12 @@
   }
   &--our-partner {
     position: relative;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -13.38%, #FFF9F1 100%), #FFFFFF;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) -13.38%,
+        #fff9f1 100%
+      ),
+      #ffffff;
     &::before {
       position: absolute;
       content: "";
@@ -149,20 +154,164 @@
   }
 }
 
-.services-title-about{
+.services-title-about {
   margin-bottom: 0;
 }
 
 @media only screen and (max-width: 1024px) {
   .section--sign-up {
     padding: 10px;
-} 
-.nav__left {
-  img {
-    height: 85%;
+  }
+  .nav__left {
+    img {
+      height: 85%;
+    }
+  }
+  .sign-up-form__navigation {
+    padding: 10px;
   }
 }
-.sign-up-form__navigation{
-  padding: 10px;
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+  font-size: 1.3rem !important;
 }
+.map-list {
+  margin-bottom: 20px;
+  width: 100%;
+  display: inline-block;
+  .map-list {
+    display: inline-block;
+    width: 100%;
+  }
+  .map-select {
+    display: inline-block !important;
+    float: right;
+    padding: 0 !important;
+    @include tablet {
+      width: 100%;
+      float: none;
+    }
+  }
+
+  .list-tab-map-show {
+    display: inline-block !important;
+    float: left;
+    @include phone {
+      width: 100%;
+      float: none;
+    }
+  }
+
+  .css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+    font-family: "GT Walsheim Pro" !important;
+    font-size: 16px !important;
+    padding: 0;
+    width: 210px;
+    height: auto;
+    background-image: linear-gradient(90.6deg, #f7bc9e 7.37%, #f6ccb6 107.16%);
+    margin-right: 10px;
+    border-radius: 10px;
+    min-height: 35px !important;
+    @include phone {
+      width: 150px;
+      margin: auto;
+    }
+  }
+  .css-1mrn996 {
+    font-family: "GT Walsheim Pro" !important;
+    font-size: 16px !important;
+    padding: 0;
+    width: 210px;
+    height: auto;
+    background-image: linear-gradient(90.6deg, #f7bc9e 7.37%, #f6ccb6 107.16%);
+    margin-right: 10px;
+    border-radius: 10px;
+    min-height: 35px !important;
+    @include phone {
+      width: 150px;
+      margin: auto;
+    }
+  }
+  .css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    color: #fff !important;
+    background-image: linear-gradient(96.33deg, #db5b1b 0%, #ec9422 109.53%);
+  }
+  .css-1mrn996.Mui-selected {
+    color: #fff !important;
+    background-image: linear-gradient(96.33deg, #db5b1b 0%, #ec9422 109.53%);
+  }
+  .css-11yukd5-MuiTabs-indicator {
+    background-color: #ec9422 !important;
+    margin-right: 10px;
+    display: none;
+  }
+  .css-axpu1l {
+    background-color: #ec9422 !important;
+    margin-right: 10px;
+    display: none;
+  }
+}
+
+.map-select {
+  button {
+    @include phone {
+      width: 120px;
+      padding: 10px 0;
+    }
+  }
+}
+
+.find-info-modal {
+  display: flex;
+  align-items: center;
+  @include tablet {
+    display: block;
+  }
+
+  .profile-icon {
+    width: 50px;
+    height: 50px;
+    @include tablet {
+      margin: auto;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      margin-right: 10px;
+      cursor: pointer;
+      object-fit: cover;
+    }
+  }
+  h2 {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    @include tablet {
+      text-align: center;
+      margin: 10px 0;
+    }
+    p {
+      font-size: 13px;
+      display: flex;
+      @include tablet {
+        display: block;
+      }
+      span {
+        background-color: #de661c;
+        color: #fff;
+        width: 30%;
+        border-radius: 15%;
+        margin-left: 5px;
+        padding-left: 2px;
+        @include tablet {
+          display: block;
+          margin: 5px auto 0;
+        }
+      }
+    }
+  }
+  button {
+    margin-left: 20px;
+  }
 }

@@ -22,6 +22,7 @@ const initState = {
   services: "",
   gallery: "",
   userUpdateRes: "",
+  galleryImgDelRes: "",
   businessUpdateres: "",
   userGetMsg: "",
   otp_state: false,
@@ -196,6 +197,14 @@ const AuthReducer = (state = initState, action) => {
         success: true,
         loading: false,
         businessUpdateres: payload,
+      };
+    // PROVIDER_GALLARY_DELETE_SUCCESS
+    case types.PROVIDER_GALLARY_DELETE_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        galleryImgDelRes: payload,
       };
     // BUSINESSS_DETAILS_UPDATE_RESET
     case types.BUSINESSS_DETAILS_UPDATE_RESET:

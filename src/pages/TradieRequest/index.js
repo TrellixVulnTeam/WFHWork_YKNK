@@ -33,6 +33,8 @@ const Index = (props) => {
     longitude: "",
     locationAdress: "",
   });
+
+  
   const serviceId = localStorage.getItem("tradiesearchCat");
   const SearchItem = JSON.parse(localStorage.getItem("tradiesearch"));
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));

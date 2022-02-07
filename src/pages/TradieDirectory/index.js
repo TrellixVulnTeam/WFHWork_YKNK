@@ -17,16 +17,17 @@ import { ReactComponent as LocationIcon } from "../../assets/icons/locationSvg.s
 import StarInactive from "../../assets/icons/star.svg";
 import StarActive from "../../assets/icons/starActive.svg";
 import { useHistory } from "react-router-dom";
-
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import LocationAutocomplete from "../Directory/AutoCompleteSearch";
 import Button from "@restart/ui/esm/Button";
 import TradieRequestModel from "./TradieRequestModel";
 import AlertPopup from "./AlertPopup";
 import { GoPrimitiveDot } from "react-icons/go";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Tab, Tabs } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StarRatings from "react-star-ratings";
+import GoogleMapss from "./GoogleMap";
 toast.configure();
 
 const Index = () => {
@@ -89,6 +90,11 @@ const Index = () => {
       setLoading(true);
     }
   }, [searchingTradie]);
+  const [valueTab, setValue] = useState("map");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const { login, verify_OTP } = useSelector((state) => state.auth);
   const [searchFormData, setSearchFormData] = useState({
@@ -151,6 +157,7 @@ const Index = () => {
         size: "small",
       });
     } else {
+      localStorage.setItem("SearchAllData", JSON.stringify(searchFormData));
       dispatch(search_trading_onClick_search_Action(searchFormData));
 
       setRedirectpPage(true);
@@ -373,8 +380,8 @@ const Index = () => {
         <div className="section-top__before">
           <img src={tradie_directory_1} alt="" />
         </div>
-        <h2 className="section-top__title">
-          <span>Any Trade</span>, Anywhere, Anytime
+        <h2 className="section-top__title directory-title">
+          Any Trade. Any Time. <span> Any Where</span>
         </h2>
 
         <form onClick={(e) => e.preventDefault()} className="search-form">
@@ -406,6 +413,7 @@ const Index = () => {
             </label>
             <LocationIcon />
             <LocationAutocomplete
+              label="Enter your ZIP Code"
               addressValue={adressCookie?.address}
               state={searchFormData}
               setStateFunction={setSearchFormData}
@@ -422,96 +430,110 @@ const Index = () => {
 
       {/* <!-- Filter by Rating --> */}
       <section className="section">
-        <form className="tradies__filter">
-          <div>
-            <h4>Filter by Rating</h4>
-            <div className="radio-group">
-              <input
-                type="radio"
-                id="high-to-low"
-                name="rating"
-                onChange={() => setSortRating("high")}
-              />
-              <label htmlFor="high-to-low">High to Low</label>
-              <span className="checkmark" />
-            </div>
+        {valueTab == "list" ? (
+          <form className="tradies__filter">
+            <div>
+              <h4>Filter by Rating</h4>
+              <div className="radio-group">
+                <input
+                  type="radio"
+                  id="high-to-low"
+                  name="rating"
+                  onChange={() => setSortRating("high")}
+                />
+                <label htmlFor="high-to-low">High to Low</label>
+                <span className="checkmark" />
+              </div>
 
-            <div className="radio-group">
-              <input
-                type="radio"
-                id="low-to-high"
-                name="rating"
-                checked={sortRating === "low"}
-                onChange={() => setSortRating("low")}
-              />
-              <label htmlFor="low-to-high">Low to High</label>
-              <span className="checkmark" />
+              <div className="radio-group">
+                <input
+                  type="radio"
+                  id="low-to-high"
+                  name="rating"
+                  checked={sortRating === "low"}
+                  onChange={() => setSortRating("low")}
+                />
+                <label htmlFor="low-to-high">Low to High</label>
+                <span className="checkmark" />
+              </div>
             </div>
-          </div>
-          {/* <button onClick={()=>setSortRating("")}>Clear</button> */}
-          <div>
-            <h4>Select Your Tradie Type</h4>
-            <div className="radio-group">
-              <input
-                type="radio"
-                id="residential"
-                name="type"
-                defaultChecked={activeResidential}
-                onClick={() => ServiceTypeChange("residential")}
-                // onChange={() => setSortTradie("residential")}
-              />
-              <label htmlFor="residential">Residential</label>
-              <span className="checkmark" />
+            {/* <button onClick={()=>setSortRating("")}>Clear</button> */}
+            <div>
+              <h4>Select Your Tradie Type</h4>
+              <div className="radio-group">
+                <input
+                  type="radio"
+                  id="residential"
+                  name="type"
+                  defaultChecked={activeResidential}
+                  onClick={() => ServiceTypeChange("residential")}
+                  // onChange={() => setSortTradie("residential")}
+                />
+                <label htmlFor="residential">Residential</label>
+                <span className="checkmark" />
+              </div>
+              <div className="radio-group">
+                <input
+                  type="radio"
+                  id="commercial"
+                  name="type"
+                  defaultChecked={activeCommercial}
+                  onClick={() => ServiceTypeChange("commercial")}
+                  // onChange={() => setSortTradie("commercial")}
+                />
+                <label htmlFor="commercial">Commercial</label>
+                <span className="checkmark" />
+              </div>
             </div>
-            <div className="radio-group">
-              <input
-                type="radio"
-                id="commercial"
-                name="type"
-                defaultChecked={activeCommercial}
-                onClick={() => ServiceTypeChange("commercial")}
-                // onChange={() => setSortTradie("commercial")}
-              />
-              <label htmlFor="commercial">Commercial</label>
-              <span className="checkmark" />
-            </div>
-          </div>
-          {/* <a href="#" className="btn-primary">
+            {/* <a href="#" className="btn-primary">
             Apply
           </a> */}
-        </form>
-        <nav className="tradies__filter-nav">
-          {selectAllTradies && tradiesIdss.length > 0 ? (
-            // <Button className="btn-secondary font-m">Selected to All</Button>
-            <Button className="btn-secondary font-m" onClick={deselectall}>
-              Deselect All
-            </Button>
-          ) : (
-            <Button
-              className="btn-secondary font-m"
-              onClick={() => {
-                selectAllTradie();
-              }}
-            >
-              Select All{" "}
-            </Button>
-          )}
-
-          <button
-            className="btn-primary font-m"
-            style={{ marginLeft: 20 }}
-            onClick={() => {
-              submitTradieRequest();
-            }}
-            // disabled={ tradiesIds?.length === 0}
+          </form>
+        ) : (
+          ""
+        )}
+        <div className="map-list">
+          <Tabs
+            className="list-tab-map-show"
+            value={valueTab}
+            onChange={handleChange}
+            textColor="secondary"
+            indicatorColor="secondary"
+            aria-label="secondary tabs example"
           >
-            Send Request
-          </button>
+            <Tab value="list" label="List" />
+            <Tab value="map" label="Map" />
+          </Tabs>
 
-          {/* <a href="#">
-            <img src={tradie_directory_2} alt="" />
-          </a> */}
-        </nav>
+          <nav className="tradies__filter-nav map-select">
+            {selectAllTradies && tradiesIdss.length > 0 ? (
+              // <Button className="btn-secondary font-m">Selected to All</Button>
+              <Button className="btn-secondary font-m" onClick={deselectall}>
+                Deselect All
+              </Button>
+            ) : (
+              <Button
+                className="btn-secondary font-m"
+                onClick={() => {
+                  selectAllTradie();
+                }}
+              >
+                Select All{" "}
+              </Button>
+            )}
+
+            <button
+              className="btn-primary font-m"
+              style={{ marginLeft: 20 }}
+              onClick={() => {
+                submitTradieRequest();
+              }}
+              // disabled={ tradiesIds?.length === 0}
+            >
+              Send Request
+            </button>
+          </nav>
+        </div>
 
         {/* {searchingTradie &&
           sortTradie()?.map((item, index) => {
@@ -529,73 +551,74 @@ const Index = () => {
           })} */}
 
         {loading ? (
-          <div className="tradies__grid">
-            {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
-              sortTradie()?.map((item, index) => {
-                return (
-                  <div className="tradies-item" key={index}>
-                    <div
-                      className="tradies-item__image"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        handleChangeRoute(item.id);
-                      }}
-                    >
-                      <img
-                        src={
-                          item.profile_pic
-                            ? `https://api.tapatradie.com/profile/${item.id}/` +
-                              item.profile_pic
-                            : tradie_directory_3
-                        }
-                        alt="User"
-                        loading="lazy"
-                      />
-                    </div>
-
-                    <div className="tradies-item__content">
+          valueTab == "list" ? (
+            <div className="tradies__grid">
+              {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
+                sortTradie()?.map((item, index) => {
+                  return (
+                    <div className="tradies-item" key={index}>
                       <div
+                        className="tradies-item__image"
                         style={{ cursor: "pointer" }}
                         onClick={() => {
                           handleChangeRoute(item.id);
                         }}
                       >
-                        <h4 className="tradies-item__name">
-                          {item?.full_name}
-                        </h4>
-                        <ul className="tradies-item__specialties">
-                          <li>{item?.service_name}</li>
-                        </ul>
-                        <div className="tradies-item__rating">
-                          <StarRatings
-                            rating={
-                              item?.rating
-                                ? Math.round(Number(item?.rating) * 10) / 10
-                                : 0
-                            }
-                            starRatedColor="orange"
-                            numberOfStars={5}
-                            name="rating"
-                            starSpacing="1px"
-                            starDimension="17px"
-                          />
-                        </div>
+                        <img
+                          src={
+                            item.profile_pic
+                              ? `https://api.tapatradie.com/profile/${item.id}/` +
+                                item.profile_pic
+                              : tradie_directory_3
+                          }
+                          alt="User"
+                          loading="lazy"
+                        />
                       </div>
-                      <span
-                        className="list-box_online"
-                        style={{ marginTop: "-10px", marginBottom: "3px" }}
-                      >
-                        {item.online === 1 ? (
-                          <>
-                            <GoPrimitiveDot color="green" /> Online
-                          </>
-                        ) : (
-                          <>
-                            <GoPrimitiveDot color="red" /> Offline
-                          </>
-                        )}
-                      </span>
-                      {/* {item?.isBtnSelect  === true ? (
+
+                      <div className="tradies-item__content">
+                        <div
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            handleChangeRoute(item.id);
+                          }}
+                        >
+                          <h4 className="tradies-item__name">
+                            {item?.full_name}
+                          </h4>
+                          <ul className="tradies-item__specialties">
+                            <li>{item?.service_name}</li>
+                          </ul>
+                          <div className="tradies-item__rating">
+                            <StarRatings
+                              rating={
+                                item?.rating
+                                  ? Math.round(Number(item?.rating) * 10) / 10
+                                  : 0
+                              }
+                              starRatedColor="orange"
+                              numberOfStars={5}
+                              name="rating"
+                              starSpacing="1px"
+                              starDimension="17px"
+                            />
+                          </div>
+                        </div>
+                        <span
+                          className="list-box_online"
+                          style={{ marginTop: "-10px", marginBottom: "3px" }}
+                        >
+                          {item.online === 1 ? (
+                            <>
+                              <GoPrimitiveDot color="green" /> Online
+                            </>
+                          ) : (
+                            <>
+                              <GoPrimitiveDot color="red" /> Offline
+                            </>
+                          )}
+                        </span>
+                        {/* {item?.isBtnSelect  === true ? (
                       <Link
                         to={{
                           pathname: "/tradie-request",
@@ -612,31 +635,36 @@ const Index = () => {
                         {item.isBtnSelect === true ? "Deselect" : "Select"}
                       </Link>
                     ) : ( */}
-                      <Button
-                        role="button"
-                        to="/tradie-request"
-                        className={`tradies-item__select ${
-                          item?.isBtnSelect === true
-                            ? "bg-light-orange"
-                            : "btn-primary"
-                        }`}
-                        onClick={() => {
-                          slectedTradie(item.id);
-                        }}
-                      >
-                        {item.isBtnSelect === true ? "Deselect" : "Select"}
-                      </Button>
-                      {/* )} */}
+                        <Button
+                          role="button"
+                          to="/tradie-request"
+                          className={`tradies-item__select ${
+                            item?.isBtnSelect === true
+                              ? "bg-light-orange"
+                              : "btn-primary"
+                          }`}
+                          onClick={() => {
+                            slectedTradie(item.id);
+                          }}
+                        >
+                          {item.isBtnSelect === true ? "Deselect" : "Select"}
+                        </Button>
+                        {/* )} */}
+                      </div>
                     </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="tradies-item">
-                <center>No Tradie Found!</center>
-              </div>
-            )}
-          </div>
+                  );
+                })
+              ) : (
+                <div className="tradies-item">
+                  <center>No Tradie Found!</center>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div style={{ width: "100%", height: 500 }}>
+              <GoogleMapss />
+            </div>
+          )
         ) : (
           <center>
             <CircularProgress />
