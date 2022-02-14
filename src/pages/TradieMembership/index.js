@@ -18,6 +18,7 @@ import Modal from "react-modal";
 import "./styles.css";
 import CardAddForm from "./CardAddForm";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,8 @@ const Index = () => {
       }
     });
   };
-
+  const planEnd = moment((payment_history?.end_date)*1000).format("DD MMM YYYY");
+  const RenewDate = moment((payment_history?.end_date)*1000).add('days', 1).format("DD MMM YYYY")
   return (
     <div>
       <Header />
@@ -100,7 +102,9 @@ const Index = () => {
                 <h4>My Subscription</h4>
                 <ul>
                   <h6>Standard Adverts</h6>
+
                   <li>7 days (auto renew)</li>
+                  <li>Appear above free members</li>
                   <li>Included for all tradies user</li>
                   <li>Unlimited leads</li>
                   <li>Directory listing</li>
@@ -110,6 +114,14 @@ const Index = () => {
                   <h3 className="pricing__price">
                     ${payment_history?.amount} <span>/ week</span>
                   </h3>
+                  <p>
+                    Plan Start Date :{" "}
+                    {moment((payment_history?.start_date)*1000).format(
+                      "DD MMM YYYY"
+                    )}
+                  </p>
+                  <p>Plan End Date : {planEnd}</p>
+                  <p>Plan Renew Date: {RenewDate}</p>
                   <nav className="membership__subscription-links">
                     {/* <a href="#">upgrade</a> */}
                     <a
@@ -127,13 +139,13 @@ const Index = () => {
                 <h4>My Subscription</h4>
                 <ul>
                   <h6>Free Advert</h6>
-                  <li>Get a webpage on our website</li>
+                  {/* <li>Get a webpage on our website</li>
                   <li>
                     Receive leads direct from clients 24-7 up to a 25km radius
                   </li>
                   <li>
                     Show your phone, email and full profile with contact details
-                  </li>
+                  </li> */}
                 </ul>
                 <div className="membership__subscription-plan">
                   <h3 className="pricing__price">$0</h3>
@@ -191,9 +203,9 @@ const Index = () => {
               <h3 className="pricing__price">$0</h3>
               <ul className="pricing__list">
                 <li>Get a webpage on our website</li>
-                <li>
+                {/* <li>
                   Receive leads direct from clients 24-7 up to a 25km radius
-                </li>
+                </li> */}
                 <li>
                   Show your phone, email and full profile with contact details
                 </li>
@@ -264,7 +276,7 @@ const Index = () => {
         </section>
       )}
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

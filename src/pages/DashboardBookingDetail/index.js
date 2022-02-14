@@ -162,7 +162,33 @@ const Index = () => {
                           {userLeads?.map((res) =>
                             res.id == singleBooking.id
                               ? res.type == "multiple"
-                                ? res.status == "completed"
+                                ? res.job_post.length <= 1
+                                  ? res.job_post.map((leads, i) =>
+                                      res.dispute == 1 ? (
+                                        leads.user_status == "completed" ? (
+                                          <p>Completed</p>
+                                        ) : (
+                                          "Disputed"
+                                        )
+                                      ) : leads.provider_status == "reject" ? (
+                                        <p key={i}>Settled</p>
+                                      ) : leads.provider_status == "accept" &&
+                                        leads.user_status == "accept" ? (
+                                        "Accepted"
+                                      ) : leads.provider_status ==
+                                          "completed" &&
+                                        leads.user_status == "completed" ? (
+                                        <p>Completed</p>
+                                      ) : leads.provider_status == "Pending" ? (
+                                        <p className="pending-btn">Pending</p>
+                                      ) : leads.provider_status ==
+                                        "completed" ? (
+                                        "Completed"
+                                      ) : (
+                                        <p className="pending-btn">Pending</p>
+                                      )
+                                    )
+                                  : res.status == "completed"
                                   ? "Completed"
                                   : res.status == "open"
                                   ? "Pending"

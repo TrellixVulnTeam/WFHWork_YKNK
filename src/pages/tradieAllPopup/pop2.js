@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mainCategories, allCategories } from "./ServiceCategories";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as Close } from "../../assets/icons/icon-cancelpopup.svg";
 import { useDispatch, useSelector } from "react-redux";
+import { trendingAllCategories_Action } from "../../redux/directory/action";
 
 const Pop2 = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [otherCategoriesLink, setOtherCategoiresLink] = useState(true);
   const [DataToSend, setDataToSend] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
 
   const { login, verify_OTP } = useSelector((state) => state.auth);
+  const { trendingCategories } = useSelector((state) => state.directory);
 
-  const resultCat = allCategories?.filter((val) => {
+  useEffect(() => {
+    dispatch(trendingAllCategories_Action());
+  }, []);
+
+  const resultCat = trendingCategories?.filter((val) => {
     if (searchCategory === "") {
       return val;
     } else if (val.name.toLowerCase().includes(searchCategory?.toLowerCase())) {

@@ -29,6 +29,7 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
     dispatch(provider_job_accept_request(data));
     setAlert(false);
     setViewDetailPopup(false);
+    history.push("/")
     localStorage.setItem(
       "provideLeadAction",
       JSON.stringify({ action: "completed", id: alertData.id })

@@ -14,7 +14,6 @@ import user_profile_6 from "../../assets/images/professional-tradie.jpg";
 import { Link } from "react-router-dom";
 import Section_top_1 from "../../assets/icons/section-top-directory-before.svg";
 
-
 const Index = () => {
   const dispatch = useDispatch();
   const { User_Profile_Get_Information_Action } = AuthActions;
@@ -23,15 +22,22 @@ const Index = () => {
   }, []);
   const { userData } = useSelector((state) => state.auth);
 
-  const { full_name, mobile, email, profile_pic, id, online_address ,country_code} =
-    userData;
+  const {
+    full_name,
+    mobile,
+    email,
+    profile_pic,
+    id,
+    online_address,
+    country_code,
+  } = userData;
   return (
     <div>
       <Header />
 
       {/* <!-- My Profile --> */}
       <section className="directory-top-section section-top--user-profile">
-      <div className="section-top__before">
+        <div className="section-top__before">
           <img src={Section_top_1} alt="" />
         </div>
         <h2 className="section-top__title">
@@ -54,7 +60,7 @@ const Index = () => {
                   : user_dummmy_img
               }
               alt=""
-              style={{border:"1 px solid black"}}
+              style={{ border: "1 px solid black" }}
             />
           </div>
           <br />
@@ -62,13 +68,10 @@ const Index = () => {
 						Change photo
 					</a> */}
 
-          <h4 className="tradie-profile__name">
-            {full_name}
-           
-          </h4>
+          <h4 className="tradie-profile__name">{full_name}</h4>
           <Link to="/user-update-profile">
-              <span>Edit profile</span>
-            </Link>
+            <span>Edit profile</span>
+          </Link>
           <div>
             <p className="tradie-profile__address">
               <img
@@ -78,18 +81,18 @@ const Index = () => {
               />
               {online_address}
             </p>
-            <a href="tel:0412 345 678" className="tradie-profile__tel">
+            <a
+              href={`tel:${country_code+ mobile}`}
+              className="tradie-profile__tel"
+            >
               <img
                 className="tradie-profile__icon"
                 src={user_profile_4}
                 alt=""
               />
-              {country_code+" "+mobile}
+              {country_code + " " + mobile}
             </a>
-            <a
-              href="mailto:tradiename@email.com"
-              className="tradie-profile__email"
-            >
+            <a href={`mailto:${email}`} className="tradie-profile__email">
               <img
                 className="tradie-profile__icon"
                 src={user_profile_5}

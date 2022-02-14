@@ -13,6 +13,7 @@
   &__title {
     font-weight: $font-bold;
     width: 50%;
+    color: #343432;
     margin-bottom: 5rem;
     @include breakpoint(1024) {
       width: 100%;
@@ -54,11 +55,7 @@
   }
   &--our-partner {
     position: relative;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) -13.38%,
-        #fff9f1 100%
-      ),
+    background: linear-gradient(180deg, rgb(255 249 241) -13.38%, #fff9f1 100%),
       #ffffff;
     &::before {
       position: absolute;
@@ -313,5 +310,31 @@
   }
   button {
     margin-left: 20px;
+  }
+}
+.more-section-services {
+  color: #fff !important;
+}
+.tradietv-boarder {
+  background: linear-gradient(
+    180deg,
+    #fff9f1 0%,
+    rgba(255, 255, 255, 0) 52.36%
+  );
+  border: 1px solid #000000;
+  margin: 20px 0;
+}
+
+.tradietv-title {
+  position: relative;
+  background-color: #fff;
+
+  &:before {
+    content: "";
+    background-image: none !important;
+  }
+  &::after {
+    content: "";
+    background-image: none !important;
   }
 }

@@ -7,6 +7,7 @@ import {
 } from "../../utilities/hooks/auth/util";
 
 const initState = {
+  otp: false,
   loading: false,
   success: false,
   access_token: "",
@@ -284,14 +285,18 @@ const AuthReducer = (state = initState, action) => {
         setAccessToken("dfgh456789dfghj");
       }
       setLocalStorageAccessToken(payload);
+      let otpStatess = false;
 
+      if (payload.message === "Invalid Otp.") {
+        otpStatess = true;
+      }
       return {
         ...state,
         success: true,
         loading: false,
         verify_OTP: payload,
         login: loginState,
-        otp: false,
+        otp: otpStatess,
       };
 
     // VERIFY_OTP_RESET

@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import tradie_add_service_2 from "../../assets/images/professional-tradie.jpg";
 import NavigationLinks from "../../components/Tradie Name/Index";
 import * as Actions from "../../redux/auth/action";
-import {trendingAllCategories_Action} from "../../redux/directory/action";
+import { trendingAllCategories_Action } from "../../redux/directory/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -35,9 +35,7 @@ const Index = () => {
   const [commercial, setCommercial] = useState(false);
   const [tradie_type, setTradie_type] = useState([]);
   const [removeItem, setRemoveItem] = useState([]);
-  const { trendingCategories } = useSelector(
-    (state) => state.directory
-  );
+  const { trendingCategories } = useSelector((state) => state.directory);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   useEffect(() => {
     if (services) {
@@ -61,7 +59,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(Get_Service_list_Action());
     dispatch(User_Profile_Get_Information_Action());
-    dispatch(trendingAllCategories_Action())
+    dispatch(trendingAllCategories_Action());
   }, []);
 
   const handleSearch = (e) => {
@@ -77,6 +75,7 @@ const Index = () => {
     if (!checkItem) {
       setDataToSend((prevState) => [...prevState, id]);
     }
+
     services.filter((res) => {
       if (res.id === id) {
         setRemoveItem([...removeItem, res.id]);
@@ -92,6 +91,17 @@ const Index = () => {
       setDataToSend(filderItem);
     }
   };
+  useEffect(() => {
+    if (services) {
+      services?.map((res) => {
+        if (DataToSend.length < 1) {
+          setDataToSend((prevState) =>[...prevState, res?.id]);
+        }
+      });
+    }
+  }, [services]);
+
+  // console.log("ID :", DataToSend);
 
   useEffect(() => {
     if (businessUpdateres) {
@@ -133,7 +143,7 @@ const Index = () => {
               style={{ textTransform: "capitalize" }}
               key={val.id}
             >
-              {val.name}
+              <p> {val.name} </p>
               {/* {services?.map((res) => ( */}
               <input
                 type="checkbox"
@@ -295,7 +305,7 @@ const Index = () => {
       </section>
 
       {/* // <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

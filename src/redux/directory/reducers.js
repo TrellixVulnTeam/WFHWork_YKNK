@@ -136,7 +136,7 @@ const directoryReducer = (state = initState, action) => {
     // SELECTED__TO_ALL_TRADIE_PROFILE_ID_REQUEST
     case types.SELECTED__TO_ALL_TRADIE_PROFILE_ID_REQUEST:
       state.searchingTradie.filter((tradiefilterData) => {
-        if (tradiefilterData.id) {
+        if (tradiefilterData.subscStatus == "active") {
           tradiefilterData.isBtnSelect = true;
         }
         if (payload == 1) {

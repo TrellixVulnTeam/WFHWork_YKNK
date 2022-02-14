@@ -292,6 +292,7 @@ const Index = () => {
                       deviceCountry ? deviceCountry?.toLowerCase() : "in"
                     }`}
                     onChange={handlePhoneNumberChange}
+                    placeholder="Enter your mobile number"
                   />
                   {/* <input
                     type="number"

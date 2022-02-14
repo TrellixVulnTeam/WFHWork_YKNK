@@ -67,7 +67,7 @@ const Index = () => {
   };
 
   const handleImageChangeInput = async (event) => {
-    const { target } = event;
+    // const { target } = event;
     // const file = [target.files[0]];
     // const newImagesPromises = [];
     // for (let i = 0; i < target.files.length; i++) {
@@ -79,7 +79,28 @@ const Index = () => {
     // );
     // setPreImg([...preImgs, ...ImageArray]);
 
-    setMultiImg([...multiImgs, ...target.files]);
+    const validate = event?.filter((res) => {
+      if (
+        res.type.startsWith("image/") &&
+        res.name.match(/\.(jpg|jpeg|PNG|png|gif)$/) &&
+        res.size < 20000000
+      ) {
+        return res;
+      } else {
+        return "";
+      }
+    });
+    if (validate !== "") {
+      setMultiImg([...multiImgs, ...validate]);
+    } else {
+      toast.error("Please upload jpeg, jpg only.", {
+        position: "bottom-left",
+        autoClose: 3000,
+        size: "small",
+      });
+    }
+
+    // if (!imageFile.name.match(/\.(jpg|jpeg|png|gif)$/))
   };
 
   const deleteFile = (e) => {
@@ -102,13 +123,19 @@ const Index = () => {
       }
     });
   };
+  console.log("multiImgs :", multiImgs);
 
   const UploadeMulti = (e) => {
     e.preventDefault();
     setLoading(false);
+
     if (multiImgs.length > 0) {
       dispatch(Image_Upload_Action(multiImgs));
+      setTimeout(() => {
+        setMultiImg([]);
+      }, 1000);
     } else {
+      setLoading(true);
       toast.error("Please Select an Image ", {
         position: "bottom-left",
         autoClose: 1000,
@@ -212,9 +239,10 @@ const Index = () => {
                     id="file-input"
                     type="file"
                     name="myImage"
+                    accept="image/*"
                     multiple="multiple"
                     onChange={(e) => {
-                      handleImageChangeInput(e);
+                      handleImageChangeInput([...e.target.files]);
                     }}
                   />
                 </div>
@@ -327,7 +355,7 @@ const Index = () => {
         </div>
       </Modal>
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

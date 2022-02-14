@@ -76,7 +76,7 @@ const Pop1 = () => {
       <section className="user-info-modal popup">
         <form className="popup__form" onSubmit={handleSubmit(onSubmit)}>
           <h2>
-           Create your Account{" "}
+            Create your Account{" "}
             {/* <span
               onClick={(e) => {
                 e.target.parentElement.parentElement.parentElement.style.display =
@@ -100,7 +100,9 @@ const Pop1 = () => {
             <span>Full Name *</span>
           </div>
           {errors.fullname && (
-            <span style={{ color: "red", marginTop: "-20px" }}>
+            <span
+              style={{ color: "red", marginTop: "-15px", display: "block" }}
+            >
               {errors.fullname.message}
             </span>
           )}
@@ -120,11 +122,15 @@ const Pop1 = () => {
             <span>Email</span>
           </div>
           {errors.EmailAddress && (
-            <span style={{ color: "red" }}>{errors.EmailAddress.message}</span>
+            <span
+              style={{ color: "red", marginTop: "-15px", display: "block" }}
+            >
+              {errors.EmailAddress.message}
+            </span>
           )}
           <br />
 
-          <div className="input-group">
+          <div className="input-group text-left">
             <Select
               value={selectedOption}
               onChange={handleChange}
@@ -149,7 +155,7 @@ const Pop1 = () => {
           </div>
 
           <button type="submit" className="btn-primary">
-          Create Account
+            Create Account
           </button>
         </form>
       </section>

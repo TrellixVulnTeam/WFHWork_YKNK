@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 
-const CardAddForm = () => {
+const CardAddForm = ({ link }) => {
   const history = useHistory();
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const [loading, setLoading] = useState(true);
@@ -79,7 +79,7 @@ const CardAddForm = () => {
             api_key: userInfo.api_key,
             device_type: userInfo.device_type,
             uid: userInfo.uid,
-            plan_id: "price_1HPM53HKYdiVnQytMhHA7bN6",
+            plan_id: "price_1KRAp7HKYdiVnQyt9gXuPknK",
             token: res?.data?.token,
           };
           axios
@@ -96,7 +96,7 @@ const CardAddForm = () => {
                   autoClose: 3000,
                   size: "small",
                 });
-                history.push("/");
+                history.push(link ? link : "/");
               }
             });
         } else {

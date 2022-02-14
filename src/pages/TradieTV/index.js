@@ -35,7 +35,7 @@ const Index = () => {
     const videos =
       JSON.parse(localStorage.getItem("categoryVideos")) ||
       videosCategories[0]?.videos;
-    
+
     setOtherVideos(videos);
   }, []);
 
@@ -56,37 +56,38 @@ const Index = () => {
     fetchVideos(name, nameid);
   }
   function fetchVideos(name, e) {
-   
     SetcatName(name);
     const targetCategory = tradietv?.filter((category) =>
       category.categoryId === e ? category.categoryId : null
     );
     setCategoryVideos(targetCategory);
 
-    const targetOtherCategory = videosCategories.find((category) =>
+    const targetOtherCategory = videosCategories?.find((category) =>
       category.number === e ? category : null
     );
-   
-    setOtherVideos(targetOtherCategory.videos);
+
+    setOtherVideos(targetOtherCategory?.videos);
     // store videos into local storage
-    localStorage.setItem(
-      "categoryVideos",
-      JSON.stringify(targetOtherCategory?.videos)
-    );
+    if (targetOtherCategory?.videos) {
+      localStorage.setItem(
+        "categoryVideos",
+        JSON.stringify(targetOtherCategory?.videos)
+      );
+    }
   }
 
   return (
     <div>
       <Header />
 
-      <section className="section-top section-top--tradieTV">
+      <section className="section-top section-top--tradieTV tradietv-title">
         <h2 class="section-top__title">
           <span>Local Tradies</span> tips and tricks for your home projects
           <img class="section-top__title-after" src={tradieTv_1} alt="" />
         </h2>
       </section>
 
-      <section class="section section--tradieTV">
+      <section class="section section--tradieTV tradietv-boarder">
         <div class="tradie-tips">
           <h3 class="section__title">Explore by Categories</h3>
           <nav class="tradie-tips__categories-links">
@@ -234,7 +235,7 @@ const Index = () => {
           </div> */}
           <h3 class="section__title">Other videos</h3>
           <div class="tradie-tips__videos">
-            {OtherVideos.length > 0
+            {OtherVideos?.length > 0
               ? OtherVideos?.map(
                   (res) =>
                     res.type === "other" && (
@@ -282,7 +283,7 @@ const Index = () => {
         </div>
       </section>
 
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section class="section section--left">

@@ -116,7 +116,15 @@ const Index = () => {
                       <div className="event">
                         <p className="event__budge">
                           {userBooking.type == "multiple" ? (
-                            userBooking.status == "completed " ? (
+                            userBooking.dispute == 1 ? (
+                              userBooking.job_post.map((leads, i) =>
+                                leads.user_status == "completed" ? (
+                                  <p>Completed</p>
+                                ) : (
+                                  "Disputed"
+                                )
+                              )
+                            ) : userBooking.status == "completed " ? (
                               <p>Completed</p>
                             ) : userBooking.status == "open" ? (
                               <p className="pending-btn">Pending</p>
@@ -127,7 +135,7 @@ const Index = () => {
                                 leads.provider_status == "completed" ? (
                                   <p>Completed</p>
                                 ) : leads.provider_status == "accept" &&
-                                leads.user_status == "accept" ? (
+                                  leads.user_status == "accept" ? (
                                   "Accepted"
                                 ) : (
                                   leads.provider_status
@@ -347,7 +355,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

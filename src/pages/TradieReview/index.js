@@ -7,9 +7,11 @@ import tradie_review_2 from "../../assets/images/professional-tradie.jpg";
 import NavigationLinks from "../../components/Tradie Name/Index";
 import { useSelector, useDispatch } from "react-redux";
 import { get_provider_reviewList_request } from "../../redux/directory/action";
+import tradie_directory_3 from "../../assets/images/user.png";
 import StarRatings from "react-star-ratings";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -65,16 +67,45 @@ const Index = () => {
             {Object.keys(getProviderReviewList).length > 0 ? (
               getProviderReviewList.map((res, i) => (
                 <div className="input-group review">
-                  <div className="tradie-profile__rating">
+                  <div>
+                    <div
+                      style={{
+                        width: "7rem",
+                        height: "7rem",
+                        flexShrink: 0,
+                        marginRight: "10px",
+                        flexGrow: 0,
+                        float: "left",
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        // marginBottom: "1rem !important",
+                      }}
+                    >
+                      <img
+                        src={
+                          res?.profile_pic
+                            ? `https://api.tapatradie.com/profile/${res.updated_by}/${res.profile_pic}`
+                            : tradie_directory_3
+                        }
+                        alt="avatar"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          border: "2px solid black",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    </div>
                     <h4 key={i}>
-                      Name:{" "}
-                      <span style={{ fontSize: "17px" }}>
-                        {res.full_name?.charAt(0).toUpperCase() +
-                          res.full_name?.slice(1)}
-                      </span>
+                      {res.full_name?.charAt(0).toUpperCase() +
+                        res.full_name?.slice(1)}
                     </h4>
-                    <span>
-                      Ratings:
+
+                    <p style={{ float: "right", fontSize: "16px" }}>
+                      {moment(res.created_on, "x").format("DD MMM YYYY")}
+                    </p>
+                    <p>
                       <StarRatings
                         rating={
                           res.rating
@@ -87,10 +118,14 @@ const Index = () => {
                         starSpacing="1px"
                         starDimension="17px"
                       />
-                    </span>
-                  
+                    </p>
                   </div>
-                  Reviews : { res.review}
+                  <div>
+                    <div className="review-decs">
+                      <p> {res.review}</p>
+                    </div>
+                    {/* {res.review} */}
+                  </div>
                 </div>
               ))
             ) : (
@@ -101,30 +136,30 @@ const Index = () => {
       </section>
 
       {/* // <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you a Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={tradie_review_2} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={tradie_review_2} alt="" />
-          </div>
-        </div>
-      </section>
-     )}
+        </section>
+      )}
 
       <Footer />
     </div>

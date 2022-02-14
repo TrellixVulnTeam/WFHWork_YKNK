@@ -11,12 +11,18 @@ import { Link, useHistory } from "react-router-dom";
 import dummyUser from "../../assets/images/user.png";
 import mapStyles from "./mapStyles";
 import { AiFillStar } from "react-icons/ai";
+import AlertPopup from "./AlertPopup";
 
 function Map() {
   const history = useHistory();
   const [selectedPark, setSelectedPark] = useState(null);
   const { searchingTradie } = useSelector((state) => state.directory);
   let SearchAllData = JSON.parse(localStorage.getItem("SearchAllData"));
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+  const [alertPopup, setalertPopup] = useState(false);
+  const { login, verify_OTP } = useSelector((state) => state.auth);
+
+  const Subs = 1;
 
   useEffect(() => {
     const listener = (e) => {
@@ -41,8 +47,9 @@ function Map() {
   const RedirectToTradie = (id) => {
     history.push("/tradie-public-profile/" + id);
   };
-
- 
+  const alertNotAuth = () => {
+    setalertPopup(true);
+  };
   return (
     <GoogleMap
       defaultZoom={10}
@@ -114,17 +121,33 @@ function Map() {
               </p>
             </h2>
 
-            <button
-              className="btn-primary font-m"
-              onClick={() => {
-                submitTradieRequest(selectedPark?.id);
-              }}
-            >
-              Request
-            </button>
+            {userInfo?.access == "provider" ? (
+              ""
+            ) : !login ? (
+              <button
+                className="btn-primary font-m"
+                onClick={() => {
+                  alertNotAuth();
+                }}
+              >
+                Request
+              </button>
+            ) : selectedPark.subscStatus == "active" ? (
+              <button
+                className="btn-primary font-m"
+                onClick={() => {
+                  submitTradieRequest(selectedPark?.id);
+                }}
+              >
+                Request
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </InfoWindow>
       )}
+      {alertPopup && <AlertPopup setalertPopup={setalertPopup} />}
     </GoogleMap>
   );
 }

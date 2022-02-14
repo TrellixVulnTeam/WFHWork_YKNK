@@ -25,6 +25,7 @@ import moment from "moment";
 
 const Index = () => {
   let subtitle;
+  const Subs = 1;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [imgData, setImagData] = useState();
 
@@ -157,8 +158,8 @@ const Index = () => {
 
       {/* <!-- Any Trade. Any Time.  Any Where --> */}
       <section className="section-top">
-        <h2 className="section-top__title">
-          <span>Any Trade</span>, Anywhere, Anytime
+        <h2 className="section-top__title directory-title">
+          Any Trade. Any Time. <span>Any Where</span>
         </h2>
       </section>
 
@@ -187,27 +188,16 @@ const Index = () => {
                       alt=""
                     />
                   </div>
-                  <div>
+                  <div style={{ display: "inline-block" }}>
                     <div>
-                      <h4 className="tradie-profile__name w-100 text-left">
-                        {tradiePersonalInfo.user_data.full_name}
-                      </h4>
                       <div
                         className="tradie-profile__rating"
-                        style={{ height: "20px" }}
+                        style={{ display: "flex" }}
                       >
-                        {/* {RatingStars} */}
-                        {/* {loginData.access === "user" ? (
-                          <StarRatings
-                            rating={rating ? rating : 0}
-                            changeRating={(newRating) => setRating(newRating)}
-                            starRatedColor="orange"
-                            numberOfStars={5}
-                            name="rating"
-                            starSpacing="1px"
-                            starDimension="17px"
-                          />
-                        ) : ( */}
+                        <h4 className="tradie-profile__name text-left">
+                          {tradiePersonalInfo.user_data.full_name}
+                        </h4>
+
                         <StarRatings
                           rating={
                             tradiePersonalInfo.user_data.rating
@@ -221,8 +211,13 @@ const Index = () => {
                           numberOfStars={5}
                           name="rating"
                           starSpacing="1px"
-                          starDimension="17px"
+                          starDimension="20px"
                         />
+                        <p style={{ margin: "3px" }}>
+                          {Math.round(
+                            Number(tradiePersonalInfo.user_data.rating) * 10
+                          ) / 10}
+                        </p>
                       </div>
                       <ul className="tradie-profile__specialties">
                         {tradiePersonalInfo?.services.map((serviceType, i) => {
@@ -261,10 +256,16 @@ const Index = () => {
                           src={tradie_public_profile_2}
                           alt=""
                         />
-                        {`${tradiePersonalInfo?.business_data?.house_no}, ${tradiePersonalInfo?.business_data?.street}, ${tradiePersonalInfo?.business_data?.city} , ${tradiePersonalInfo?.business_data?.state} , ${tradiePersonalInfo?.business_data?.country}`}
+                        {tradiePersonalInfo?.business_data?.house_no &&
+                        tradiePersonalInfo?.business_data?.street &&
+                        tradiePersonalInfo?.business_data?.city &&
+                        tradiePersonalInfo?.business_data?.state &&
+                        tradiePersonalInfo?.business_data?.country
+                          ? `${tradiePersonalInfo?.business_data?.house_no}, ${tradiePersonalInfo?.business_data?.street}, ${tradiePersonalInfo?.business_data?.city} , ${tradiePersonalInfo?.business_data?.state} , ${tradiePersonalInfo?.business_data?.country}`
+                          : ""}
                       </p>
                       <a
-                        href="tel:0412 345 678"
+                        href={`tel: ${tradiePersonalInfo.user_data.mobile}`}
                         className="tradie-profile__tel"
                       >
                         <img
@@ -275,7 +276,7 @@ const Index = () => {
                         {tradiePersonalInfo.user_data.mobile}
                       </a>
                       <a
-                        href="mailto:tradiename@email.com"
+                        href={`mailto: ${tradiePersonalInfo.user_data.email}`}
                         className="tradie-profile__email"
                       >
                         <img
@@ -288,17 +289,21 @@ const Index = () => {
                     </div>
                     <div>
                       {loginData.access === "user" ? (
-                        <Link
-                          className="btn-primary"
-                          to={{
-                            pathname: "/tradie-request",
-                            state: {
-                              id: [id],
-                            },
-                          }}
-                        >
-                          Request Job
-                        </Link>
+                        tradiePersonalInfo.isMember == "active" ? (
+                          <Link
+                            className="btn-primary"
+                            to={{
+                              pathname: "/tradie-request",
+                              state: {
+                                id: [id],
+                              },
+                            }}
+                          >
+                            Request Job
+                          </Link>
+                        ) : (
+                          ""
+                        )
                       ) : (
                         ""
                       )}
@@ -374,7 +379,7 @@ const Index = () => {
       </section>
       <div className="tradie-profile__about">
         <h4>What our customer say</h4>
-        <div style={{ height: "50rem", overflowY: "scroll" }}>
+        <div style={{ maxHeight: "50rem", overflowY: "scroll" }}>
           {Object.keys(getProviderReviewList).length > 0 ? (
             getProviderReviewList?.map((res) => (
               <div className="input-group review" key={res.id}>
@@ -480,7 +485,7 @@ const Index = () => {
       )}
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo.access === "provider" ? (
+      {userInfo.role === "provider" ? (
         ""
       ) : (
         <section className="section section--left">

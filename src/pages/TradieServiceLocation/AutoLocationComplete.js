@@ -282,10 +282,10 @@ const AutoCompleteSearch = () => {
       </div>
       <label className="m-b-1">Recent Location</label>
       <div className="input-group mb-1">
-        <label className="  ">
+        <p className="  ">
           <img width="20" height="20" src={tradie_service_location_2} alt="" />
           {tradiaServiceLocation ? tradiaServiceLocation[0]?.address : ""}
-        </label>
+        </p>
       </div>
 
       <div className="input-group btn">

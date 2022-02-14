@@ -37,7 +37,7 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
       JSON.stringify({ action: "accept", id: alertData?.id })
     );
   };
-
+console.log(providerJobAccept)
   useEffect(() => {
     if (providerJobAccept.success == 1) {
       toast.success(providerJobAccept.message, {
@@ -48,9 +48,9 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
       setViewDetailPopup(false);
     }
 
-    // setTimeout(() => {
-    //   dispatch({ type: "PROVIDER_JOB_ACCEPT_SUCCESS", payload: "" });
-    // }, 1000);
+    setTimeout(() => {
+      dispatch({ type: "PROVIDER_JOB_ACCEPT_SUCCESS", payload: "" });
+    }, 0);
   }, [providerJobAccept]);
 
   const tConvert = (time) => {

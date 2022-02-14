@@ -80,7 +80,7 @@ const Index = () => {
         </div> */}
       </section>
 
-      {userInfo.access === "provider" ? (
+      {userInfo.role === "provider" ? (
         ""
       ) : (
         <section class="section section--left">

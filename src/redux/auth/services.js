@@ -229,6 +229,7 @@ export const Profile_Provider_Register_Service = async (data, userInfo) => {
 
   var UserCookieData = {
     access_token: userInfo.access_token,
+    access: userInfo.role,
     api_key: userInfo.api_key,
     city: city,
     country: country,

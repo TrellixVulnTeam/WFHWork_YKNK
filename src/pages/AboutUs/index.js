@@ -168,7 +168,7 @@ const Index = () => {
         </div>
       </section>
 
-      {userInfo?.access === "provider" ? (
+      {userInfo?.role === "provider" ? (
         ""
       ) : (
         <section className="section section--left">

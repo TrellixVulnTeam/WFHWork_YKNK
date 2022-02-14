@@ -20,11 +20,15 @@ import IntlTelInput from "react-intl-tel-input";
 
 import libPhoneNumber from "react-intl-tel-input/dist/libphonenumber.js";
 import "../../../node_modules/react-intl-tel-input/dist/main.css";
-import Modal from "../../components/UserSignupModal";
+import Modals from "../../components/UserSignupModal";
+import ModalR from "react-modal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
+import { Modal } from "react-bootstrap";
+import FirstMembershipSignup from "../TradieMembership/FirstMembershipSignup";
+import CardAddForm from "../TradieMembership/CardAddForm";
 
 toast.configure();
 
@@ -36,8 +40,10 @@ const Index = () => {
   const [countryCode, setCountryCode] = useState("+61");
   const [mobileNumber, setMobileNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [namePopup, setnamePopup] = useState(false);
   const [isValidationMessage, setIsValidationMessage] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const {
     otp,
@@ -48,7 +54,8 @@ const Index = () => {
     otp_stateReg,
     otp_stateSignup,
   } = useSelector((state) => state.auth);
-
+  console.log("Otp :", otp);
+  console.log("isOpen :", isOpen);
   const getGeoInfo = () => {
     axios
       .get("https://ipapi.co/json/")
@@ -64,10 +71,11 @@ const Index = () => {
     getGeoInfo();
   }, []);
   let deviceCountry = JSON.parse(localStorage.getItem("countryCode"));
-
+ 
   useEffect(() => {
     if (login && verify_OTP?.role === "provider") {
-      history.push("/tradie-popup-step1");
+      // history.push("/tradie-popup-step1");
+      setOpen(true);
     }
     if (verify_OTP?.fullname !== "" && verify_OTP?.role === "user") {
       history.push("/user-profile");
@@ -174,8 +182,36 @@ const Index = () => {
       setMobileNumber(result);
       Dispatch(otp_StateReg_Change_Action(true));
     }
-    
   };
+
+  let subtitle;
+  // function openModal() {
+  //   setIsOpen(true);
+  //   // setOpen(false)
+  // }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      height: "auto",
+      marginRight: "-50%",
+      zIndex: "9",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+  const link = "/tradie-popup-step1";
   return (
     <>
       <section className="section section--sign-up">
@@ -254,7 +290,9 @@ const Index = () => {
                   /> */}
 
                   <PhoneInput
-                    country={`${deviceCountry?.toLowerCase()}`}
+                    country={`${
+                      deviceCountry ? deviceCountry?.toLowerCase() : "in"
+                    }`}
                     onChange={handlePhoneNumberChange}
                   />
                   {/* <input
@@ -281,7 +319,9 @@ const Index = () => {
                   {isValidationMessage
                     ? "Please Enter 9 to 10 digits number"
                     : ""}
-                  {otp_stateSignup ? "Already user exist" : ""}
+                  {otp_stateSignup
+                    ? "Mobie no is already resgistered please login"
+                    : ""}
                 </p>
               </div>
               <button
@@ -345,9 +385,49 @@ const Index = () => {
           setnamePopup={setnamePopup}
         />
       ) : null}
+      <Modal
+        size="lg"
+        centered
+        show={open}
+        onHide={() => setOpen(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton style={{ padding: "30px" }}>
+          <h2 className="section-top__title">
+            <span>Welcome</span>{" "}
+          </h2>
+          <h4 style={{ color: "#343432" }}>
+            {" "}
+            Please select one of the below adverts <br /> and let's get you
+            started.
+          </h4>
+        </Modal.Header>
+        <Modal.Body>
+          <FirstMembershipSignup
+            setModalIsOpen={setModalIsOpen}
+            setOpen={setOpen}
+          />
+        </Modal.Body>
+      </Modal>
+
+      <ModalR
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
+        <button className="close-btn" onClick={closeModal}>
+          close
+        </button>
+        <div className="img-show">
+          <CardAddForm link={link} />
+        </div>
+      </ModalR>
 
       {login && verify_OTP?.fullname === "" && namePopup ? (
-        <Modal setnamePopup={setnamePopup} />
+        <Modals setnamePopup={setnamePopup} />
       ) : null}
     </>
   );

@@ -57,6 +57,8 @@ const Index = () => {
   const [activeCommercial, setCommercial] = useState(false);
   const [activeResidential, setResidential] = useState(true);
 
+  const Subs = 1;
+
   const ServiceTypeChange = (data) => {
     if (data == "residential") {
       setResidential(true);
@@ -205,6 +207,67 @@ const Index = () => {
     }
   };
 
+  const sortFilter = searchingTradie?.filter((tradieDatas) =>
+    tradieDatas?.service_type?.includes(sortTradieType)
+  );
+
+  if (searchingTradie?.length > 0) {
+    searchingTradie?.filter((tradieDatas) => {
+      if (tradieDatas?.isBtnSelect === true) {
+        if (valueTab == "map") {
+          tradiesIdss.push(tradieDatas.id);
+        } else {
+          if (tradieDatas.service_type.includes(sortTradieType)) {
+            tradiesIdss.push(tradieDatas.id);
+          }
+        }
+      }
+    });
+  }
+  const subsTradie = sortFilter?.filter((res) => res.subscStatus == "active");
+  const nonSubsTradie = sortFilter?.filter(
+    (res) => res.subscStatus !== "active"
+  );
+  // For Non Subscription  Tradie
+  const sortTradieNonSub = () => {
+    if (nonSubsTradie?.length > 0) {
+      if (sortRating == "low") {
+        return nonSubsTradie?.sort((a, b) => a.rating - b.rating);
+      } else if (sortRating == "high") {
+        return nonSubsTradie?.sort((a, b) => b.rating - a.rating);
+      } else {
+        return nonSubsTradie;
+      }
+    } else {
+      return [];
+    }
+  };
+  // For  Subscription  Tradie
+  const sortTradieSub = () => {
+    if (subsTradie?.length > 0) {
+      if (sortRating == "low") {
+        return subsTradie?.sort((a, b) => a.rating - b.rating);
+      } else if (sortRating == "high") {
+        return subsTradie?.sort((a, b) => b.rating - a.rating);
+      } else {
+        return subsTradie;
+      }
+    } else {
+      return [];
+    }
+  };
+
+  // const checkSubs =
+  //   Object.keys(sortTradie()).length > 0
+  //     ? sortTradie()?.filter((res) => {
+  //         if (res) {
+  //           return res.subscStatus?.split().sort().join();
+  //         } else {
+  //           return sortTradie();
+  //         }
+  //       })
+  //     : "";
+
   const submitTradieRequest = () => {
     //  return console.log("traide id",tradiesIds)
 
@@ -223,36 +286,6 @@ const Index = () => {
       });
     }
     // setModelOpenTradieRequest(true);
-  };
-
-  if (searchingTradie?.length > 0) {
-    searchingTradie?.filter((tradieDatas) => {
-      if (tradieDatas?.isBtnSelect === true) {
-        tradiesIdss.push(tradieDatas.id);
-      }
-    });
-  }
-
-  const sortFilter = searchingTradie?.filter((tradieDatas) =>
-    tradieDatas?.service_type?.includes(sortTradieType)
-  );
-
-  const sortTradie = () => {
-    if (sortFilter?.length > 0) {
-      if (sortRating == "low") {
-        return sortFilter?.sort((a, b) => a.rating - b.rating);
-      } else if (sortRating == "high") {
-        return searchingTradie?.sort((a, b) => b.rating - a.rating);
-      } else {
-        return sortFilter;
-      }
-    } else if (sortRating == "low") {
-      return searchingTradie?.sort((a, b) => a.rating - b.rating);
-    } else if (sortRating == "high") {
-      return searchingTradie?.sort((a, b) => b.rating - a.rating);
-    } else {
-      return searchingTradie;
-    }
   };
 
   const selectAllTradie = () => {
@@ -506,32 +539,41 @@ const Index = () => {
           </Tabs>
 
           <nav className="tradies__filter-nav map-select">
-            {selectAllTradies && tradiesIdss.length > 0 ? (
-              // <Button className="btn-secondary font-m">Selected to All</Button>
-              <Button className="btn-secondary font-m" onClick={deselectall}>
-                Deselect All
-              </Button>
+            {userInfo.role == "provider" ? (
+              ""
             ) : (
-              <Button
-                className="btn-secondary font-m"
-                onClick={() => {
-                  selectAllTradie();
-                }}
-              >
-                Select All{" "}
-              </Button>
+              <>
+                {" "}
+                {selectAllTradies && tradiesIdss.length > 0 ? (
+                  // <Button className="btn-secondary font-m">Selected to All</Button>
+                  <Button
+                    className="btn-secondary font-m"
+                    onClick={deselectall}
+                  >
+                    Deselect to All
+                  </Button>
+                ) : (
+                  <Button
+                    className="btn-secondary font-m"
+                    onClick={() => {
+                      selectAllTradie();
+                    }}
+                  >
+                    Select to All{" "}
+                  </Button>
+                )}
+                <button
+                  className="btn-primary font-m"
+                  style={{ marginLeft: 20 }}
+                  onClick={() => {
+                    submitTradieRequest();
+                  }}
+                  // disabled={ tradiesIds?.length === 0}
+                >
+                  Send Request
+                </button>
+              </>
             )}
-
-            <button
-              className="btn-primary font-m"
-              style={{ marginLeft: 20 }}
-              onClick={() => {
-                submitTradieRequest();
-              }}
-              // disabled={ tradiesIds?.length === 0}
-            >
-              Send Request
-            </button>
           </nav>
         </div>
 
@@ -553,72 +595,197 @@ const Index = () => {
         {loading ? (
           valueTab == "list" ? (
             <div className="tradies__grid">
-              {searchingTradie && Object.keys(sortTradie()).length > 0 ? (
-                sortTradie()?.map((item, index) => {
-                  return (
-                    <div className="tradies-item" key={index}>
-                      <div
-                        className="tradies-item__image"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          handleChangeRoute(item.id);
-                        }}
-                      >
-                        <img
-                          src={
-                            item.profile_pic
-                              ? `https://api.tapatradie.com/profile/${item.id}/` +
-                                item.profile_pic
-                              : tradie_directory_3
-                          }
-                          alt="User"
-                          loading="lazy"
-                        />
-                      </div>
+              {sortFilter?.length > 0 ? (
+                <>
+                  {Object.keys(sortTradieSub()).length > 0
+                    ? sortTradieSub()?.map((item, index) => {
+                        return (
+                          <div className="tradies-item" key={index}>
+                            <div
+                              className="tradies-item__image"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                handleChangeRoute(item.id);
+                              }}
+                            >
+                              <img
+                                src={
+                                  item.profile_pic
+                                    ? `https://api.tapatradie.com/profile/${item.id}/` +
+                                      item.profile_pic
+                                    : tradie_directory_3
+                                }
+                                alt="User"
+                                loading="lazy"
+                              />
+                            </div>
 
-                      <div className="tradies-item__content">
-                        <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            handleChangeRoute(item.id);
-                          }}
-                        >
-                          <h4 className="tradies-item__name">
-                            {item?.full_name}
-                          </h4>
-                          <ul className="tradies-item__specialties">
-                            <li>{item?.service_name}</li>
-                          </ul>
-                          <div className="tradies-item__rating">
-                            <StarRatings
-                              rating={
-                                item?.rating
-                                  ? Math.round(Number(item?.rating) * 10) / 10
-                                  : 0
-                              }
-                              starRatedColor="orange"
-                              numberOfStars={5}
-                              name="rating"
-                              starSpacing="1px"
-                              starDimension="17px"
-                            />
+                            <div className="tradies-item__content">
+                              <div
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                  handleChangeRoute(item.id);
+                                }}
+                              >
+                                <h4 className="tradies-item__name">
+                                  {item?.full_name}
+                                </h4>
+                                <ul className="tradies-item__specialties">
+                                  <li>{item?.service_name}</li>
+                                </ul>
+                                <div className="tradies-item__rating">
+                                  <StarRatings
+                                    rating={
+                                      item?.rating
+                                        ? Math.round(
+                                            Number(item?.rating) * 10
+                                          ) / 10
+                                        : 0
+                                    }
+                                    starRatedColor="orange"
+                                    numberOfStars={5}
+                                    name="rating"
+                                    starSpacing="1px"
+                                    starDimension="17px"
+                                  />
+                                </div>
+                              </div>
+                              <span
+                                className="list-box_online"
+                                style={{
+                                  marginTop: "-10px",
+                                  marginBottom: "3px",
+                                }}
+                              >
+                                {item.online === 1 ? (
+                                  <>
+                                    <GoPrimitiveDot color="green" /> Online
+                                  </>
+                                ) : (
+                                  <>
+                                    <GoPrimitiveDot color="red" /> Offline
+                                  </>
+                                )}
+                              </span>
+                              {/* {item?.isBtnSelect  === true ? (
+      <Link
+        to={{
+          pathname: "/tradie-request",
+          state: {
+            id: tradiesIds,
+          },
+        }}
+        className={`tradies-item__select ${
+          item?.isBtnSelect === true
+            ? "bg-light-orange"
+            : "btn-primary"
+        }`}
+      >
+        {item.isBtnSelect === true ? "Deselect" : "Select"}
+      </Link>
+    ) : ( */}
+                              {userInfo.role == "provider" ? (
+                                ""
+                              ) : item.subscStatus == "active" ? (
+                                <Button
+                                  role="button"
+                                  to="/tradie-request"
+                                  className={`tradies-item__select ${
+                                    item?.isBtnSelect === true
+                                      ? "bg-light-orange"
+                                      : "btn-primary"
+                                  }`}
+                                  onClick={() => {
+                                    slectedTradie(item.id);
+                                  }}
+                                >
+                                  {item.isBtnSelect === true
+                                    ? "Deselect"
+                                    : "Select"}
+                                </Button>
+                              ) : (
+                                ""
+                              )}
+                              {/* )} */}
+                            </div>
                           </div>
-                        </div>
-                        <span
-                          className="list-box_online"
-                          style={{ marginTop: "-10px", marginBottom: "3px" }}
-                        >
-                          {item.online === 1 ? (
-                            <>
-                              <GoPrimitiveDot color="green" /> Online
-                            </>
-                          ) : (
-                            <>
-                              <GoPrimitiveDot color="red" /> Offline
-                            </>
-                          )}
-                        </span>
-                        {/* {item?.isBtnSelect  === true ? (
+                        );
+                      })
+                    : null}
+
+                  {Object.keys(sortTradieNonSub()).length > 0
+                    ? sortTradieNonSub()
+                        ?.sort((A, B) => A.full_name.localeCompare(B.full_name))
+                        .map((item, index) => {
+                          return (
+                            <div className="tradies-item" key={index}>
+                              <div
+                                className="tradies-item__image"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                  handleChangeRoute(item.id);
+                                }}
+                              >
+                                <img
+                                  src={
+                                    item.profile_pic
+                                      ? `https://api.tapatradie.com/profile/${item.id}/` +
+                                        item.profile_pic
+                                      : tradie_directory_3
+                                  }
+                                  alt="User"
+                                  loading="lazy"
+                                />
+                              </div>
+
+                              <div className="tradies-item__content">
+                                <div
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    handleChangeRoute(item.id);
+                                  }}
+                                >
+                                  <h4 className="tradies-item__name">
+                                    {item?.full_name}
+                                  </h4>
+                                  <ul className="tradies-item__specialties">
+                                    <li>{item?.service_name}</li>
+                                  </ul>
+                                  <div className="tradies-item__rating">
+                                    <StarRatings
+                                      rating={
+                                        item?.rating
+                                          ? Math.round(
+                                              Number(item?.rating) * 10
+                                            ) / 10
+                                          : 0
+                                      }
+                                      starRatedColor="orange"
+                                      numberOfStars={5}
+                                      name="rating"
+                                      starSpacing="1px"
+                                      starDimension="17px"
+                                    />
+                                  </div>
+                                </div>
+                                <span
+                                  className="list-box_online"
+                                  style={{
+                                    marginTop: "-10px",
+                                    marginBottom: "3px",
+                                  }}
+                                >
+                                  {item.online === 1 ? (
+                                    <>
+                                      <GoPrimitiveDot color="green" /> Online
+                                    </>
+                                  ) : (
+                                    <>
+                                      <GoPrimitiveDot color="red" /> Offline
+                                    </>
+                                  )}
+                                </span>
+                                {/* {item?.isBtnSelect  === true ? (
                       <Link
                         to={{
                           pathname: "/tradie-request",
@@ -635,25 +802,35 @@ const Index = () => {
                         {item.isBtnSelect === true ? "Deselect" : "Select"}
                       </Link>
                     ) : ( */}
-                        <Button
-                          role="button"
-                          to="/tradie-request"
-                          className={`tradies-item__select ${
-                            item?.isBtnSelect === true
-                              ? "bg-light-orange"
-                              : "btn-primary"
-                          }`}
-                          onClick={() => {
-                            slectedTradie(item.id);
-                          }}
-                        >
-                          {item.isBtnSelect === true ? "Deselect" : "Select"}
-                        </Button>
-                        {/* )} */}
-                      </div>
-                    </div>
-                  );
-                })
+                                {userInfo.role == "provider" ? (
+                                  ""
+                                ) : item.subscStatus == "active" ? (
+                                  <Button
+                                    role="button"
+                                    to="/tradie-request"
+                                    className={`tradies-item__select ${
+                                      item?.isBtnSelect === true
+                                        ? "bg-light-orange"
+                                        : "btn-primary"
+                                    }`}
+                                    onClick={() => {
+                                      slectedTradie(item.id);
+                                    }}
+                                  >
+                                    {item.isBtnSelect === true
+                                      ? "Deselect"
+                                      : "Select"}
+                                  </Button>
+                                ) : (
+                                  ""
+                                )}
+                                {/* )} */}
+                              </div>
+                            </div>
+                          );
+                        })
+                    : null}
+                </>
               ) : (
                 <div className="tradies-item">
                   <center>No Tradie Found!</center>
@@ -695,7 +872,7 @@ const Index = () => {
       )}
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section section className="section section--left">

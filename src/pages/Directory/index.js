@@ -23,6 +23,7 @@ import useComponentVisibleHook from "./useComponentVisibleHook";
 import { Redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Get_Service_list_Action } from "../../redux/auth/action";
 toast.configure();
 
 const Index = () => {
@@ -31,14 +32,15 @@ const Index = () => {
     search_trading_onClick_search_Action,
     search_trading_service_Action,
   } = Actions;
-
+  let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisibleHook(true);
 
   const { trendingCategories, searchingTradie } = useSelector(
     (state) => state.directory
   );
-
+  const { getServiceList } = useSelector((state) => state.auth);
+ 
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [redirectpPage, setRedirectpPage] = useState(false);
@@ -51,6 +53,7 @@ const Index = () => {
   const [modelOpen, setModelOpen] = useState(false);
   useEffect(() => {
     dispatch(trendingAllCategories_Action());
+    dispatch(Get_Service_list_Action());
   }, []);
 
   const goalInputHandler1 = (enterText) => {
@@ -124,6 +127,11 @@ const Index = () => {
     </div>
   );
 
+  const categoryFilterByAlfa = (A) => {
+    trendingCategories.filter(function (word) {
+      return /^A/.test(word.toUpperCase());
+    });
+  };
   return (
     <div>
       <Header />
@@ -138,7 +146,7 @@ const Index = () => {
               src={Section_top_2}
               alt=""
             />
-            Start your project <span> today </span>
+            Start your project <span className="today-color"> today </span>
           </h2>
           <form
             action="#"
@@ -193,19 +201,31 @@ const Index = () => {
       <section className="section">
         <h2 className="section__title">Trending Services</h2>
         <div className="trending-services">
-          <Link
-            to="/tradie-directory"
-            className="trending-services__item"
-            onClick={() => {
-              SendData({ search: "electrician" });
-            }}
-          >
-            <div>
-              <img src={Section_top_3} alt="" />
-            </div>
-            <h4>Electrician</h4>
-          </Link>
-          <Link
+          {getServiceList?.map((res) => (
+            <Link
+              to="/tradie-directory"
+              className="trending-services__item"
+              onClick={() => {
+                SendData({ search: res?.name });
+              }}
+              key={res.id}
+            >
+              <div>
+                <img
+                  src={`https://sample.jploftsolutions.in/tapImages/${res?.image}`}
+                  height="23px"
+                  width="33px"
+                  alt=""
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+              <h4>
+                {res?.name?.charAt(0).toUpperCase() + res?.name?.slice(1)}
+              </h4>
+            </Link>
+          ))}
+
+          {/* <Link
             to="/tradie-directory"
             onClick={() => {
               SendData({ search: "plumber" });
@@ -324,7 +344,7 @@ const Index = () => {
               <img src={Section_top_13} alt="" />
             </div>
             <h4>Builder</h4>
-          </Link>
+          </Link> */}
           <Link
             className="trending-services__item"
             to="/our-services"
@@ -332,7 +352,7 @@ const Index = () => {
               SendData({ search: "more" });
             }}
           >
-            <h4>More Services</h4>
+            <h4 className="more-section-services">More Services</h4>
           </Link>
         </div>
       </section>
@@ -344,7 +364,24 @@ const Index = () => {
             <div className="category">
               <h4 className="category__letter">A</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^A/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -387,13 +424,30 @@ const Index = () => {
                   >
                     Asbestos And Mold Services
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">b</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^B/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -463,13 +517,30 @@ const Index = () => {
                     {" "}
                     Building Inspections/certifiers
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">c</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^C/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -563,13 +634,30 @@ const Index = () => {
                     {" "}
                     Counter &amp; Bench tops
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">d</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^D/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -615,7 +703,7 @@ const Index = () => {
                     {" "}
                     Dry-wall Wet wall &amp; Plastering
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -623,7 +711,24 @@ const Index = () => {
             <div className="category">
               <h4 className="category__letter">E</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^E/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -657,13 +762,30 @@ const Index = () => {
                     {" "}
                     Excavation &amp; Digger Hire
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">f</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^F/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -696,13 +818,30 @@ const Index = () => {
                   >
                     Fly Screens
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">g</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^G/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -748,13 +887,30 @@ const Index = () => {
                     {" "}
                     Gutters &amp; Down pipes
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">h</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^H/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -800,13 +956,30 @@ const Index = () => {
                     {" "}
                     Home Security
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">i</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^I/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -828,7 +1001,7 @@ const Index = () => {
                     {" "}
                     Irrigation &amp; Rectic systems
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -836,7 +1009,24 @@ const Index = () => {
             <div className="category">
               <h4 className="category__letter">J</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^J/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -846,13 +1036,52 @@ const Index = () => {
                   >
                     Joinery
                   </Link>
-                </li>
+                </li> */}
+              </ul>
+            </div>
+            <div className="category">
+              <h4 className="category__letter">K</h4>
+              <ul className="category__list">
+                {trendingCategories.map((word) =>
+                  /^K/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">l</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^L/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -934,13 +1163,30 @@ const Index = () => {
                     {" "}
                     Lock Smith
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">m</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^M/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -962,13 +1208,74 @@ const Index = () => {
                     {" "}
                     Metal fabrication &amp; Welding
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
-              <h4 className="category__letter">p</h4>
+              <h4 className="category__letter">N</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^N/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+            </div>
+            <div className="category">
+              <h4 className="category__letter">O</h4>
+              <ul className="category__list">
+                {trendingCategories.map((word) =>
+                  /^O/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+              </ul>
+            </div>
+            <div className="category">
+              <h4 className="category__letter">P</h4>
+              <ul className="category__list">
+                {trendingCategories.map((word) =>
+                  /^P/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -1062,15 +1369,54 @@ const Index = () => {
                     {" "}
                     Power Washing
                   </Link>
-                </li>
+                </li> */}
+              </ul>
+            </div>
+            <div className="category">
+              <h4 className="category__letter">Q</h4>
+              <ul className="category__list">
+                {trendingCategories.map((word) =>
+                  /^Q/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
               </ul>
             </div>
           </div>
           <div className="categories__column">
             <div className="category">
-              <h4 className="category__letter">r</h4>
+              <h4 className="category__letter">R</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^R/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -1105,13 +1451,30 @@ const Index = () => {
                     {" "}
                     Roofing{" "}
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">s</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^S/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -1181,13 +1544,30 @@ const Index = () => {
                     {" "}
                     Swimming Pools
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">t</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^T/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -1245,13 +1625,30 @@ const Index = () => {
                     {" "}
                     Tree Services/Aborists
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="category">
               <h4 className="category__letter">w</h4>
               <ul className="category__list">
-                <li className="category__item">
+                {trendingCategories.map((word) =>
+                  /^W/.test(word?.name.toUpperCase()) ? (
+                    <li className="category__item">
+                      <Link
+                        to="/tradie-directory"
+                        className="category__link"
+                        onClick={() => {
+                          SendData({ search: word.name });
+                        }}
+                      >
+                        {word.name}
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )
+                )}
+                {/* <li className="category__item">
                   <Link
                     to="/tradie-directory"
                     className="category__link"
@@ -1309,33 +1706,37 @@ const Index = () => {
                     {" "}
                     Windows
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--left">
-        <div className="professional-tradie">
-          <div className="professional-tradie__description">
-            <h3 className="professional-tradie__title">
-              Are you Link Professional Tradie?
-            </h3>
-            <p>
-              If you would like to be part of our Tradie community and are ready
-              to meet new clients today please continue so we can welcome you
-              onboard.
-            </p>
-            <Link to="/about-us" className="btn-primary">
-              Learn More
-            </Link>
+      {userInfo?.role == "provider" ? (
+        ""
+      ) : (
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
+                Are you a Professional Tradie?
+              </h3>
+              <p>
+                If you would like to be part of our Tradie community and are
+                ready to meet new clients today please continue so we can
+                welcome you onboard.
+              </p>
+              <Link to="/about-us" className="btn-primary">
+                Learn More
+              </Link>
+            </div>
+            <div className="professional-tradie__image">
+              <img src={Section_top_14} alt="" />
+            </div>
           </div>
-          <div className="professional-tradie__image">
-            <img src={Section_top_14} alt="" />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
       <Footer />
     </div>
   );

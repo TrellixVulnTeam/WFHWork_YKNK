@@ -66,6 +66,7 @@ const Index = () => {
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
   const { userData, login } = useSelector((state) => state.auth);
+  
   // const {full_name}=userData
   // console.log("userData", userData);
   const [redirectpPage, setRedirectpPage] = useState(false);
@@ -94,7 +95,9 @@ const Index = () => {
   useEffect(() => {
     dispatch(trendingAllCategories_Action());
     dispatch(User_Profile_Get_Information_Action());
+    dispatch(AuthActions.Get_Service_list_Action());
   }, []);
+  const { getServiceList } = useSelector((state) => state.auth);
   const goalInputHandler1 = (enterText) => {
     setModelOpen(false);
     setSearchTerm(enterText);
@@ -132,7 +135,7 @@ const Index = () => {
         size: "small",
       });
     } else {
-      localStorage.setItem("SearchAllData", JSON.stringify(searchFormData))
+      localStorage.setItem("SearchAllData", JSON.stringify(searchFormData));
       dispatch(search_trading_onClick_search_Action(searchFormData));
       setRedirectpPage(true);
     }
@@ -189,7 +192,7 @@ const Index = () => {
           </svg>
         </div>
         <div className="section-heading">
-          <h2 className="section-top__title">
+          <h2 className="section-top__title home-title">
             <span>Any Trade</span>, Anywhere, Anytime
           </h2>
           <form
@@ -250,7 +253,7 @@ const Index = () => {
           alt=""
         />
 
-        {userInfo?.access ? (
+        {userInfo?.access  ? (
           ""
         ) : (
           <section className="section--register-tradie">
@@ -319,7 +322,30 @@ const Index = () => {
       <section className="section">
         <h2 className="section__title">Trending Services</h2>
         <div className="trending-services">
-          <Link
+        {getServiceList?.map((res) => (
+            <Link
+              to="/tradie-directory"
+              className="trending-services__item"
+              onClick={() => {
+                SendData({ search: res?.name });
+              }}
+              key={res.id}
+            >
+              <div>
+                <img
+                  src={`https://sample.jploftsolutions.in/tapImages/${res?.image}`}
+                  height="23px"
+                  width="33px"
+                  alt=""
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+              <h4>
+                {res?.name?.charAt(0).toUpperCase() + res?.name?.slice(1)}
+              </h4>
+            </Link>
+          ))}
+          {/* <Link
             className="trending-services__item"
             to="/tradie-directory"
             onClick={() => {
@@ -452,9 +478,9 @@ const Index = () => {
               <img src={trending_service_11} alt="" />
             </div>
             <h4>Builder</h4>
-          </Link>
+          </Link> */}
           <Link to="/our-services" className="trending-services__item">
-            <h4>More Services</h4>
+            <h4 className="more-section-services">More Services</h4>
           </Link>
         </div>
       </section>
@@ -550,7 +576,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

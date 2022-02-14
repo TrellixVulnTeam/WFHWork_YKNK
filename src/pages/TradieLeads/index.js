@@ -6,6 +6,7 @@ import tradie_leads_1 from "../../assets/images/user.png";
 import tradie_leads_2 from "../../assets/icons/icon-deadline.png";
 import tradie_leads_3 from "../../assets/icons/icon-location.png";
 import tradie_leads_4 from "../../assets/images/professional-tradie.jpg";
+import tradie_public_profile_3 from "../../assets/icons/icon-phone.png";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/directory/action";
 import moment from "moment";
@@ -61,31 +62,31 @@ const Index = () => {
     setAlertData(viewData);
     setAlert(true);
   };
-  const leadStatus = providerLeadsHistory?.map((leads) => {
-    if (leads.dispute == 1) {
-      if (leads.user_status == "completed") {
-        return "Completed";
-      } else {
-        return "Disputed";
-      }
-    } else {
-      if (leads.status == "deleted") {
-        return "Completed";
-      } else if (leads.status == "cancel") {
-        return "Settled";
-      } else {
-        if (leads.user_status == "accept") {
-          return "Completed";
-        } else if ((leads.user_status = "completed")) {
-          return "Completed";
-        } else if ((leads.user_status = "deleted")) {
-          return "Completed";
-        } else {
-          return "Declined";
-        }
-      }
-    }
-  });
+  // const leadStatus = providerLeadsHistory?.map((leads) => {
+  //   if (leads.dispute == 1) {
+  //     if (leads.user_status == "completed") {
+  //       return "Completed";
+  //     } else {
+  //       return "Disputed";
+  //     }
+  //   } else {
+  //     if (leads.status == "deleted") {
+  //       return "Completed";
+  //     } else if (leads.status == "cancel") {
+  //       return "Settled";
+  //     } else {
+  //       if (leads.user_status == "accept") {
+  //         return "Completed";
+  //       } else if ((leads.user_status = "completed")) {
+  //         return "Completed";
+  //       } else if ((leads.user_status = "deleted")) {
+  //         return "Completed";
+  //       } else {
+  //         return "Declined";
+  //       }
+  //     }
+  //   }
+  // });
 
   const Back = () => {
     history.goBack();
@@ -202,18 +203,37 @@ const Index = () => {
                         <img src={tradie_leads_3} />
                         {leads.address}
                       </p>
-
-                      {providerAccepted?.action == "accept" &&
-                      providerAccepted?.id == leads.id ? (
+                      {leads?.provider_status == "accept" ? (
                         <a
-                          href="javascript:void(0)"
-                          className="btn-primary"
-                          onClick={(e) => {
-                            handleAlert(leads, e);
-                          }}
+                          href={`tel:${leads.mobile}`}
+                          className="tradie-profile__tel"
                         >
-                          Task Done
+                          {" "}
+                          <img
+                            className="tradie-profile__icon"
+                            src={tradie_public_profile_3}
+                            alt=""
+                          />
+                          {leads.mobile}
                         </a>
+                      ) : (
+                        ""
+                      )}
+
+                      {leads?.provider_status == "accept" ? (
+                        leads.user_status == "pending" ? (
+                          ""
+                        ) : (
+                          <a
+                            href="javascript:void(0)"
+                            className="btn-primary"
+                            onClick={(e) => {
+                              handleAlert(leads, e);
+                            }}
+                          >
+                            Task Done
+                          </a>
+                        )
                       ) : (
                         <a
                           href="javascript:void(0)"
@@ -317,7 +337,7 @@ const Index = () => {
         />
       )}
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/auth/action";
 import { Redirect } from "react-router-dom";
 
@@ -12,8 +12,9 @@ const SignupPopup = (props) => {
   const { verify_otp_Action, Reset_Signup_Otp_Action, getCountryList_Action } =
     Actions;
   const [fillBoxesMsg, setFillBoxesMsg] = useState(false);
-
+  const state = useSelector((state) => state.auth.verify_OTP);
   const [isTimer, setIsTimer] = useState(true);
+  const [invalidOptpMessage, setInvalidOptpMessage] = useState(false);
 
   useEffect(() => {
     const resendOtpEl = document.querySelector(".resendOTP");
@@ -46,6 +47,7 @@ const SignupPopup = (props) => {
   // }
 
   const submitOtpCode = () => {
+    setInvalidOptpMessage(false);
     if (OTP.length <= 3) {
       setFillBoxesMsg(true);
     } else {
@@ -59,13 +61,18 @@ const SignupPopup = (props) => {
       setTimeout(() => {
         Dispatch(getCountryList_Action());
       }, 300);
+      setInvalidOptpMessage(true);
+      setFillBoxesMsg(false);
     }
     setRedirectpPage(true);
-    props.setnamePopup(true);
+    if (props.btnTab == false) {
+      props.setnamePopup(true);
+    } else {
+      props.setnamePopup(false);
+    }
   };
 
   const resendOtp = () => {
-   
     setIsTimer(true);
     const data = {
       mobileNumber: props.mobileNumber,
@@ -74,7 +81,9 @@ const SignupPopup = (props) => {
     };
     Dispatch(Reset_Signup_Otp_Action(data));
   };
-
+  const { message } = state;
+  console.log("invalidOptpMessage :", invalidOptpMessage);
+  console.log("Message :", message);
   return (
     <div className="otp_popup">
       <div className="otp_popup__box">
@@ -101,6 +110,11 @@ const SignupPopup = (props) => {
         {fillBoxesMsg && (
           <p className="otp_popup__msg">Please fill all the boxes</p>
         )}
+        {message === "Invalid Otp." && invalidOptpMessage === true ? (
+          <p className="otp_popup__msg" style={{ color: "red" }}>
+            {message} Try again
+          </p>
+        ) : null}
         <button
           ref={submitBtnRef}
           className="otp_popup__submit"

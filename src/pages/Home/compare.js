@@ -323,7 +323,7 @@ const Index = () => {
             <h4>Builder</h4>
           </a>
           <Link to="/our-services" className="trending-services__item">
-            <h4>More Services</h4>
+            <h4 className="more-section-services">More Services</h4>
           </Link>
         </div>
       </section>
@@ -432,7 +432,7 @@ const Index = () => {
         </div>
       </section>
 
-      {userInfo?.access === "provider" ? (
+      {userInfo?.role === "provider" ? (
         ""
       ) : (
         <section className="section section--left">

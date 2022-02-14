@@ -27,6 +27,15 @@ const Index = () => {
   const { userUpdateRes } = useSelector((state) => state.auth);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
 
+  const {
+    User_Profile_Update_Action,
+    Profile_steps_Action,
+    User_Profile_Get_Information_Action,
+    Get_Business_Details_Action,
+    Get_User_Address_Action,
+  } = Actions;
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(User_Profile_Get_Information_Action());
     dispatch(Get_Business_Details_Action());
@@ -47,15 +56,6 @@ const Index = () => {
     country_code,
   } = userData;
 
-  const {
-    User_Profile_Update_Action,
-    Profile_steps_Action,
-    User_Profile_Get_Information_Action,
-    Get_Business_Details_Action,
-    Get_User_Address_Action,
-  } = Actions;
-  const dispatch = useDispatch();
-
   // const [Aboutme, setAboutme] = useState("");
   // const [EmailAddress, setEmailAddress] = useState("");
   // const [fullname, setfullname] = useState("");
@@ -67,11 +67,9 @@ const Index = () => {
   const [selectedCountry, setSelectOption] = useState("");
 
   useEffect(() => {
-   
     if (country) {
       setSelectOption(country);
     }
-   
   }, [userData]);
 
   useEffect(() => {
@@ -113,7 +111,6 @@ const Index = () => {
   });
 
   const handleSubmit = (values) => {
-
     const dataSend = Object.assign({}, values, {
       selectedCountry: selectedCountry,
     });
@@ -390,7 +387,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Are you a Professional Tradie? --> */}
-      {userInfo?.access == "provider" ? (
+      {userInfo?.role == "provider" ? (
         ""
       ) : (
         <section className="section section--left">
