@@ -5,7 +5,7 @@ import * as Actions from "../../redux/directory/action";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
+const TakeDone = ({ setAlert, alertData, setViewDetailPopup,setLoading }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -18,9 +18,11 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
 
   const handleClose = () => {
     setAlert(false);
+    setLoading(true);
   };
 
   const handleDelete = () => {
+    setLoading(false);
     const data = {
       action: "completed",
       id: alertData.id,
@@ -29,11 +31,15 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
     dispatch(provider_job_accept_request(data));
     setAlert(false);
     setViewDetailPopup(false);
-    history.push("/")
+    // history.push("/")
     localStorage.setItem(
       "provideLeadAction",
       JSON.stringify({ action: "completed", id: alertData.id })
     );
+    setTimeout(() => {
+      setLoading(true);
+      dispatch(Actions.provider_leads_request());
+    }, 3000);
   };
 
   return (
@@ -48,6 +54,7 @@ const TakeDone = ({ setAlert, alertData, setViewDetailPopup }) => {
             <span
               onClick={(e) => {
                 setAlert(false);
+                setLoading(true);
                 e.target.parentElement.parentElement.parentElement.style.display =
                   "none";
               }}

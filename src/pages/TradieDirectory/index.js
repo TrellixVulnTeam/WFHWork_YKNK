@@ -53,9 +53,9 @@ const Index = () => {
   const [selectAllTradies, setSelectAllTradie] = useState(false);
   const [alertPopup, setalertPopup] = useState(false);
   const [sortTradieType, setSortTradie] = useState();
-  const [sortRating, setSortRating] = useState("low");
+  const [sortRating, setSortRating] = useState("");
   const [activeCommercial, setCommercial] = useState(false);
-  const [activeResidential, setResidential] = useState(true);
+  const [activeResidential, setResidential] = useState(false);
 
   const Subs = 1;
 
@@ -231,7 +231,11 @@ const Index = () => {
   // For Non Subscription  Tradie
   const sortTradieNonSub = () => {
     if (nonSubsTradie?.length > 0) {
-      if (sortRating == "low") {
+      if (sortRating == "") {
+        return nonSubsTradie?.sort((A, B) =>
+          A.full_name.localeCompare(B.full_name)
+        );
+      } else if (sortRating == "low") {
         return nonSubsTradie?.sort((a, b) => a.rating - b.rating);
       } else if (sortRating == "high") {
         return nonSubsTradie?.sort((a, b) => b.rating - a.rating);
@@ -245,7 +249,11 @@ const Index = () => {
   // For  Subscription  Tradie
   const sortTradieSub = () => {
     if (subsTradie?.length > 0) {
-      if (sortRating == "low") {
+      if (sortRating == "") {
+        return subsTradie?.sort((A, B) =>
+          A.full_name.localeCompare(B.full_name)
+        );
+      } else if (sortRating == "low") {
         return subsTradie?.sort((a, b) => a.rating - b.rating);
       } else if (sortRating == "high") {
         return subsTradie?.sort((a, b) => b.rating - a.rating);
@@ -715,8 +723,8 @@ const Index = () => {
 
                   {Object.keys(sortTradieNonSub()).length > 0
                     ? sortTradieNonSub()
-                        ?.sort((A, B) => A.full_name.localeCompare(B.full_name))
-                        .map((item, index) => {
+                        // ?.sort((A, B) => A.full_name.localeCompare(B.full_name))
+                        ?.map((item, index) => {
                           return (
                             <div className="tradies-item" key={index}>
                               <div

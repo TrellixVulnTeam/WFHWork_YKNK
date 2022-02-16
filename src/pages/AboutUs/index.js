@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import about_us_1 from "../../assets/icons/tradieTV-title-after.svg";
@@ -7,12 +7,36 @@ import about_us_3 from "../../assets/images/photo-1532348260545-b021ade9c70d.jpe
 import about_us_4 from "../../assets/images/photo-1555963966-b7ae5404b6ed.jpeg";
 import about_us_5 from "../../assets/icons/tradieTV-title-after.svg";
 import about_us_6 from "../../assets/images/professional-tradie.jpg";
+import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Index = () => {
-  const { userData } = useSelector((state) => state.auth);
+  const [aboutUsData, setAboutUs] = useState([]);
+  const [totalUser, setTotalUser] = useState([]);
+  // const { userData } = useSelector((state) => state.auth);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+  useEffect(async () => {
+    try {
+      const response = await axios
+        .get("https://api.tapatradie.com/backend/v2/pages/aboutus")
+        .then((res) => res.data.data);
+      setAboutUs(response);
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      const response = await axios
+        .get("https://api.tapatradie.com/backend/v2/dashboard")
+        .then((res) => res.data.data);
+      setTotalUser(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+  
   return (
     <div>
       <Header />
@@ -30,6 +54,9 @@ const Index = () => {
           <div className="about-us__row">
             <div className="about-us__text">
               <p>
+                {aboutUsData?.content ? parse(`${aboutUsData?.content}`) : ""}
+              </p>
+              {/* <p>
                 Tap a Tradie is a global marketplace connects in real time,
                 consumers who need a job done with ‘Tradies’, a network of
                 qualified tradespeople, who have the time and skills needed to
@@ -39,7 +66,7 @@ const Index = () => {
                 Tap a Tradie is an easy and effective way for consumers of
                 services to outsource jobs to qualified tradies in their local
                 area economies.
-              </p>
+              </p> */}
             </div>
             <div className="about-us__image">
               <img src={about_us_2} alt="" />
@@ -93,7 +120,9 @@ const Index = () => {
           <div className="tradie-solutions__row">
             <div className="tradie-solutions__status">
               <h6 className="tradie-solutions__status-title">Tradies</h6>
-              <h1 className="tradie-solutions__status-number">80+</h1>
+              <h1 className="tradie-solutions__status-number">
+                {totalUser ? totalUser?.count?.tradie : "0"}+
+              </h1>
             </div>
             <div className="tradie-solutions__status">
               <h6 className="tradie-solutions__status-title">Country</h6>

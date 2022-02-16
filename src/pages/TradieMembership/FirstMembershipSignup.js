@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { useHistory } from "react-router-dom";
 import CardAddForm from "./CardAddForm";
+import partner_1 from "../../assets/images/our-partner-image.png";
+import partner_2 from "../../assets/images/our-partner-logo.png";
 
 const FirstMembershipSignup = ({ setModalIsOpen, setOpen }) => {
   const history = useHistory();
@@ -123,6 +125,30 @@ const FirstMembershipSignup = ({ setModalIsOpen, setOpen }) => {
               Choose Plan
             </a> */}
           </div>
+        </div>
+      </section>
+      <section>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "9px",
+          }}
+        >
+          <div>
+            <label>
+              We have partnered with credshare to help you store <br /> and
+              showcase your credentials to customers.
+            </label>
+          </div>
+
+          <img src={partner_2} alt="" class="our-partner__logo"   style={{  width: "170px", objectFit: "contain" }}/>
+          <img
+            src={partner_1}
+            alt=""
+            class="our-partner__image"
+            style={{ width: "180px", objectFit: "contain" }}
+          />
         </div>
       </section>
       {/* <Modal

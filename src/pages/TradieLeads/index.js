@@ -13,7 +13,7 @@ import moment from "moment";
 import ViewDetailPoppup from "./ViewDetailPopup";
 import TakeDone from "./TakeDonePopup";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 const Index = () => {
   const history = useHistory();
@@ -24,6 +24,7 @@ const Index = () => {
   const [viewData, setViewData] = useState([]);
   const [alert, setAlert] = useState(false);
   const [alertData, setAlertData] = useState([]);
+  const [actionLoading, setLoading] = useState(true);
   // const [tradieLeads, setTradieLeads] = useState([]);
   const { provider_leads_request, provider_leads_history_request } = Actions;
   const { providerJobAccept } = useSelector((state) => state.directory);
@@ -50,17 +51,19 @@ const Index = () => {
   useEffect(() => {
     dispatch(provider_leads_request());
     dispatch(provider_leads_history_request());
-  }, [providerJobAccept, singleTradieRes, reviewRes, disputeRes]);
+  }, [singleTradieRes, reviewRes, disputeRes]);
 
   const handleViewDetailLead = (leads) => {
     setViewData(leads);
     setViewDetailPopup(true);
+    // setLoading(false);
   };
 
   const handleAlert = (viewData, e) => {
     e.preventDefault();
     setAlertData(viewData);
     setAlert(true);
+    // setLoading(false);
   };
   // const leadStatus = providerLeadsHistory?.map((leads) => {
   //   if (leads.dispute == 1) {
@@ -137,120 +140,127 @@ const Index = () => {
             </nav>
             {tabSelect === "current" ? (
               <div className="calender__events">
-                {Object.keys(providerLeads).length > 0 ? (
-                  providerLeads?.map((leads) => (
-                    <div className="event">
-                      <a href="javascript:void(0)" className="event__budge">
-                        {leads.user_status == "pending" ? (
-                          <p className="pending-btn">Pending</p>
-                        ) : leads.status == "deleted" ? (
-                          "Deleted"
-                        ) : leads.user_status == "pending" &&
-                          leads.provider_status == "pending" ? (
-                          <p className="pending-btn">Pending</p>
-                        ) : leads.user_status == "accept" &&
-                          leads.provider_status == "pending" ? (
-                          "New Lead"
-                        ) : leads.status == "cancel" ? (
-                          "Settled"
-                        ) : leads.provider_status == "accept" &&
-                          leads.user_status == "accept" ? (
-                          "Confirmed"
+                {actionLoading ? (
+                  Object.keys(providerLeads).length > 0 ? (
+                    providerLeads?.map((leads) => (
+                      <div className="event">
+                        <a href="javascript:void(0)" className="event__budge">
+                          {leads.user_status == "pending" ? (
+                            <p className="pending-btn">Pending</p>
+                          ) : leads.status == "deleted" ? (
+                            "Deleted"
+                          ) : leads.user_status == "pending" &&
+                            leads.provider_status == "pending" ? (
+                            <p className="pending-btn">Pending</p>
+                          ) : leads.user_status == "accept" &&
+                            leads.provider_status == "pending" ? (
+                            "New Lead"
+                          ) : leads.status == "cancel" ? (
+                            "Settled"
+                          ) : leads.provider_status == "accept" &&
+                            leads.user_status == "accept" ? (
+                            "Confirmed"
+                          ) : (
+                            ""
+                          )}
+                          {leads.user_status == "reject"
+                            ? localStorage.removeItem("provideLeadAction")
+                            : ""}
+                        </a>
+                        <div className="event__what event__what--img">
+                          <div>
+                            <img
+                              src={
+                                leads.profile_pic
+                                  ? `https://api.tapatradie.com/profile/${leads.uid}/` +
+                                    leads.profile_pic
+                                  : tradie_leads_1
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <h4 style={{ textTransform: "capitalize" }}>
+                            {leads.full_name}
+                          </h4>
+                        </div>
+                        <span
+                          style={{
+                            marginBottom: "20px",
+                            fontSize: "1.8rem",
+                            display: "flex",
+                            justifyContent: "space-around",
+                          }}
+                        >
+                          <h4>Title</h4>
+                          <p>
+                            {leads?.title?.charAt(0).toUpperCase() +
+                              leads?.title?.slice(1)}
+                          </p>
+                        </span>
+                        <p className="event__when-where">
+                          <img src={tradie_leads_2} />
+                          {moment(leads.time, ["HH.mm.ss"]).format(
+                            "hh:mm A"
+                          )}{" "}
+                          on {moment(leads.date).format("ll")}
+                        </p>
+                        <p className="event__when-where">
+                          <img src={tradie_leads_3} />
+                          {leads.address}
+                        </p>
+                        {leads?.provider_status == "accept" ? (
+                          <a
+                            href={`tel:${leads.mobile}`}
+                            className="tradie-profile__tel"
+                          >
+                            {" "}
+                            <img
+                              className="tradie-profile__icon"
+                              src={tradie_public_profile_3}
+                              alt=""
+                            />
+                            {leads.mobile}
+                          </a>
                         ) : (
                           ""
                         )}
-                        {leads.user_status == "reject"
-                          ? localStorage.removeItem("provideLeadAction")
-                          : ""}
-                      </a>
-                      <div className="event__what event__what--img">
-                        <div>
-                          <img
-                            src={
-                              leads.profile_pic
-                                ? `https://api.tapatradie.com/profile/${leads.uid}/` +
-                                  leads.profile_pic
-                                : tradie_leads_1
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <h4 style={{ textTransform: "capitalize" }}>
-                          {leads.full_name}
-                        </h4>
-                      </div>
-                      <span
-                        style={{
-                          marginBottom: "20px",
-                          fontSize: "1.8rem",
-                          display: "flex",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                        <h4>Title</h4>
-                        <p>
-                          {leads?.title?.charAt(0).toUpperCase() +
-                            leads?.title?.slice(1)}
-                        </p>
-                      </span>
-                      <p className="event__when-where">
-                        <img src={tradie_leads_2} />
-                        {moment(leads.time, ["HH.mm.ss"]).format(
-                          "hh:mm A"
-                        )} on {moment(leads.date).format("ll")}
-                      </p>
-                      <p className="event__when-where">
-                        <img src={tradie_leads_3} />
-                        {leads.address}
-                      </p>
-                      {leads?.provider_status == "accept" ? (
-                        <a
-                          href={`tel:${leads.mobile}`}
-                          className="tradie-profile__tel"
-                        >
-                          {" "}
-                          <img
-                            className="tradie-profile__icon"
-                            src={tradie_public_profile_3}
-                            alt=""
-                          />
-                          {leads.mobile}
-                        </a>
-                      ) : (
-                        ""
-                      )}
 
-                      {leads?.provider_status == "accept" ? (
-                        leads.user_status == "pending" ? (
-                          ""
+                        {leads?.provider_status == "accept" ? (
+                          leads.user_status == "pending" ? (
+                            ""
+                          ) : (
+                            <a
+                              href="javascript:void(0)"
+                              className="btn-primary"
+                              onClick={(e) => {
+                                handleAlert(leads, e);
+                              }}
+                            >
+                              Task Done
+                            </a>
+                          )
                         ) : (
                           <a
                             href="javascript:void(0)"
                             className="btn-primary"
-                            onClick={(e) => {
-                              handleAlert(leads, e);
+                            onClick={() => {
+                              handleViewDetailLead(leads);
                             }}
                           >
-                            Task Done
+                            View Details
                           </a>
-                        )
-                      ) : (
-                        <a
-                          href="javascript:void(0)"
-                          className="btn-primary"
-                          onClick={() => {
-                            handleViewDetailLead(leads);
-                          }}
-                        >
-                          View Details
-                        </a>
-                      )}
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="no-listing-box">
+                      <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
+                      <p>No Leads Found</p>
                     </div>
-                  ))
+                  )
                 ) : (
-                  <div className="no-listing-box">
-                    <img src="https://sample.jploftsolutions.in/tapImages/no-listing.png" />
-                    <p>No Leads Found</p>
+                  <div className="upload-profile-loader">
+                    <CircularProgress />
                   </div>
                 )}
               </div>
@@ -327,6 +337,7 @@ const Index = () => {
         <ViewDetailPoppup
           setViewDetailPopup={setViewDetailPopup}
           viewData={viewData}
+          setLoading={setLoading}
         />
       )}{" "}
       {alert && (
@@ -334,6 +345,7 @@ const Index = () => {
           setAlert={setAlert}
           alertData={alertData}
           setViewDetailPopup={setViewDetailPopup}
+          setLoading={setLoading}
         />
       )}
       {/* <!-- Are you a Professional Tradie? --> */}

@@ -75,8 +75,12 @@ const Index = () => {
       }
     });
   };
-  const planEnd = moment((payment_history?.end_date)*1000).format("DD MMM YYYY");
-  const RenewDate = moment((payment_history?.end_date)*1000).add('days', 1).format("DD MMM YYYY")
+  const planEnd = moment(payment_history?.end_date * 1000).format(
+    "YYYY MMM DD"
+  );
+  const RenewDate = moment(payment_history?.end_date * 1000)
+    .add("days", 1)
+    .format("YYYY MMM DD");
   return (
     <div>
       <Header />
@@ -116,8 +120,8 @@ const Index = () => {
                   </h3>
                   <p>
                     Plan Start Date :{" "}
-                    {moment((payment_history?.start_date)*1000).format(
-                      "DD MMM YYYY"
+                    {moment(payment_history?.start_date * 1000).format(
+                      "YYYY MM DD"
                     )}
                   </p>
                   <p>Plan End Date : {planEnd}</p>

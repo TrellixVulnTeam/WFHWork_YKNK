@@ -13,11 +13,16 @@ const Index = () => {
   const [termsData, setTerm] = useState([]);
   const { userData } = useSelector((state) => state.directory);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
-  
-  useEffect(() => {
-    axios
-      .get("https://api.tapatradie.com/backend/v2/pages/termsandconditions")
-      .then((res) => setTerm(res.data.data));
+
+  useEffect(async () => {
+    try {
+      const response = await axios
+        .get("https://api.tapatradie.com/backend/v2/pages/termsandconditions")
+        .then((res) => res.data.data);
+      setTerm(response);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
@@ -34,7 +39,7 @@ const Index = () => {
         </h2>
       </section>
       <section className="section section--page page">
-        <span>{parse(`${termsData?.content}`)}</span>
+        <span>{termsData?.content ? parse(`${termsData?.content}`) : ""}</span>
       </section>
       {/* <!-- Are you a Professional Tradie? --> */}
       {userInfo?.role == "provider" ? (

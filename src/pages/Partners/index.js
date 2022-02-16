@@ -14,29 +14,37 @@ const Index = () => {
     <div>
       <Header />
 
-      <section class="partners-section">
-        <h2 class="section-top__title">
+      <section className="partners-section">
+        <h2 className="section-top__title">
           Our <span>Partners</span>
         </h2>
       </section>
 
-      <section class="section section--our-partner">
-        <div class="our-partner">
-          <img src={partner_1} alt="" class="our-partner__image" />
-          <div class="our-partner__info">
-            <img src={partner_2} alt="" class="our-partner__logo" />
-            <h6 class="our-partner__title">
+      <section className="section section--our-partner">
+        <div className="our-partner">
+          <img
+            src={partner_1}
+            alt=""
+            className="our-partner__image"
+            style={{ objectFit: "contain" }}
+          />
+          <div className="our-partner__info">
+            <img src={partner_2} alt="" className="our-partner__logo" />
+            <h6 className="our-partner__title">
               CredShare – All credentials. One Place
             </h6>
-            <p class="our-partner__description">
+            <p className="our-partner__description">
               Tap A Tradie has partnered with CredShare to allow tradespeople to
               upload and keep track of their licences, insurance and other
               qualifications. This lets customers see that you have all the
               required certifications when they are choosing the right Tradie.
             </p>
-            <a href="#" class="our-partner__read-more btn-primary">
+            <button
+              disabled={true}
+              className="our-partner__read-more btn-primary"
+            >
               Read More
-            </a>
+            </button>
           </div>
         </div>
         {/*  <div class="our-partner">
@@ -83,10 +91,10 @@ const Index = () => {
       {userInfo.role === "provider" ? (
         ""
       ) : (
-        <section class="section section--left">
-          <div class="professional-tradie">
-            <div class="professional-tradie__description">
-              <h3 class="professional-tradie__title">
+        <section className="section section--left">
+          <div className="professional-tradie">
+            <div className="professional-tradie__description">
+              <h3 className="professional-tradie__title">
                 Are you a Professional Tradie?
               </h3>
               <p>
@@ -94,16 +102,16 @@ const Index = () => {
                 ready to meet new clients today please continue so we can
                 welcome you onboard.
               </p>
-              <Link to="/about-us" class="btn-primary">
+              <Link to="/about-us" className="btn-primary">
                 Learn More
               </Link>
             </div>
-            <div class="professional-tradie__image">
+            <div className="professional-tradie__image">
               <img src={partner_3} alt="" />
             </div>
           </div>
         </section>
-     )}
+      )}
       <Footer />
     </div>
   );

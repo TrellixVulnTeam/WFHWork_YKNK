@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
-const ViewLeads = ({ setViewDetailPopup, viewData }) => {
+const ViewLeads = ({ setViewDetailPopup, viewData, setLoading }) => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,18 +26,24 @@ const ViewLeads = ({ setViewDetailPopup, viewData }) => {
     setViewDetailPopup(true);
     setAlertData(viewData);
     setAlert(true);
+    setLoading(true);
   };
 
   const accepted = (alertData, e) => {
     e.preventDefault();
+    setLoading(false);
     const data = { action: "accept", id: alertData?.id, type: alertData.type };
     dispatch(provider_job_accept_request(data));
     localStorage.setItem(
       "provideLeadAction",
       JSON.stringify({ action: "accept", id: alertData?.id })
     );
+    setTimeout(() => {
+      setLoading(true);
+      dispatch(Actions.provider_leads_request());
+    }, 3000);
   };
-console.log(providerJobAccept)
+
   useEffect(() => {
     if (providerJobAccept.success == 1) {
       toast.success(providerJobAccept.message, {
@@ -75,7 +81,7 @@ console.log(providerJobAccept)
       day: "numeric",
     });
   };
- 
+
   return (
     <>
       <section className="user-lead-modal popup" style={{ zIndex: 3 }}>
@@ -104,6 +110,7 @@ console.log(providerJobAccept)
             <span
               onClick={(e) => {
                 setViewDetailPopup(false);
+                setLoading(true);
                 e.target.parentElement.parentElement.parentElement.style.display =
                   "none";
               }}

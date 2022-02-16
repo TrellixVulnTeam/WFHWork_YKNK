@@ -16,8 +16,8 @@ import SignupPopup from "./signup-verification_popup.js";
 import FacebookLogin from "react-facebook-login";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import IntlTelInput from "react-intl-tel-input";
-
+// import IntlTelInput from "react-intl-tel-input";
+import tradieTv_1 from "../../assets/icons/tradieTV-title-after.svg";
 import libPhoneNumber from "react-intl-tel-input/dist/libphonenumber.js";
 import "../../../node_modules/react-intl-tel-input/dist/main.css";
 import Modals from "../../components/UserSignupModal";
@@ -37,7 +37,7 @@ const Index = () => {
   const location = useLocation();
 
   const [btnTab, setBtnTab] = useState(true);
-  const [countryCode, setCountryCode] = useState("+61");
+  const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -71,7 +71,7 @@ const Index = () => {
     getGeoInfo();
   }, []);
   let deviceCountry = JSON.parse(localStorage.getItem("countryCode"));
- 
+
   useEffect(() => {
     if (login && verify_OTP?.role === "provider") {
       // history.push("/tradie-popup-step1");
@@ -101,6 +101,7 @@ const Index = () => {
       faceBookLogin_Action({
         facebook_id: response.id,
         tab: btnTab ? "provider" : "user",
+        name: response.name,
       })
     );
   };
@@ -391,16 +392,23 @@ const Index = () => {
         show={open}
         onHide={() => setOpen(false)}
         aria-labelledby="example-modal-sizes-title-lg"
+        className="subscription-plan-model"
       >
-        <Modal.Header closeButton style={{ padding: "30px" }}>
+        <Modal.Header closeButton style={{ padding: "30px 0 15px 79px" }}>
           <h2 className="section-top__title">
-            <span>Welcome</span>{" "}
+            <span>Welcome</span>
+            <br />
+            <p className="member-pop-title">
+              {" "}
+              Please select one of the below adverts <br /> and let's get you
+              started.
+            </p>
+            <img
+              class="section-top__title-after member-pop-line "
+              src={tradieTv_1}
+              alt=""
+            />
           </h2>
-          <h4 style={{ color: "#343432" }}>
-            {" "}
-            Please select one of the below adverts <br /> and let's get you
-            started.
-          </h4>
         </Modal.Header>
         <Modal.Body>
           <FirstMembershipSignup

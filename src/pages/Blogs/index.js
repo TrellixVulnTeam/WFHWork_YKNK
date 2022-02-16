@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -10,18 +10,33 @@ import BlogImg3 from "../../assets/images/featured_img-1610944807148.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/auth/action";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
+import axios from "axios";
 
-
-const Index = () => {
+const Index = (props) => {
+  let stateData = props.location.state.res;
   const Dispatch = useDispatch();
   const { change_blogs_article_Action } = Actions;
   const { blogsArticleId } = useSelector((state) => state.auth);
+  const [articalData, setArticalData] = useState([]);
+
+  useEffect(async () => {
+    try {
+      const response = await axios
+        .get("https://api.tapatradie.com/backend/v2/blog")
+        .then((res) => res.data.data);
+      setArticalData(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
   return (
     <div>
       <Header />
       <div className="blog-section">
         <div className="blog-section__heading">
-          {blogsArticleId === "painter.jpg" ? (
+          {stateData ? stateData?.title : ""}
+          {/* {blogsArticleId === "painter.jpg" ? (
             <>
               <p>Top Tips When Painting Your Home Interior</p>
             </>
@@ -45,28 +60,48 @@ const Index = () => {
             <>
               <p>Guide To Electrical Connections In Your Home</p>
             </>
-          ) : null}
+          ) : null} */}
         </div>
         <div className="blog-section__two">
           <div className="headingImg">
-            <img src={`/static/images/featured_img-${blogsArticleId}`} />
+            <img
+              src={`https://api.tapatradie.com/uploads/${stateData?.featured_img}`}
+            />
           </div>
           <div className="rightBlogs">
             <p>Latest Articles</p>
-            <div
-              className="newBlogs"
-              onClick={() => {
-                Dispatch(change_blogs_article_Action("electrician.jpg"));
-              }}
-            >
-              <div className="newBlogsImg">
-                <img src={BlogImg1} />
-              </div>
-              <div className="newBlogsText">
-                <span>Guide To Electrical Connections In Your Home</span>
-              </div>
-            </div>
-            <div
+            {articalData.length > 0
+              ? articalData?.map((res, index) =>
+                  index < 5 ? (
+                    <div
+                      className="newBlogs"
+                      // onClick={() => {
+                      //   Dispatch(change_blogs_article_Action("electrician.jpg"));
+                      // }}
+                    >
+                      <Link
+                        to={{
+                          pathname: "/blogs",
+                          state: { res },
+                        }}
+                        class="popular-article"
+                      >
+                        <div className="newBlogsImg">
+                          <img
+                            src={`https://api.tapatradie.com/uploads/${res?.featured_img}`}
+                          />
+                        </div>
+                        <div className="newBlogsText">
+                          <span>{res?.title}</span>
+                        </div>
+                      </Link>
+                    </div>
+                  ) : (
+                    ""
+                  )
+                )
+              : ""}
+            {/* <div
               className="newBlogs"
               onClick={() => {
                 Dispatch(change_blogs_article_Action("painter.jpg"));
@@ -117,10 +152,13 @@ const Index = () => {
               <div className="newBlogsText">
                 <span>How You Can Repair Damaged Concrete Steps</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="blog-section__bottomParagraphs">
+          {stateData ? parse(`${stateData?.description}`) : ""}
+        </div>
+        {/* <div className="blog-section__bottomParagraphs">
           {blogsArticleId === "painter.jpg" ? (
             <>
               <p>
@@ -1147,7 +1185,7 @@ const Index = () => {
               </ul>
             </>
           ) : null}
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

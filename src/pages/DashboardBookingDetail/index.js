@@ -368,14 +368,15 @@ const Index = () => {
                                     : "Offline"}
                                 </span>
                               </div>
-                              <Link
-                                to={
-                                  "/tradie-public-profile/" +
-                                  singleTradie.provider_id
-                                }
-                                style={{ textDecoration: "none" }}
-                              >
-                                <div className="list-box_detail">
+
+                              <div className="list-box_detail">
+                                <Link
+                                  to={
+                                    "/tradie-public-profile/" +
+                                    singleTradie.provider_id
+                                  }
+                                  style={{ textDecoration: "none" }}
+                                >
                                   <h3>{singleTradie.full_name}</h3>
                                   <div className="list-box_detail_img">
                                     <StarRatings
@@ -394,46 +395,45 @@ const Index = () => {
                                       starDimension="17px"
                                     />
                                   </div>
-
-                                  {/* <p>Review: {singleTradie.review}</p> */}
-                                  <p>{singleBooking.service_name}</p>
-                                  {
-                                    (singleBooking.type = "multiple" ? (
-                                      singleBooking.job_post.length > 1 ? (
-                                        singleTradie.provider_status ==
-                                        "accept" ? (
-                                          singleTradie.user_status ==
-                                          "reject" ? (
-                                            ""
-                                          ) : singleTradie.user_status ==
-                                            "accept" ? (
-                                            ""
-                                          ) : (
-                                            <>
-                                              <IoMdCloudDone
-                                                size={22}
-                                                style={{ color: "green" }}
-                                                onClick={(e) =>
-                                                  acceptProvider(singleTradie)
-                                                }
-                                              />
-                                              {"  "} &nbsp;
-                                              <MdOutlineCancel
-                                                size={22}
-                                                style={{ color: "red" }}
-                                                onClick={() =>
-                                                  rejectProvider(singleTradie)
-                                                }
-                                              />{" "}
-                                            </>
-                                          )
-                                        ) : null
-                                      ) : (
-                                        ""
-                                      )
-                                    ) : null)
-                                  }
-                                  {/* <button
+                                </Link>
+                                {/* <p>Review: {singleTradie.review}</p> */}
+                                <p>{singleBooking.service_name}</p>
+                                {
+                                  (singleBooking.type = "multiple" ? (
+                                    singleBooking.job_post.length > 1 ? (
+                                      singleTradie.provider_status ==
+                                      "accept" ? (
+                                        singleTradie.user_status == "reject" ? (
+                                          ""
+                                        ) : singleTradie.user_status ==
+                                          "accept" ? (
+                                          ""
+                                        ) : (
+                                          <>
+                                            <IoMdCloudDone
+                                              size={22}
+                                              style={{ color: "green" }}
+                                              onClick={(e) =>
+                                                acceptProvider(singleTradie)
+                                              }
+                                            />
+                                            {"  "} &nbsp;
+                                            <MdOutlineCancel
+                                              size={22}
+                                              style={{ color: "red" }}
+                                              onClick={() =>
+                                                rejectProvider(singleTradie)
+                                              }
+                                            />{" "}
+                                          </>
+                                        )
+                                      ) : null
+                                    ) : (
+                                      ""
+                                    )
+                                  ) : null)
+                                }
+                                {/* <button
                                   style={{ cursor: "pointer" }}
                                   onClick={() => {
                                     handleDeleteTradie(
@@ -452,8 +452,7 @@ const Index = () => {
                                     <span>Remove</span>
                                   </div>
                                 </button> */}
-                                </div>
-                              </Link>
+                              </div>
                             </div>
                           </div>
                         </>
