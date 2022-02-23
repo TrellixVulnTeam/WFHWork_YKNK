@@ -104,6 +104,7 @@ const Index = () => {
     latitude: adressCookie?.loadlatitude,
     longitude: adressCookie?.loadlongitude,
   });
+  console.log("verify_OTP :", verify_OTP);
   const [redirectpPage, setRedirectpPage] = useState(false);
   var tradiesIdss = [];
 
@@ -231,11 +232,12 @@ const Index = () => {
   // For Non Subscription  Tradie
   const sortTradieNonSub = () => {
     if (nonSubsTradie?.length > 0) {
-      if (sortRating == "") {
-        return nonSubsTradie?.sort((A, B) =>
-          A.full_name.localeCompare(B.full_name)
-        );
-      } else if (sortRating == "low") {
+      // if (sortRating == "") {
+      //   return nonSubsTradie?.sort((A, B) =>
+      //     A.full_name.localeCompare(B.full_name)
+      //   );
+      // } else
+      if (sortRating == "low") {
         return nonSubsTradie?.sort((a, b) => a.rating - b.rating);
       } else if (sortRating == "high") {
         return nonSubsTradie?.sort((a, b) => b.rating - a.rating);
@@ -249,11 +251,7 @@ const Index = () => {
   // For  Subscription  Tradie
   const sortTradieSub = () => {
     if (subsTradie?.length > 0) {
-      if (sortRating == "") {
-        return subsTradie?.sort((A, B) =>
-          A.full_name.localeCompare(B.full_name)
-        );
-      } else if (sortRating == "low") {
+      if (sortRating == "low") {
         return subsTradie?.sort((a, b) => a.rating - b.rating);
       } else if (sortRating == "high") {
         return subsTradie?.sort((a, b) => b.rating - a.rating);

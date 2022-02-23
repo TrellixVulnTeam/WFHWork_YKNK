@@ -38,7 +38,7 @@ const Pop3 = () => {
     verify_OTP.access === "provider" &&
     verify_OTP.register_complete === 1
   ) {
-    history.push("/");
+    history.push("/tradie-membership");
   }
 
   const [residential, setResidential] = useState(false);

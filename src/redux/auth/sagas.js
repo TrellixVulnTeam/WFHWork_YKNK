@@ -85,6 +85,7 @@ function* verify_otp_Saga(action) {
     const setLoginInfo = () => {
       if (result.data.data.success === 1) {
         const setloginInfo = {
+          ...result.data.data,
           ...result.data.data.data,
           access_token: userInfo.access_token,
           device_id: userInfo.device_id,
@@ -320,7 +321,7 @@ function* Provider_Register_Saga(action) {
       action.payload,
       userInfo
     );
-   
+
     yield put({
       type: types.PROFILE_PROVIDER_REGISTER_SUCCESS,
       payload: result.data.data.data,
@@ -344,7 +345,7 @@ function* Provider_Assign_Saga(action) {
       action.payload,
       userInfo
     );
-  
+
     yield put({
       type: types.PROVIDER_ASSIGN_POP3_SUCCESS,
       payload: result.data.data,
@@ -366,7 +367,7 @@ function* Get_Service_List_Saga(action) {
   try {
     let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
     const result = yield call(api.Get_List_Serivce, action.payload, userInfo);
-  
+
     yield put({
       type: types.GET_SERVICE_LIST_SUCCESS,
       payload: result.data.data,
@@ -413,7 +414,7 @@ function* Get_Business_Update_Saga(action) {
       action.payload,
       userInfo
     );
- 
+
     yield put({
       type: types.BUSINESSS_DETAILS_UPDATE_SUCCESS,
       payload: result.data.data.message,
@@ -457,7 +458,7 @@ function* Image_Gallary_Delete_Saga(action) {
       action.payload,
       userInfo
     );
-   
+
     yield put({
       type: types.PROVIDER_GALLARY_DELETE_SUCCESS,
       payload: result.data.data,
@@ -481,7 +482,7 @@ function* Image_Upload_Saga(action) {
       action.payload,
       userInfo
     );
-    
+
     yield put({
       type: types.IMAGE_UPLOAD_SUCCESS,
       payload: result.data.data.message,
@@ -526,7 +527,7 @@ function* Get_Provider_Address_Saga(action) {
       action.payload,
       userInfo
     );
-    
+
     yield put({
       type: types.GET_PROVIDER_ADDRESS_SUCCESS,
       payload: result.data.data.message,
@@ -549,7 +550,7 @@ function* Signup_User_Name_Enter_Saga(action) {
       action.payload,
       userInfo
     );
-  
+
     yield put({
       type: types.SIGNUP_USER_ENTER_NAME_SUCCESS,
       payload: result.data.data.data,

@@ -525,6 +525,30 @@ function* tradie_cancel_subscription_Saga(action) {
     });
   }
 }
+function* tradie_current_subscription_saga(action) {
+  try {
+    let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
+
+    const result = yield call(
+      api.current_subscription_Service,
+      action.payload,
+      userInfo
+    );
+
+    yield put({
+      type: types.TRADIE_CURRENT_SUBSCRIPTION_SUCCESS,
+      payload: result.data.data.data,
+    });
+    yield put({
+      type: types.TRADIE_CURRENT_SUBSCRIPTION_RESET,
+    });
+  } catch (error) {
+    yield put({
+      type: types.TRADIE_CURRENT_SUBSCRIPTION_FAILURE,
+      payload: error,
+    });
+  }
+}
 
 export function* directoryWatcher() {
   yield takeLatest(
@@ -599,5 +623,9 @@ export function* directoryWatcher() {
   yield takeLatest(
     types.TRADIE_CANCEL_SUBSCRIPTION_REQUEST,
     tradie_cancel_subscription_Saga
+  );
+  yield takeLatest(
+    types.TRADIE_CURRENT_SUBSCRIPTION_REQUEST,
+    tradie_current_subscription_saga
   );
 }

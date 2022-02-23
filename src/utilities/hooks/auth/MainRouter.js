@@ -107,7 +107,7 @@ const MainRouter = () => {
         />
         <PrivateRoute exact path="/tradie-leads" component={TradieLeads} />
         <Route exact path="/tradie-directory" component={TradieDirectory} />
-        <Route exact path="/tradie-membership" component={TradieMembership} />
+        <PrivateRoute exact path="/tradie-membership" component={TradieMembership} />
         <PrivateRoute
           exact
           path="/tradie-my-profile"

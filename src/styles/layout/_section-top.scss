@@ -582,8 +582,8 @@ body {
   }
   .list-box_online {
     position: absolute !important;
-    bottom: 10px;
-    right: 10px;
+    // bottom:none;
+    right: 30px;
   }
   .event__when-where {
     font-size: 13px;
@@ -652,21 +652,7 @@ body {
 }
 .home-title {
   font-size: 72px !important;
-}
-
-.member-pop-title {
-  font-weight: bold;
-  font-size: 22px;
-}
-.member-pop-line {
-  right: 420px;
-  top: 20px;
-  @include tablet {
-    right: auto;
-    top: auto;
-  }
-  @include phone {
-    right: auto;
-    top: auto;
+  @include tablet{
+    font-size: 40px !important;
   }
 }

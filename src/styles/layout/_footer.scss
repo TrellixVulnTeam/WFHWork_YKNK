@@ -1,6 +1,9 @@
 .footer {
   padding: $padding-main;
   background-color: $bg-footer;
+  @include tablet {
+    text-align: center;
+  }
   &__row {
     display: flex;
     justify-content: space-between;
@@ -47,8 +50,9 @@
       display: flex;
       flex-direction: column;
       width: 60%;
-      @include phone {
+      @include tablet {
         width: 80%;
+        margin: auto;
       }
     }
     input {
@@ -90,7 +94,7 @@
       color: $color-white;
       text-decoration: none;
       opacity: 0.5;
-      line-height: 2;
+      line-height: 23px;
       margin-bottom: 2rem;
       a {
         text-decoration: none;
@@ -102,12 +106,17 @@
     & > div {
       display: flex;
       justify-content: space-between;
+      @include tablet {
+        
+      }
       a {
         width: 45%;
-      }
-      @include tablet {
-        justify-content: initial;
-      }
+        float: left;
+
+        img{
+          width: 100%;
+        }
+      } 
     }
   }
   &__icon {
@@ -126,7 +135,8 @@
 .alert.coocky_tab {
   bottom: 0px;
   margin-bottom: 0px;
-  padding: 10px 207px 10px 1.25rem;
+  padding: 20px 30px;
+  display: flex;
   position: fixed;
   font-size: 16px;
   width: 100%;
@@ -134,18 +144,24 @@
   z-index: 99;
   background: #424242;
   color: #ffffff;
-  padding-right: 207px;
   line-height: 21px;
+
+
+  p{
+    @include tablet {
+      text-align: center;
+    }  
+  }
+  @include tablet {
+    display: block;
+  }
+
 
   @media (max-width: 1660px) {
     font-size: 14px;
   }
-  @media (max-width: 767px) {
-    padding-right: 160px;
-  }
   @media (max-width: 576px) {
-    padding-right: 0px;
-    padding-bottom: 40px;
+    padding: 20px 0;
   }
   span {
     color: #ef4136;
@@ -153,11 +169,10 @@
     text-decoration: underline;
   }
   .buttons {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    display: inline-block;
-    width: 195px;
+    @include tablet {
+      width: 100%;
+    }
+  
     .btn-orange {
       cursor: pointer;
       background-image: linear-gradient(-90deg, #ef4136, #f7941d);
@@ -166,11 +181,12 @@
     @media (max-width: 767px) {
       right: 0px;
       width: 160px;
+      margin: 10px auto;
     }
     @media (max-width: 576px) {
       left: 0px;
       bottom: 3px;
-      margin: auto;
+      margin:10px auto;
       top: auto;
     }
     .btn {
@@ -188,6 +204,7 @@
       font-family: inherit;
       @media (max-width: 767px) {
         margin-right: 0rem;
+        width: 100%;
       }
     }
   }

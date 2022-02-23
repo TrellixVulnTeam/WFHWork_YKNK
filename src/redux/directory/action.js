@@ -146,3 +146,9 @@ export const tradie_cancel_subscription_request = (data) => {
     payload: data,
   };
 };
+export const tradie_current_subscription_request = () => {
+  return {
+    type: types.TRADIE_CURRENT_SUBSCRIPTION_REQUEST,
+    // payload: data,
+  };
+};

@@ -26,7 +26,11 @@ const Index = () => {
   const [alertData, setAlertData] = useState([]);
   const [actionLoading, setLoading] = useState(true);
   // const [tradieLeads, setTradieLeads] = useState([]);
-  const { provider_leads_request, provider_leads_history_request } = Actions;
+  const {
+    provider_leads_request,
+    provider_leads_history_request,
+    tradie_current_subscription_request,
+  } = Actions;
   const { providerJobAccept } = useSelector((state) => state.directory);
   const {
     providerLeads,
@@ -34,6 +38,7 @@ const Index = () => {
     singleTradieRes,
     reviewRes,
     disputeRes,
+    current_subs_Data,
   } = useSelector((state) => state.directory);
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const providerAccepted = JSON.parse(
@@ -52,6 +57,9 @@ const Index = () => {
     dispatch(provider_leads_request());
     dispatch(provider_leads_history_request());
   }, [singleTradieRes, reviewRes, disputeRes]);
+  useEffect(() => {
+    dispatch(tradie_current_subscription_request());
+  }, []);
 
   const handleViewDetailLead = (leads) => {
     setViewData(leads);
@@ -98,6 +106,17 @@ const Index = () => {
   return (
     <div>
       <Header />
+      {Object.keys(current_subs_Data)?.length > 0 && current_subs_Data ? (
+        ""
+      ) : (
+        <div className="trial-div">
+          <p>Subscribe our membership to receive New Leads</p>
+          <Link to="/tradie-membership" className="trial-button">
+            {" "}
+            <span className="trial-button">Start 30 days free trial</span>
+          </Link>
+        </div>
+      )}
       {/* <!-- My Leads --> */}
       <section className="section-top section-top--calender">
         <h2 className="section-top__title">

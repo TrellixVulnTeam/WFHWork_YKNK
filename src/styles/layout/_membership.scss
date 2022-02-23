@@ -160,3 +160,83 @@
     }
   }
 }
+
+.Subscription-section {
+  background: linear-gradient(
+    89.83deg,
+    #f3ecfd 0.15%,
+    rgba(247, 210, 161, 0.1) 90.15%
+  );
+  box-shadow: 0px 0.4rem 2rem rgb(137 58 18 / 10%);
+  border-radius: 2rem;
+}
+.price-sec {
+  color: #ec9422 !important;
+  font-weight: normal;
+}
+.trails-sec {
+  text-align: center;
+  margin: 10px;
+  color: #000000;
+}
+
+// @media only screen and (max-width: 767px) {
+.Weekly-subs{
+  text-align: left !important;
+  margin-bottom: 0 !important;
+}
+.membership-list-sub {
+  text-align: left;
+  order: 0 !important;
+  padding-left: 15px;
+}
+.button-subscription {
+  display: inline-block;
+  background: transparent;
+  width: 100%;
+
+  .subscribe-btn{
+    background: linear-gradient(96.33deg, #db5b1b 0%, #ec9422 109.53%, #ec9422 109.53%);
+    padding: 8px 20px;
+    border-radius: 10px;
+    float: left;
+  }
+  .skip-btn{
+    float: right;
+    color: #db5b1b;
+  }
+}
+.price-div {
+  width: 100%;
+  display: inline-block;
+  h3{
+    float: right;
+  }
+} 
+
+
+.Subscription-section{
+  display: block;
+  padding: 20px;
+}
+.membership-list-1{
+  padding: 0;
+  display: inline-block;
+}
+.price-sec{
+  float: right;
+}
+.plan-sub-start-date{
+  list-style: none;
+  float: left ;
+
+  li{
+    font-size: 12px !important;
+  }
+}
+.date-plan{
+  float: right;
+}
+.plan-section{
+  margin-top: 20px;
+}

@@ -159,12 +159,19 @@ section.section--sign-up{
       text-decoration: none;
       font-weight: $font-bold;
       margin-bottom: $spacing;
+      @include tablet{
+        font-size: 14px !important;
+      }
+      
       img {
         @include squire(3rem);
         fill: currentColor;
         margin-right: 20%;
         @include breakpoint(1024) {
           margin-right: 0;
+        }
+        @include tablet{
+          margin-right: 10px;
         }
       }
     }
@@ -227,4 +234,8 @@ section.section--sign-up{
   @include tablet {
     width: 250px !important;
   }
+}
+
+.text-left{
+  text-align: left !important;
 }

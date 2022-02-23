@@ -83,3 +83,24 @@
     }
   }
 }
+
+.trial-div {
+  text-align: center;
+  p {
+    margin-bottom: 20px;
+  }
+}
+.trial-button {
+  margin-left: 10px;
+  padding: 10px;
+  background: red;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.trial-button:hover {
+  background: rgb(241, 14, 14);
+  transition: 0.5s;
+  font-size: 18px;
+}

@@ -13,6 +13,7 @@ import {
   tradie_cancel_subscription_request,
   tradie_payment_history_request,
   tradie_subscription_list_request,
+  tradie_current_subscription_request,
 } from "../../redux/directory/action";
 import Modal from "react-modal";
 import "./styles.css";
@@ -24,19 +25,30 @@ const Index = () => {
   const dispatch = useDispatch();
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const { userData } = useSelector((state) => state.auth);
-  const { subscription_list, payment_history, cancel_subs_Res } = useSelector(
-    (state) => state.directory
-  );
+  const {
+    subscription_list,
+    payment_history,
+    cancel_subs_Res,
+    current_subs_Data,
+  } = useSelector((state) => state.directory);
 
   useEffect(() => {
     dispatch(tradie_subscription_list_request());
     dispatch(tradie_payment_history_request());
   }, [cancel_subs_Res]);
 
+  useEffect(() => {
+    dispatch(tradie_current_subscription_request());
+  }, []);
+
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [subsId, setSubsId] = useState();
+
   let subtitle;
   function openModal(data) {
+    setSubsId(data);
     setIsOpen(true);
+    console.log("Id :", data);
   }
 
   function afterOpenModal() {
@@ -75,12 +87,31 @@ const Index = () => {
       }
     });
   };
-  const planEnd = moment(payment_history?.end_date * 1000).format(
-    "YYYY MMM DD"
-  );
-  const RenewDate = moment(payment_history?.end_date * 1000)
-    .add("days", 1)
-    .format("YYYY MMM DD");
+  const planEnd =
+    payment_history?.end_date?.toString().length > 10
+      ? moment(payment_history?.end_date, "x").format("DD MMM YYYY hh:mm a")
+      : moment(payment_history?.end_date * 1000).format("DD MMM YYYY hh:mm a");
+  const RenewDate =
+    payment_history?.end_date?.toString().length > 10
+      ? moment(payment_history?.end_date * 1000)
+          .add("days", 1)
+          .format("DD MMM YYYY hh:mm a")
+      : moment(payment_history?.end_date * 1000)
+          .add("days", 1)
+          .format("DD MMM YYYY hh:mm a");
+
+  const IosAlert = () => {
+    Swal.fire({
+      title: "For canceled the subscription, Go to your IOS device",
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+    });
+  };
+
   return (
     <div>
       <Header />
@@ -91,7 +122,7 @@ const Index = () => {
           <img src={tradie_directory_1} alt="" />
         </div>
         <h2 className="section-top__title">
-          My <span>Membership</span>
+          My <span>Membership Plan</span>
           <img className="section-top__title-after" src={tradie_membership_1} />
         </h2>
       </section>
@@ -99,60 +130,120 @@ const Index = () => {
       {/* <!-- My Subscription --> */}
       <section className="section section--membership">
         <div className="membership">
-          <div className="membership__subscription">
+          <div className="membership__subscription Subscription-section">
             {Object.keys(payment_history).length > 0 ? (
               <>
                 {" "}
-                <h4>My Subscription</h4>
-                <ul>
-                  <h6>Standard Adverts</h6>
+                <h4 className="Weekly-subs">
+                  My Subscription{" "}
+                  <span className="pricing__price price-sec">
+                    {" "}
+                    $ {payment_history?.amount} <span>/ week</span>
+                  </span>
+                </h4>
+                <div className="w-100 membership-list-1">
+                  <ul className="membership-list-sub">
+                    {/* <h6>Standard Adverts</h6> */}
 
-                  <li>7 days (auto renew)</li>
-                  <li>Appear above free members</li>
-                  <li>Included for all tradies user</li>
-                  <li>Unlimited leads</li>
-                  <li>Directory listing</li>
-                  <li>Photo Gallery</li>
-                </ul>
-                <div className="membership__subscription-plan">
-                  <h3 className="pricing__price">
-                    ${payment_history?.amount} <span>/ week</span>
-                  </h3>
-                  <p>
-                    Plan Start Date :{" "}
-                    {moment(payment_history?.start_date * 1000).format(
-                      "YYYY MM DD"
-                    )}
+                    <li>7 days (auto renew)</li>
+                    <li>Appear above free members</li>
+                    <li>Included for all tradies user</li>
+                    <li>Unlimited leads</li>
+                    <li>Directory listing</li>
+                    <li>Photo Gallery</li>
+                  </ul>
+                </div>
+                <div className="membership__subscription-plan price-div plan-section">
+                  {/* <h3 className="pricing__price">
+                  
+                  </h3> */}
+
+                  <ul className="plan-sub-start-date">
+                    {/* <li>
+                      Plan Start Date :{" "}
+                      {payment_history?.start_date?.toString().length > 10
+                        ? moment(payment_history?.start_date, "x").format(
+                            "DD MMM YYYY hh:mm a"
+                          )
+                        : moment(payment_history?.start_date * 1000).format(
+                            "DD MMM YYYY hh:mm a"
+                          )}
+                    </li>
+                    <li>Plan End Date : {planEnd}</li> */}
+                    <li>Plan Renew Date: {planEnd}</li>
+                  </ul>
+                  {/* <p>
+                  
                   </p>
-                  <p>Plan End Date : {planEnd}</p>
-                  <p>Plan Renew Date: {RenewDate}</p>
-                  <nav className="membership__subscription-links">
+                  
+                  <p></p> */}
+                  <nav className="membership__subscription-links date-plan">
                     {/* <a href="#">upgrade</a> */}
-                    <a
-                      onClick={() =>
-                        cancelSubs(payment_history?.subscription_id)
-                      }
-                    >
-                      Cancel Subscription
-                    </a>
+                    {payment_history?.android_customer_id ? (
+                      <a
+                        href="https://play.google.com/store/account/subscriptions?sku=new_tradie_weekly&package=com.si.tradie"
+                        target="_blank"
+                      >
+                        Cancel Subscription
+                      </a>
+                    ) : payment_history?.ios_customer_id ? (
+                      <a onClick={IosAlert}>Cancel Subscription</a>
+                    ) : (
+                      <a
+                        onClick={() =>
+                          cancelSubs(payment_history?.subscription_id)
+                        }
+                      >
+                        Cancel Subscription
+                      </a>
+                    )}
                   </nav>
                 </div>
               </>
             ) : (
               <>
-                <h4>My Subscription</h4>
-                <ul>
-                  <h6>Free Advert</h6>
-                  {/* <li>Get a webpage on our website</li>
-                  <li>
-                    Receive leads direct from clients 24-7 up to a 25km radius
-                  </li>
-                  <li>
-                    Show your phone, email and full profile with contact details
-                  </li> */}
-                </ul>
-                <div className="membership__subscription-plan">
-                  <h3 className="pricing__price">$0</h3>
+                <h4 className="Weekly-subs">
+                  Weekly Subscription{" "}
+                  <span className="pricing__price price-sec">
+                    {" "}
+                    $ <span>{subscription_list[0]?.amount}</span>
+                  </span>
+                </h4>
+                {/* <div className="membership__subscription-plan price-div">
+                  <h3 className="pricing__price price-sec">
+                   
+                  </h3>
+                </div> */}
+                <div className="w-100 membership-list-1">
+                  <ul className="membership-list-sub">
+                    <li>7 Days auto renew</li>
+                    <li>Included for all Tradie Users</li>
+                    <li>Unlimited leads</li>
+                    <li>Directory listing</li>
+                    <li>Photo Gallery</li>
+                  </ul>
+                </div>
+
+                <div className="membership__subscription-links button-subscription">
+                  <a
+                    className="subscribe-btn"
+                    onClick={() => openModal(subscription_list[0]?.id)}
+                  >
+                    Subscribe Now
+                  </a>
+                  {Object.keys(current_subs_Data)?.length > 0 ? (
+                    ""
+                  ) : (
+                    <Link to="/">
+                      <a
+                        className="skip-btn"
+                        // onClick={() => openModal(subscription_list[0]?.id)}
+                      >
+                        Skip Now
+                      </a>
+                    </Link>
+                  )}
+                  <div></div>
                 </div>
               </>
             )}
@@ -181,6 +272,19 @@ const Index = () => {
             </div>
           </div> */}
         </div>
+        {Object.keys(current_subs_Data)?.length > 0 && current_subs_Data ? (
+          ""
+        ) : (
+          <div className="trails-sec">
+            30 days free trial for new signup. After that weekly subscription of
+            $4.99 charged.
+          </div>
+        )}
+        <div>
+          A $4.99 weekly purchase will be applied to your Stripe at the end of
+          trial period confirmation. Subscription will automatically renew
+          unless canceled within 24-hours.
+        </div>
       </section>
       <Modal
         isOpen={modalIsOpen}
@@ -194,10 +298,11 @@ const Index = () => {
           close
         </button>
         <div className="img-show">
-          <CardAddForm />
+          <CardAddForm subsId={subsId} />
         </div>
       </Modal>
-      {Object.keys(payment_history).length > 0 ? (
+
+      {/* {Object.keys(payment_history).length > 0 ? (
         ""
       ) : (
         <section className="section">
@@ -206,17 +311,22 @@ const Index = () => {
               <h4 className="pricing__title">Free Advert</h4>
               <h3 className="pricing__price">$0</h3>
               <ul className="pricing__list">
+                <li>30 Days Free Trial</li>
                 <li>Get a webpage on our website</li>
-                {/* <li>
+                <li>
                   Receive leads direct from clients 24-7 up to a 25km radius
-                </li> */}
+                </li>
                 <li>
                   Show your phone, email and full profile with contact details
                 </li>
               </ul>
-              {/* <a href="#" className="pricing__choose">
-              Choose Plan
-            </a> */}
+              <a
+                onClick={() => openModal(0)}
+                style={{ cursor: "pointer" }}
+                className="pricing__choose"
+              >
+                Choose Plan
+              </a>
             </div>
             <div className="pricing__standard">
               <h4 className="pricing__title">Standard Advert</h4>
@@ -243,7 +353,10 @@ const Index = () => {
                   met.
                 </li>
               </ul>
-              <a onClick={openModal} className="pricing__choose choose-plan">
+              <a
+                onClick={() => openModal(subscription_list[0]?.id)}
+                className="pricing__choose choose-plan"
+              >
                 Choose Plan
               </a>
             </div>
@@ -274,11 +387,11 @@ const Index = () => {
             </ul>
             <a href="#" className="pricing__choose btn-primary">
               Choose Plan
-            </a> */}
+            </a>
             </div>
           </div>
         </section>
-      )}
+      )} */}
       {/* <!-- Are you a Professional Tradie? --> */}
       {userInfo?.role == "provider" ? (
         ""

@@ -54,8 +54,7 @@ const Index = () => {
     otp_stateReg,
     otp_stateSignup,
   } = useSelector((state) => state.auth);
-  console.log("Otp :", otp);
-  console.log("isOpen :", isOpen);
+ 
   const getGeoInfo = () => {
     axios
       .get("https://ipapi.co/json/")
@@ -74,8 +73,8 @@ const Index = () => {
 
   useEffect(() => {
     if (login && verify_OTP?.role === "provider") {
-      // history.push("/tradie-popup-step1");
-      setOpen(true);
+      history.push("/tradie-popup-step1");
+      // setOpen(true);
     }
     if (verify_OTP?.fullname !== "" && verify_OTP?.role === "user") {
       history.push("/user-profile");
@@ -386,7 +385,7 @@ const Index = () => {
           setnamePopup={setnamePopup}
         />
       ) : null}
-      <Modal
+      {/* <Modal
         size="lg"
         centered
         show={open}
@@ -416,7 +415,7 @@ const Index = () => {
             setOpen={setOpen}
           />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
 
       <ModalR
         isOpen={modalIsOpen}

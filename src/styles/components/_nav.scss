@@ -133,3 +133,29 @@
     margin: 0px;
 }
 }
+// @media only screen and (max-width: 900px) {
+//   .nav__menu {
+//     display: none;
+// }
+// .nav__btn-menu {
+//   display: block !important;
+// }
+// .nav__menu--open {
+//   display: flex;
+//   flex-direction: column;
+//   padding: calc(var(--nav-padding) * 3);
+//   position: fixed;
+//   background: #ffffff;
+//   width: 100vw;
+//   height: 100vh;
+//   right: 0;
+//   top: 0;
+//   z-index: 1;
+// }
+// .nav__btn-close {
+//   display: block;
+//   position: absolute;
+//   top: calc(var(--nav-padding) * 2);
+//   right: calc(var(--nav-padding) * 2);
+// }
+// }

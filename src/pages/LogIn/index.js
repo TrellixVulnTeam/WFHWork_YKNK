@@ -104,8 +104,17 @@ const Index = () => {
   const componentClicked = (data) => {};
 
   useEffect(() => {
-    if (login && verify_OTP?.role === "provider") {
-      history.push("/tradie-popup-step1");
+    if (
+      login &&
+      verify_OTP?.role === "provider" &&
+      verify_OTP?.fullname !== ""
+    ) {
+      // history.push("/tradie-popup-step1");
+      if (Object.keys(verify_OTP?.current_membership)?.length > 0) {
+        history.push("/tradie-my-profile");
+      } else {
+        history.push("/tradie-membership");
+      }
     }
     if (verify_OTP?.fullname !== "" && verify_OTP?.role === "user") {
       history.push("/user-profile");

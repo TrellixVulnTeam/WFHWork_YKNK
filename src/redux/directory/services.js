@@ -408,3 +408,18 @@ export const tradie_cancel_subscription_Service = async (data, userInfo) => {
 
   return response;
 };
+export const current_subscription_Service = async (data, userInfo) => {
+  var UserLeads = {
+    access_token: userInfo.access_token,
+    device_id: userInfo.device_id,
+    api_key: userInfo.api_key,
+    device_type: userInfo.device_type,
+    uid: userInfo.uid,
+
+  };
+
+  const link = "/get-current-subscription";
+  const response = await sendPostRequest(UserLeads, link, config);
+
+  return response;
+};

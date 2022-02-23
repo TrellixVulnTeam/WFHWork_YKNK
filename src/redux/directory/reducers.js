@@ -22,6 +22,7 @@ const initState = {
   subscription_list: [],
   payment_history: [],
   cancel_subs_Res: "",
+  current_subs_Data: [],
 };
 
 const directoryReducer = (state = initState, action) => {
@@ -500,6 +501,14 @@ const directoryReducer = (state = initState, action) => {
         success: true,
         loading: false,
         cancel_subs_Res: payload,
+      };
+    // TRADIE_CURRENT_SUBSCRIPTION_SUCCESS
+    case types.TRADIE_CURRENT_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        current_subs_Data: payload,
       };
 
     default:

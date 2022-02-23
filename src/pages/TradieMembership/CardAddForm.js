@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 
-const CardAddForm = ({ link }) => {
+const CardAddForm = ({ link, subsId }) => {
   const history = useHistory();
   let userInfo = JSON.parse(localStorage.getItem("tepatredieUserInfo"));
   const [loading, setLoading] = useState(true);
@@ -33,7 +33,9 @@ const CardAddForm = ({ link }) => {
   const validationSchema = Yup.object().shape({
     card_number: Yup.string()
       .required("Card Number is required")
-      .matches(/^4[0-9]{12}(?:[0-9]{3})?$/, "Please Enter Valid Card Number"),
+      .min(13)
+      .max(16),
+    // .matches(/^4[0-9]{12}(?:[0-9]{3})?$/, "Please Enter Valid Card Number"),
     exp_month: Yup.string()
       .required("MM is required")
       .matches(/^(0?[1-9]|1[012])$/, "Invalid Month"),
@@ -51,7 +53,7 @@ const CardAddForm = ({ link }) => {
   //     device_type: userInfo.device_type,
   //     uid: userInfo.uid,
   //   };
-
+  console.log("userInfo :", userInfo);
   const handleSubmit = (values) => {
     setLoading(false);
     var UserData = {
@@ -79,8 +81,12 @@ const CardAddForm = ({ link }) => {
             api_key: userInfo.api_key,
             device_type: userInfo.device_type,
             uid: userInfo.uid,
+            // live
+            // plan_id: "price_1KTfYGHKYdiVnQytk8ktdUfa",
+            //Test
             plan_id: "price_1KRAp7HKYdiVnQyt9gXuPknK",
             token: res?.data?.token,
+            id: subsId,
           };
           axios
             .post(
@@ -97,6 +103,13 @@ const CardAddForm = ({ link }) => {
                   size: "small",
                 });
                 history.push(link ? link : "/");
+              } else {
+                setLoading(true);
+                toast.error(res?.data?.message, {
+                  position: "bottom-left",
+                  autoClose: 3000,
+                  size: "small",
+                });
               }
             });
         } else {
